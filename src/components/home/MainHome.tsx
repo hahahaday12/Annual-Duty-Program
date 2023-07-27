@@ -1,17 +1,19 @@
 import styled from 'styled-components'
 
-export const Profile =  () => {
+export const Home =  () => {
   return(
-    <ProfileContainer>
+    <HomeContainer>
       <p>content</p>
-    </ProfileContainer>
+    </HomeContainer>
   )
 }
 
-const ProfileContainer = styled.div`
+const HomeContainer = styled.div`
   width: 80%;
   position: relative;
   margin: auto;
   padding-bottom: 47%;
-  background-color: #ed8b8b;
+  background-color: #ebb3b3;
 `
+
+
