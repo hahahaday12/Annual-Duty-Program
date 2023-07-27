@@ -1,9 +1,9 @@
-import { Schedule } from "@/components/schedule/schedule";
+import { Schedule } from 'components/schedule/index'
 
 export const SchedulePage = () => {
-  return(
+  return (
     <>
-    <Schedule/>
+      <Schedule />
     </>
   )
 }

@@ -1,19 +1,15 @@
-import styled from 'styled-components';
-
+import styled from 'styled-components'
 
 export function StartMain() {
-  return(
+  return (
     <>
-    <MainContainer>
-      
-    </MainContainer>
+      <MainContainer></MainContainer>
     </>
   )
-};
+}
 
 const MainContainer = styled.div`
-  img{
+  img {
     width: 99.4%;
   }
 `
-
