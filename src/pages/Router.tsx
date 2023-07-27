@@ -1,7 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { ErrorComponent } from 'components/index'
-import { SignIn, SignUp, MainHome, SchedulePage, Update } from 'pages/index'
-import { StartMain, Layout, HeaderLayout } from 'components/index'
+import { 
+  SignIn, 
+  SignUp, 
+  MainHome, 
+  SchedulePage, 
+  UpdatePage, 
+  ApplyPage,
+  MainPage
+  } from 'pages/index'
+import { Layout, HeaderLayout } from 'components/index'
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <StartMain />,
+        element: <MainPage />,
         errorElement: <ErrorComponent />
       },
       {
@@ -38,11 +46,21 @@ export const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: <Update />,
+        element: <UpdatePage />,
         errorElement: <ErrorComponent />
       },
       {
         path: '/schedule',
+        element: <SchedulePage />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/application',
+        element: <ApplyPage />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/logout',
         element: <SchedulePage />,
         errorElement: <ErrorComponent />
       }
