@@ -1,3 +1,9 @@
-export const Update = () => {
-  return <div>Update</div>
-}
+import { UpdateForm } from "components/form"
+
+export const UpdatePage = () => {
+  return(
+    <>
+    <UpdateForm/>
+    </>
+  )
+};
