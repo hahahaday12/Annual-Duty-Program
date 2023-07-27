@@ -1,7 +1,9 @@
-import { Home } from "@/components/home/MainHome";
+import { Home } from 'components/home/index'
 
 export const MainHome = () => {
-  return(
-      <Home/>
+  return (
+    <>
+      <Home />
+    </>
   )
-};
+}

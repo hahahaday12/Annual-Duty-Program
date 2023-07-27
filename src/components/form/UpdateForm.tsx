@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
-export const Profile =  () => {
-  return(
+export const UpdateForm = () => {
+  return (
     <ProfileContainer>
       <p>content</p>
     </ProfileContainer>

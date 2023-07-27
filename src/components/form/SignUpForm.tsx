@@ -1,15 +1,18 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components'
 
-export function SignupForm() {
-  return(
-    <>
-    <SignupContainer>
-   
-    </SignupContainer>
-    </>
+export const SignUpForm = () => {
+  return (
+    <Wrapper>
+      <Container>123</Container>
+    </Wrapper>
   )
-};
+}
 
-const SignupContainer = styled.div`
-
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: end;
+`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `

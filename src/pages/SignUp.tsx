@@ -1,8 +1,9 @@
-import { SignupForm } from "@/components/form"
-
+import { SignUpForm } from 'components/form/index'
 
 export const SignUp = () => {
   return (
-    <SignupForm/>
+    <>
+      <SignUpForm />
+    </>
   )
-};
+}
