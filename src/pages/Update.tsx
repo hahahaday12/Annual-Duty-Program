@@ -1,8 +1,3 @@
-import { Profile } from "@/components/form/UpdateFrom";
-
-export const UpdateProfile = () => {
-  return(
-    <Profile/>
-  )
-};
-
+export const Update = () => {
+  return <div>Update</div>
+}
