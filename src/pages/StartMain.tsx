@@ -1,10 +1,9 @@
 import { StartMain } from 'components/main'
 
 export const MainPage = () => {
-  return(
+  return (
     <>
-    <StartMain/>
+      <StartMain />
     </>
   )
 }
-
