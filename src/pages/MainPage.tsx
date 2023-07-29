@@ -1,9 +1,9 @@
-import { StartMain } from 'components/main'
+import { PriorUse } from 'components/main'
 
 export const MainPage = () => {
   return (
     <>
-      <StartMain />
+      <PriorUse />
     </>
   )
 }
