@@ -1,25 +1,67 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { App, ErrorComponent } from 'components/index'
-import { SignIn } from 'pages/index'
+import { createBrowserRouter } from 'react-router-dom'
+import { ErrorComponent } from 'components/index'
+import { 
+  SignIn, 
+  SignUp, 
+  MainHome, 
+  SchedulePage, 
+  UpdatePage, 
+  ApplyPage,
+  MainPage
+  } from 'pages/index'
+import { Layout, HeaderLayout } from 'components/index'
+
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
     errorElement: <ErrorComponent />,
     children: [
       {
-        path: '',
-        element: (
-          <Navigate
-            to="/signin"
-            replace
-          />
-        ),
+        path: '/',
+        element: <MainPage />,
         errorElement: <ErrorComponent />
       },
       {
         path: '/signin',
         element: <SignIn />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
+        errorElement: <ErrorComponent />
+      }
+    ]
+  },
+  {
+    path: '/',
+    element: <HeaderLayout />,
+    errorElement: <ErrorComponent />,
+    children: [
+      {
+        path: '/home',
+        element: <MainHome />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/profile',
+        element: <UpdatePage />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/schedule',
+        element: <SchedulePage />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/application',
+        element: <ApplyPage />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/logout',
+        element: <SchedulePage />,
         errorElement: <ErrorComponent />
       }
     ]

@@ -1,5 +1,10 @@
+import { SignInForm } from 'components/form/index'
+
 export const SignIn = () => {
   return (
-    <div>SignIn</div>
+    <>
+      <SignInForm />
+    </>
   )
-}
+};
+
