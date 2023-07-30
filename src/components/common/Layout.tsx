@@ -23,8 +23,8 @@ export const HeaderLayout = () => {
         <Container>
           <Header/>
           <Outlet />
-          <Footer/>
         </Container>
+          <Footer/>
       </Wrapper>
     </>
   )
@@ -40,6 +40,6 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  background-color: #FFE6D4;
+  padding-bottom: 10%;
+  background-color: #F8EEE1;
 `
