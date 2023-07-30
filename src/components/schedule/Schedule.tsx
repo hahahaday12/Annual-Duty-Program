@@ -34,6 +34,7 @@ const ScheduleContainer = styled.div`
   position: relative;
   margin: auto;
   padding-bottom: 10%;
+  top: 60px;
 `
 const TopContainer = styled.div`
   width: 90%;
@@ -45,8 +46,9 @@ const TopContainer = styled.div`
   font-family: 'LINESeedKR-Bd';
 `
 const ScheduleText = styled.div`
-  width: 10%;
+  width: 20%;
   height: 20px;
+  top: 20%;
   font-size: 20px;
   position: absolute;
   left: 50px;
@@ -65,31 +67,22 @@ const ScheduleBarone = styled.div`
   background-color: #F97B22;
 
   p {
-    width: 50%;
+    width: 60%;
     position: absolute;
     left: 80px;
   }
 `
-const ScheduleBartwo = styled.div`
-  width: 50%;
-  height: 15px;
-  border-radius: 30px;
+const ScheduleBartwo = styled(ScheduleBarone)`
   background-color: #E76161;
   margin-top: 10px;
-
-  p {
-    width: 50%;
-    position: absolute;
-    left: 80px;
-  }
 `
 
 const CalendarContainer = styled.div`
   width: 82%;
-  height: 870px;
+  padding-bottom: 40px;
   background-color: #ffff;
   position: relative;
-  top: 50px;
+  top: 70px;
   margin: auto;
   border: 4px solid #FBB04C;
   border-radius: 10px;
@@ -100,17 +93,18 @@ const CalendarBox = styled.div`
   margin: 0 auto;
   height: 80%;
   top: 20px;
-  background-color: #fdfbff;
+  //background-color: #fdfbff;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
 
+  
   .fc-theme-standard .fc-scrollgrid {
     width: 100%;
-    position: absolute;
-    background-color: #fcfafe;
+    //background-color: #9571ba;
     border-radius: 10px;
     border: none;
   }
+
   
   .fc-header-toolbar {
     width: 100%;
@@ -132,12 +126,12 @@ const CalendarBox = styled.div`
     padding: 2px;
   }
 
-  .fc-h-event{
+  /* .fc-h-event{
     border: none;
     background-color: #c9aae6;
     margin-top: 2px;
     border-radius: 5px;
-  }
+  } */
 
   .fc .fc-button-primary{
     border: none;
@@ -161,8 +155,9 @@ const CalendarBox = styled.div`
     font-size: 17px;
     font-weight: bold;
     color:#FBB04C;
-    margin-right: 10px;
+    margin-right: 15px;
   }
+
 
   .fc-col-header-cell-cushion{
     color:#FBB04C;
@@ -174,8 +169,13 @@ const CalendarBox = styled.div`
   }
 
   /* 요일 행 */
-  .fc .fc-scrollgrid-section table {
+  /* .fc .fc-scrollgrid-section table {
     height: 11px;
+  } */
+
+  table .fc-scrollgrid-sync-table {
+    width: 538px;
+    height: 700px;
   }
 
 /* border값 초기화 */
@@ -188,9 +188,9 @@ const CalendarBox = styled.div`
     right: 60px;
   }
 
-  .fc .fc-scroller-liquid-absolute {
+  /* .fc .fc-scroller-liquid-absolute {
     position: relative;
-  }
+  } */
 
   div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
     height: max-content;
@@ -199,9 +199,9 @@ const CalendarBox = styled.div`
     overflow: hidden;
   } 
 
-  .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
+  /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
     background-color: yellow;
-  }
+  } */
 
   .fc-event-time{
     display: none;
