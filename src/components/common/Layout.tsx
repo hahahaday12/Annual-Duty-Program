@@ -20,11 +20,11 @@ export const HeaderLayout = () => {
     <>
       <GlobalStyles />
       <Wrapper>
-        <Header />
+        <Header/>
           <Container>
             <Outlet />
           </Container>
-        <Footer />
+        <Footer/>
       </Wrapper>
     </>
   )
@@ -41,6 +41,6 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  background-color: #ffe6d4;
+  padding-bottom: 10%;
+  background-color: #F8EEE1;
 `

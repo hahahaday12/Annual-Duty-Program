@@ -2,27 +2,28 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const Header = () => {
+
+  const links = [
+    { path: '/home', text: '홈' },
+    { path: '/profile', text: '프로필 수정' },
+    { path: '/schedule', text: '내 일정보기' },
+    { path: '/application', text: '연차/당직 신청' },
+    { path: '/logout', text: '로그아웃' }
+  ]
+  const searchLinks = links.map(link => (
+    <SearchLink
+      className="Header-box__text"
+      to={link.path}>
+      {link.text}
+    </SearchLink>
+  ))
  
   return(
     <>
     <HeaderContainer>
       <HeaderBox>
         <LinkBox>
-          <SearchLink className="Header-box__text" to="/home">
-            홈
-          </SearchLink>
-          <SearchLink className="Header-box__text" to="/profile">
-            프로필 수정
-          </SearchLink>
-          <SearchLink className="Header-box__text" to="/schedule">
-            내 일정보기
-          </SearchLink>
-          <SearchLink className="Header-box__text" to="/application">
-            연차/당직 신청
-          </SearchLink>
-          <SearchLink className="Header-box__text" to="/logout">
-            로그아웃
-          </SearchLink>
+          {searchLinks}
         </LinkBox>
       <Profilebox>
         <ProfileImageBox>
@@ -43,8 +44,10 @@ export const Header = () => {
 
 const HeaderContainer = styled.div`
   background-color: #FBB04C;
+  width: 100%;
   padding-bottom: 20px;
-
+  position: fixed;
+  z-index: 200;
 `
 const HeaderBox = styled.div`
   width: 60%;
