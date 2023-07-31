@@ -17,7 +17,8 @@ export const Schedule =  () => {
       <CalendarBox>  
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
+          initialView='dayGridMonth'
+          
           //eventClick={}
           //dateClick={}
           //events={}
