@@ -6,11 +6,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 
 
-
 export const Home =  () => {
 
   const navigate = useNavigate();
- 
   const [annual, setAnnual] = useState([
     {id:1 , date:"2023년 7월 1일", status:"승인대기", cancel:"취소"},
     {id:1 , date:"2023년 7월 10일", status:"승인대기", cancel:"취소"},
@@ -36,7 +34,7 @@ export const Home =  () => {
       </CustomEvent>
     );
   };
-   
+
   return(
     <HomeContainer>
       <HomeHeader>
@@ -265,6 +263,8 @@ const DutyBoxTextHeader = styled(AnnualBoxTextHeader)`
 const DutyListBox = styled(AuualListBox)`
 `
 const DutyList = styled(AuualList)`
+  //background-color: #f17c7c;
+  font-family: 'LINESeedKR-Bd';
 `
 
 const CalendarContainer = styled.div`
