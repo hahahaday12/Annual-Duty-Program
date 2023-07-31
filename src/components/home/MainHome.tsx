@@ -3,13 +3,11 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from '@fullcalendar/interaction';
 import { useNavigate, Link } from 'react-router-dom'; 
-
-
+import { useState } from 'react';
 
 export const Home =  () => {
 
   const navigate = useNavigate();
- 
   const [annual, setAnnual] = useState([
     {id:1 , date:"2023년 7월 1일", status:"승인대기", cancel:"취소"},
     {id:1 , date:"2023년 7월 10일", status:"승인대기", cancel:"취소"},
@@ -35,7 +33,7 @@ export const Home =  () => {
       </CustomEvent>
     );
   };
-   
+
   return(
     <HomeContainer>
       <HomeHeader>
@@ -90,6 +88,7 @@ export const Home =  () => {
                 title: 'duty',
                 //status: 'duty',
                 title: '당직',
+
                 start: '2023-07-02',
                 end: '2023-07-02'
               },
@@ -381,7 +380,7 @@ const AuualList = styled.div`
   margin-top: 20px;
 
   h2 {
-    width: 35%;
+    width: 40%;
     padding: 7px;
     padding-bottom: 2%;
     position: absolute;
@@ -416,6 +415,16 @@ const DutyListBox = styled(AuualListBox)`
 const DutyList = styled(AuualList)`
 `
 
+const CalendarContainer = styled.div`
+  width: 70%;
+  padding-bottom: 5%;
+  background-color: #fff;
+  position: absolute;
+  top: 90px;
+  left: 40%;
+  border: 4px solid #FBB04C;
+  border-radius: 10px;
+`
 const CalendarContainer = styled.div`
   width: 70%;
   padding-bottom: 5%;
@@ -522,110 +531,6 @@ const CalendarBox = styled.div`
     right: 60px;
   }
 
-const CalendarContainer = styled.div`
-  width: 70%;
-  padding-bottom: 5%;
-  background-color: #fff;
-  position: absolute;
-  top: 90px;
-  left: 40%;
-  border: 4px solid #FBB04C;
-  border-radius: 10px;
-`
-
-const CalendarBox = styled.div`
-  width: 95%;
-  position: relative;
-  margin: 0 auto;
-  top: 20px;
-  border-radius: 10px;
-  font-family: 'LINESeedKR-Bd';
-
-  .fc-theme-standard .fc-scrollgrid {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-  }
-  
-  .fc-header-toolbar {
-    width: 100%;
-    position: relative;
-    border-radius: 10px 10px 0px 0px;
-    padding-bottom: 10px;
-  }
-
-  .fc .fc-toolbar-title {
-    position: absolute;
-    margin: auto;
-    color:#FBB04C;
-    max-width: 30%;
-    left: 40%;
-    top: 20px;
-  }
-
-  .fc-event-title fc-sticky{
-    padding: 2px;
-  }
-
-  .fc-h-event{
-    border: none;
-    background-color: #fff;
-  }
-
-  .fc .fc-button-primary{
-    border: none;
-    background-color: #FBB04C;
-    position: relative;
-    top: 15px;
-    margin-right: 18px;
-  }
-
-  .fc-button-group{
-    position: absolute;
-    border: 0;
-    outline: 0;
-    width: 5rem;
-    left: 10%;
-  }
-
-  .fc .fc-daygrid-day-number {
-    position: relative;
-    right: 20px;
-    font-size: 17px;
-    font-weight: bold;
-    color:#FBB04C;
-    margin-right: 10px;
-  }
-
-  .fc-col-header-cell-cushion{
-    color:#FBB04C;
-    width: 90%;
-    height: 50px;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: bold;
-  }
-
-  /* 요일 행 */
-  .fc .fc-scrollgrid-section table {
-    height: 11px;
-  }
-
-  table .fc-scrollgrid-sync-table {
-    width: 538px;
-    height: 700px;
-  }
-
-/* border값 초기화 */
-  .fc-theme-standard th, .fc-theme-standard td {
-    border: 0px;
-  }
-
-  .fc .fc-daygrid-day-top {
-    //position: relative;
-    right: 60px;
-  }
-
   div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
     height: max-content;
     display: flex;
@@ -650,18 +555,3 @@ const CustomEvent = styled.div`
   border-radius: 5px;
   background-color: ${({ title }) => ( title === 'annual' ? '#E76161' : '#F97B22')};
 `;
-  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
-    height: max-content;
-    display: flex;
-    position: relative;
-    overflow: hidden;
-  } 
-  
-  /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
-    background-color: yellow;
-  } */
-
-  .fc-event-time{
-    display: none;
-  }
-`
