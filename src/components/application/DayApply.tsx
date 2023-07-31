@@ -93,7 +93,7 @@ const ApplyText = styled.div`
   left: 50px;
 `
 const ButtonContainer = styled.div`
-  width: 20%;
+  width: 200px;
   height: 50%;
   top: 85px;
   left: 7%;
@@ -110,8 +110,9 @@ const AnnualButton = styled.button`
 `
 
 const DutyButton = styled(AnnualButton)`
+  position: relative;
   background-color: #fadea1;
-  margin-top: 20px;
+  margin-top: 10px;
 `
 
 const CalendarContainer = styled.div`
