@@ -4,13 +4,13 @@ import { GlobalStyles } from 'styles/index'
 import { Header, Footer } from 'components/index'
 
 export const Layout = () => {
-  return(
+  return (
     <>
-    <GlobalStyles />
-    <Wrapper>
-      <img src='/image/backgroundImage.jpg'/>
-        <Outlet/>
-    </Wrapper>
+      <GlobalStyles />
+      <Wrapper>
+        <img src="/image/backgroundImage.jpg" />
+        <Outlet />
+      </Wrapper>
     </>
   )
 }
@@ -30,16 +30,17 @@ export const HeaderLayout = () => {
   )
 }
 
-
 const Wrapper = styled.div`
-  img{
+  img {
     width: 100%;
     height: 100vh;
+    position: absolute;
+    z-index: -1;
   }
 `
 
 const Container = styled.div`
   width: 100%;
-  padding-bottom: 10%;
-  background-color: #F8EEE1;
+  height: 100%;
+  background-color: #FFE6D4;
 `
