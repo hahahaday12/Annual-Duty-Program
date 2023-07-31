@@ -1,1 +1,1 @@
-export * from 'components/main/StartMain'
+export * from 'components/main/PriorUse'
