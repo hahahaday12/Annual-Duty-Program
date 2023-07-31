@@ -20,11 +20,11 @@ export const HeaderLayout = () => {
     <>
       <GlobalStyles />
       <Wrapper>
-        <Container>
-          <Header/>
-          <Outlet />
-        </Container>
-          <Footer/>
+        <Header/>
+          <Container>
+            <Outlet />
+          </Container>
+        <Footer/>
       </Wrapper>
     </>
   )
