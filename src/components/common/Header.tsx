@@ -52,15 +52,13 @@ const HeaderBox = styled.div`
   margin: auto;
   top: 10px;
   height: 60px;
-  background-color: teal;
 `
 const LinkBox = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 65%;
+  width: 85%;
   height: 30px;
-  top: 25px;
-  background-color: pink;
+  top: 20px;
 `
 
 
@@ -91,7 +89,7 @@ const ProfileNameBox = styled.div`
   top: 5px;
   right: 10px;
   height: 50px;
-  background-color: orange;
+  //background-color: orange;
   font-family: 'LINESeedKR-Bd';
 `
 const PositionBox = styled.div`
@@ -109,10 +107,8 @@ const PositionBox = styled.div`
 const SearchLink = styled(Link)`
   position: relative;
   left: 20px;
-  //width: 100%;
-  //background-color: rebeccapurple;
   font-size: 15px;
-  margin-left: 6%;
+  margin-left: 8%;
   color: black;
   font-family: 'LINESeedKR-Bd';
 `
