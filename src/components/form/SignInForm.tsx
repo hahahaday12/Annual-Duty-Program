@@ -47,7 +47,7 @@ export const SignInForm = () => {
               <span>{texts.noAccounts}</span>
               <Link
                 to="/signup"
-                className="signup-cat">
+                className="signup-cta">
                 {texts.signup}
               </Link>
             </div>
