@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import FullCalendar from "@fullcalendar/react"; 
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from '@fullcalendar/interaction'; 
+import interactionPlugin from '@fullcalendar/interaction';
+import { useNavigate, Link } from 'react-router-dom'; 
 import { useState } from 'react';
 
 
 export const Home =  () => {
-  
+  const navigate = useNavigate();
+
   const [annual, setAnnual] = useState([
     {id:1 , date:"2023년 7월 1일", status:"승인대기", cancel:"취소"},
     {id:1 , date:"2023년 7월 10일", status:"승인대기", cancel:"취소"},
@@ -22,8 +24,16 @@ export const Home =  () => {
   ])
  
   const onChangeClick = () => {
-    alert("클릭!")
+    navigate('/application');
   }
+
+  const eventContent = ({ event }) => {
+    return (
+      <CustomEvent title={event.title}>
+        {event.title}
+      </CustomEvent>
+    );
+  };
 
   return(
     <HomeContainer>
@@ -76,13 +86,15 @@ export const Home =  () => {
             initialView="dayGridMonth"
             events={[
               {
-                title: '당직',
+                title: 'duty',
+                //status: 'duty',
                 start: '2023-07-02',
                 end: '2023-07-02'
               },
               {
-                title: '연차',
-                start: '2023-07-22',
+                title: 'annual',
+                //status: 'annual',
+                start: '2023-07-21',
                 end: '2023-07-023'
               }
             ]}
@@ -90,6 +102,7 @@ export const Home =  () => {
             //dateClick={}
             //events={}
             //datesSet={}
+            eventContent={eventContent}
           />
         </CalendarBox>
       </CalendarContainer>
@@ -217,7 +230,7 @@ const AuualList = styled.div`
   margin-top: 20px;
 
   h2 {
-    width: 35%;
+    width: 40%;
     padding: 7px;
     padding-bottom: 2%;
     position: absolute;
@@ -299,9 +312,7 @@ const CalendarBox = styled.div`
 
   .fc-h-event{
     border: none;
-    background-color: #c9aae6;
-    margin-top: 2px;
-    border-radius: 5px;
+    background-color: #fff;
   }
 
   .fc .fc-button-primary{
@@ -373,3 +384,12 @@ const CalendarBox = styled.div`
     display: none;
   }
 `
+const CustomEvent = styled.div`
+  border: none;
+  font-size: 15px;
+  height: 20px;
+  padding: 5px;
+  margin-top: 2px;
+  border-radius: 5px;
+  background-color: ${({ title }) => ( title === 'annual' ? '#E76161' : '#F97B22')};
+`;
