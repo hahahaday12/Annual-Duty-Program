@@ -8,8 +8,8 @@ export const SignInForm = () => {
     email: '이메일',
     pwd: '비밀번호',
     btn: '로그인',
-    noAccounts: '아직 계정이 없으신가요?',
-    signup: '회원가입 하러 가기',
+    findPwd: '비밀번호 찾기',
+    signup: '회원가입 하기',
     emailPh: '이메일을 입력하세요 ',
     pwdPh: '비밀번호를 입력하세요 '
   }
@@ -36,7 +36,11 @@ export const SignInForm = () => {
           />
           <button className="signin">{texts.btn}</button>
           <div className="signup-cta">
-            <span>{texts.noAccounts}</span>
+            <Link
+              to="/find"
+              className="findpwd">
+              {texts.findPwd}
+            </Link>
             <Link to="/signup">{texts.signup}</Link>
           </div>
         </form>
@@ -110,26 +114,29 @@ const SignInContainer = styled.div`
     background-color: #ffd42e;
     border-radius: 10px;
     margin-bottom: 36px;
+    cursor: pointer;
   }
 
   .signup-cta {
     width: 434px;
-    height: 60px;
+    height: 16px;
     display: flex;
     justify-content: center;
     margin: 0 10px;
     font-size: 14px;
+    .findpwd {
+      border-right: 1px solid black;
+    }
     span {
       padding-right: 20px;
     }
     a {
-      text-decoration: underline;
-      color: #ffd42e;
-      padding-left: 20px;
-      font-weight: 700;
+      text-decoration: none;
+      padding: 0 30px;
+      color: black;
 
       &:visited {
-        color: #ffd42e;
+        color: black;
       }
     }
   }

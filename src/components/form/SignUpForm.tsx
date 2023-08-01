@@ -15,64 +15,48 @@ export const SignUpForm = () => {
     toSignin: '로그인 하러가기'
   }
   return (
-    <SignInWrapper>
-      <InnerText>{texts.intro}</InnerText>
-      <SignInContainer>
-        <div className="rectangle">
-          <div className="signin-text">{texts.signin}</div>
-          <form
-            method="post"
-            // action='HOST URL'
-            className="form-container">
-            <div className="username">{texts.username}</div>
-            <input
-              type="text"
-              className="signin-input"
-            />
-            <div className="email">{texts.email}</div>
-            <input
-              type="text"
-              className="signin-input"
-            />
-            <div className="password">{texts.password}</div>
-            <input
-              type="text"
-              className="signin-input"
-            />
-            <div className="password-check">{texts.passwordCheck}</div>
-            <input
-              type="text"
-              className="signin-input"
-            />
-            <button className="signup">{texts.registerBtn}</button>
+    <SignInContainer>
+      <div className="rectangle">
+        <div className="signin-text">{texts.signin}</div>
+        <form
+          method="post"
+          // action='HOST URL'
+          className="form-container">
+          <div className="username">{texts.username}</div>
+          <input
+            type="text"
+            className="signin-input"
+          />
+          <div className="email">{texts.email}</div>
+          <input
+            type="text"
+            className="signin-input"
+          />
+          <div className="password">{texts.password}</div>
+          <input
+            type="text"
+            className="signin-input"
+          />
+          <div className="password-check">{texts.passwordCheck}</div>
+          <input
+            type="text"
+            className="signin-input"
+          />
+          <button className="signup">{texts.registerBtn}</button>
 
-            <div className="signin-cta">
-              <span>{texts.hasAccount}</span>
-              <Link
-                to="/signup"
-                className="signup-cta">
-                {texts.toSignin}
-              </Link>
-            </div>
-          </form>
-        </div>
-      </SignInContainer>
-    </SignInWrapper>
+          <div className="signin-cta">
+            <span>{texts.hasAccount}</span>
+            <Link
+              to="/signup"
+              className="signup-cta">
+              {texts.toSignin}
+            </Link>
+          </div>
+        </form>
+      </div>
+    </SignInContainer>
   )
 }
-
-const SignInWrapper = styled.div`
-  display: flex;
-  .intro-text {
-    flex-grow: 1;
-    line-height: 82px;
-    width: 623px;
-    height: 98px;
-    position: absolute;
-    top: 40vh;
-    left: 15vw;
-  }
-`
 
 const SignInContainer = styled.div`
   display: flex;
@@ -80,12 +64,16 @@ const SignInContainer = styled.div`
   align-items: end;
   flex-grow: 1;
   .rectangle {
-    width: 40vw;
-    height: 85vh;
+    width: 568px;
+    height: 774px;
     background-color: white;
-    margin-right: 5vw;
-    margin-top: 7vh;
-    box-shadow: 10px 8px 4px rgba(0, 0, 0, 0.25);
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: 36px;
     display: flex;
     flex-direction: column;
@@ -96,81 +84,63 @@ const SignInContainer = styled.div`
       flex-direction: column;
       .signin-input {
         background: #ffffff;
-        border: 2px solid #f96d5f;
+        border: 1px solid #d9d9d9;
         border-radius: 10px;
         padding-left: 10px;
-        height: 41px;
-        margin-bottom: 10px;
+        width: 434px;
+        height: 60px;
+        margin-bottom: 18px;
       }
     }
 
     .signin-text {
-      color: #f8f5f5;
-      font-size: 60px;
-      -webkit-text-stroke-width: 3px;
-      -webkit-text-stroke-color: #131309;
-      font-family: 'Luckiest Guy', cursive;
-      letter-spacing: 7px;
+      font-size: 40px;
+      font-weight: 700;
       margin-bottom: 40px;
     }
     .email,
     .password,
     .password-check,
     .username {
-      color: #f8f5f5;
-      font-size: 20px;
-      -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: #131309;
-      font-family: 'Ultra', cursive;
-      letter-spacing: 7px;
-      align-self: center;
-      margin-bottom: 10px;
+      padding: 10px;
+      line-height: 16px;
+      letter-spacing: -0.48px;
+      font-weight: 700;
+    }
+    .username {
+      /* margin-top: 100px; */
     }
     .signup {
-      align-self: center;
-      width: 191px;
-      height: 47px;
-      background: #f96d5f;
-      border: 2px solid #f96d5f;
-      border-radius: 10px;
+      all: unset;
+      width: 434px;
+      height: 60px;
       color: #fff;
-      margin-top: 30px;
-      margin-bottom: 30px;
+      text-align: center;
+      background-color: #ffd42e;
+      border-radius: 10px;
+      margin-bottom: 36px;
       cursor: pointer;
     }
     .signin-cta {
+      width: 434px;
+      /* height: 60px; */
+      display: flex;
+      justify-content: center;
+      margin: 0 10px;
+      font-size: 14px;
       span {
-        margin-right: 20px;
+        padding-right: 20px;
       }
       a {
-        text-decoration: none;
-        color: #f96d5f;
+        text-decoration: underline;
+        color: #ffd42e;
+        padding-left: 20px;
+        font-weight: 700;
+
         &:visited {
-          color: #f96d5f;
+          color: #ffd42e;
         }
       }
     }
   }
-`
-// const HomeContainer = styled.div`
-//   width: 80%;
-//   position: relative;
-//   margin: auto;
-//   padding-bottom: 47%;
-//   background-color: #ebb3b3;
-// `
-const InnerText = styled.div`
-  width: 40%;
-  font-size: 90px;
-  color: #f8f5f5;
-  font-weight: 700;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #131309;
-  font-family: 'Luckiest Guy', cursive;
-  letter-spacing: 7px;
-  width: 623px;
-  height: 98px;
-  position: absolute;
-  top: 40vh;
-  left: 15vw;
 `
