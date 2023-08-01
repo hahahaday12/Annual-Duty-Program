@@ -1,14 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { ErrorComponent } from 'components/index'
-import { 
-  SignIn, 
-  SignUp, 
-  MainHome, 
-  SchedulePage, 
-  UpdatePage, 
-  ApplyPage,
-  MainPage
-  } from 'pages/index'
+import {
+  SignIn,
+  SignUp,
+  MainHome,
+  SchedulePage,
+  UpdatePage,
+  ApplyPage
+} from 'pages/index'
 import { Layout, HeaderLayout } from 'components/index'
 
 export const router = createBrowserRouter([
@@ -19,11 +18,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <MainPage />,
-        errorElement: <ErrorComponent />
-      },
-      {
-        path: '/signin',
         element: <SignIn />,
         errorElement: <ErrorComponent />
       },
