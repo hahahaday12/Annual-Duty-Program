@@ -2,13 +2,14 @@ import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import { GlobalStyles } from 'styles/index'
 import { Header, Footer } from 'components/index'
+import Image from 'assets/bg.png'
 
 export const Layout = () => {
   return (
     <>
       <GlobalStyles />
       <Wrapper>
-        <img src="/image/backgroundImage.jpg" />
+        <img src={Image} />
         <Outlet />
       </Wrapper>
     </>
@@ -20,11 +21,11 @@ export const HeaderLayout = () => {
     <>
       <GlobalStyles />
       <Wrapper>
-        <Header/>
-          <Container>
-            <Outlet />
-          </Container>
-        <Footer/>
+        <Header />
+        <Container>
+          <Outlet />
+        </Container>
+        <Footer />
       </Wrapper>
     </>
   )
@@ -42,5 +43,5 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 100%;
   padding-bottom: 10%;
-  background-color: #F8EEE1;
+  background-color: #f8eee1;
 `

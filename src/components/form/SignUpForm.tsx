@@ -136,6 +136,7 @@ const SignInContainer = styled.div`
       color: #fff;
       margin-top: 30px;
       margin-bottom: 30px;
+      cursor: pointer;
     }
     .signin-cta {
       span {

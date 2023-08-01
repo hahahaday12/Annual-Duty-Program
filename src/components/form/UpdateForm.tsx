@@ -2,43 +2,45 @@ import { styled } from 'styled-components'
 import { AccountInputs } from 'components/form/index'
 export const UpdateForm = () => {
   const texts = {
-    profile: '',
-    account: '',
-    changePwd: '',
-    email: '',
-    username: '',
-    newPwd: '',
-    newPwdCheck: '',
-    cancel: '',
-    confirm: ''
+    profile: '프로필 사진',
+    account: '계정',
+    changePwd: '비밀번호 변경',
+    email: '이메일',
+    username: '이름',
+    newPwd: '새로운 비밀번호',
+    newPwdCheck: '비밀번호 확인',
+    cancel: '취소',
+    confirm: '등록',
+    delete: '사진 삭제',
+    upload: '사진 업로드'
   }
   return (
     <ProfileContainer>
       <div className="image">
-        <div className="category">123</div>
+        <div className="category">{texts.profile}</div>
         <div className="profile-wrapper">
-          <div className="profile-box">asd</div>
-          <button>asd</button>
-          <button>asd</button>
+          <div className="profile-box"></div>
+          <button className="delete">{texts.delete}</button>
+          <button className="upload">{texts.upload}</button>
         </div>
       </div>
       <div className="account">
-        <div className="category">123</div>
+        <div className="category">{texts.account}</div>
         <AccountInputs
-          upper={'email'}
-          lower={'username'}
+          upper={texts.email}
+          lower={texts.username}
         />
       </div>
       <div className="pwd-md">
-        <div className="category">123</div>
+        <div className="category">{texts.changePwd}</div>
         <AccountInputs
-          upper={'new-pwd'}
-          lower={'new-pwd-check'}
+          upper={texts.newPwd}
+          lower={texts.newPwdCheck}
         />
       </div>
       <div className="btns">
-        <button>asd</button>
-        <button>123</button>
+        <button>{texts.cancel}</button>
+        <button>{texts.confirm}</button>
       </div>
     </ProfileContainer>
   )
