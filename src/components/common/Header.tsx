@@ -2,7 +2,6 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const Header = () => {
-
   const links = [
     { path: '/home', text: '홈' },
     { path: '/profile', text: '프로필 수정' },
@@ -12,38 +11,37 @@ export const Header = () => {
   ]
   const searchLinks = links.map(link => (
     <SearchLink
+      key={link.path}
       className="Header-box__text"
       to={link.path}>
       {link.text}
     </SearchLink>
   ))
- 
-  return(
+
+  return (
     <>
-    <HeaderContainer>
-      <HeaderBox>
-        <LinkBox>
-          {searchLinks}
-        </LinkBox>
-      <Profilebox>
-        <ProfileImageBox>
-          <Image>이미지</Image>
-        </ProfileImageBox>
-        <ProfileNameBox>
-          <p>사원이름</p>
-          <PositionBox>
-            <p>직급</p>
-          </PositionBox>
-        </ProfileNameBox>
-      </Profilebox>
-      </HeaderBox>
-    </HeaderContainer>
+      <HeaderContainer>
+        <HeaderBox>
+          <LinkBox>{searchLinks}</LinkBox>
+          <Profilebox>
+            <ProfileImageBox>
+              <Image>이미지</Image>
+            </ProfileImageBox>
+            <ProfileNameBox>
+              <p>사원이름</p>
+              <PositionBox>
+                <p>직급</p>
+              </PositionBox>
+            </ProfileNameBox>
+          </Profilebox>
+        </HeaderBox>
+      </HeaderContainer>
     </>
   )
 }
 
 const HeaderContainer = styled.div`
-  background-color: #FBB04C;
+  background-color: #fbb04c;
   width: 100%;
   padding-bottom: 20px;
   position: fixed;
@@ -63,7 +61,6 @@ const LinkBox = styled.div`
   height: 30px;
   top: 20px;
 `
-
 
 const Profilebox = styled.div`
   position: relative;
@@ -104,7 +101,7 @@ const PositionBox = styled.div`
   background-color: green;
   font-size: 13px;
   padding: 5px;
-  color:#ffff;
+  color: #ffff;
 `
 
 const SearchLink = styled(Link)`

@@ -50,11 +50,14 @@ const ProfileContainer = styled.div`
   width: 80%;
   position: relative;
   margin: auto;
-  /* padding-bottom: 47%; */
-  background-color: #ed8b8b;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
-  top: 80px;
+  top: 130px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+  padding: 70px;
+
   .image,
   .account,
   .pwd-md {
@@ -62,23 +65,46 @@ const ProfileContainer = styled.div`
     display: flex;
     .category {
       width: 200px;
+      font-weight: 700;
+      font-size: 20px;
+      padding-top: 15px;
     }
     .profile-wrapper {
       display: flex;
       align-items: center;
+      margin-left: 30px;
+      margin-bottom: 25px;
       .profile-box {
-        background-color: gray;
+        border-radius: 16px;
+        background-color: #d9d9d9;
         width: 150px;
         height: 150px;
       }
+
       button {
+        all: unset;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 8px;
+        align-self: center;
+        border: 1px solid red;
         margin: 20px;
       }
     }
   }
   .btns {
-    height: 80px;
     display: flex;
     justify-content: end;
+    button {
+      all: unset;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 8px;
+      align-self: center;
+      border: 1px solid red;
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
   }
 `
