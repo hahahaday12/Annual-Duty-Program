@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 
-// import IntroText from 'assets/intro-text.png'
+import Title from 'assets/service-title.png'
 
 export const SignInForm = () => {
   const texts = {
@@ -25,7 +25,11 @@ export const SignInForm = () => {
   return (
     <SignInContainer>
       <div className="rectangle">
-        <div className="signin-text">{texts.title}</div>
+        {/* <div className="signin-text">{texts.title}</div> */}
+        <img
+          src={Title}
+          className="service-title"
+        />
         <form
           method="post"
           // action='HOST URL'
@@ -65,7 +69,7 @@ const SignInContainer = styled.div`
   flex-grow: 1;
   .rectangle {
     width: 568px;
-    height: 774px;
+    height: 100vh;
     background-color: white;
     margin: auto;
     position: absolute;
@@ -73,17 +77,16 @@ const SignInContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    .signin-text {
+
+    .service-title {
+      top: 200px;
+      width: 275px;
+      height: 75px;
       z-index: 1;
-      font-weight: 700;
-      font-size: 60px;
-      margin-bottom: 500px;
     }
 
     .form-container {
@@ -98,16 +101,16 @@ const SignInContainer = styled.div`
         padding-left: 10px;
         width: 434px;
         height: 60px;
-        margin-bottom: 36px;
+        margin-bottom: 24px;
         &:focus {
-          outline: 1px solid #ffd42e;
+          outline: 1px solid #2656f6;
         }
       }
     }
   }
   .email,
   .password {
-    padding: 10px;
+    padding: 0 10px 10px;
     line-height: 16px;
     letter-spacing: -0.48px;
     font-weight: 700;
@@ -118,9 +121,10 @@ const SignInContainer = styled.div`
     height: 60px;
     color: #fff;
     text-align: center;
-    background-color: #ffd42e;
+    background-color: #2656f6;
     border-radius: 10px;
     margin-bottom: 36px;
+    margin-top: 12px;
     cursor: pointer;
   }
 

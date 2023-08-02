@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import { GlobalStyles } from 'styles/index'
 import { Header, Footer } from 'components/index'
 import Image from 'assets/bg.png'
+import bg from 'assets/bgblue.png'
 
 export const Layout = () => {
   return (
     <>
       <GlobalStyles />
       <Wrapper>
-        <img src={Image} />
+        <img src={bg} />
         <Outlet />
       </Wrapper>
     </>

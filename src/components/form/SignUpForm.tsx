@@ -83,7 +83,7 @@ const SignInContainer = styled.div`
   flex-grow: 1;
   .rectangle {
     width: 568px;
-    height: 774px;
+    height: 100vh;
     background-color: white;
     margin: auto;
     position: absolute;
@@ -91,8 +91,8 @@ const SignInContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 36px;
+    /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+    /* border-radius: 36px; */
     display: flex;
     flex-direction: column;
     align-items: center;

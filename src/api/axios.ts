@@ -4,8 +4,7 @@ import axios, { AxiosError, AxiosInstance } from 'axios'
 const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.request.use(
     config => {
-      // 로컬스토리지(Cookie? 현재 방식 임시, Cookie의 경우 React-cookie)에
-      // 저장 되어 있는 AccessToken을 가져온다.
+      // 로컬스토리지에 저장 되어 있는 AccessToken을 가져온다.
       const accessToken = localStorage.getItem(
         'KEY(**TEMP VALUE**, VALUE REQUIRED)'
       )
