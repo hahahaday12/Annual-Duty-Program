@@ -8,10 +8,10 @@ export const Layout = () => {
   return (
     <>
       <GlobalStyles />
-      <Wrapper>
+      <Outer>
         <img src={bg} />
         <Outlet />
-      </Wrapper>
+      </Outer>
     </>
   )
 }
@@ -37,13 +37,16 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.background};
   position: relative;
   top: 100px;
-  /* height: calc(100vh - 100px); */
   display: flex;
   justify-content: center;
 `
 
 const Container = styled.div`
   width: 1060px;
-  /* display: flex;
-  justify-content: center; */
+`
+const Outer = styled.div`
+  img {
+    width: 100%;
+    height: 100vh;
+  }
 `

@@ -1,99 +1,120 @@
 import styled from 'styled-components'
-import FullCalendar from "@fullcalendar/react"; 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from '@fullcalendar/interaction'; 
-import { useState } from 'react';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import { useState } from 'react'
 
+export const Home = () => {
+  const texts = {
+    annual: '· 연차 신청 현황',
+    duty: '· 당직 신청 현황',
+    pending: '승인대기',
+    approved: '승인완료',
+    rejected: '승인거절'
+  }
 
-export const Home =  () => {
-  
   const [annual, setAnnual] = useState([
-    {id:1 , date:"2023년 7월 1일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 10일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 5일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 20일", status:"승인대기", cancel:"취소"},
+    { id: 1, date: '2023년 7월 1일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 10일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 5일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 20일', status: '승인대기', cancel: '취소' }
   ])
 
   const [duty, setDuty] = useState([
-    {id:1 , date:"2023년 7월 2일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 11일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 6일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 21일", status:"승인대기", cancel:"취소"},
+    { id: 1, date: '2023년 7월 2일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 11일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 6일', status: '승인대기', cancel: '취소' },
+    { id: 1, date: '2023년 7월 21일', status: '승인대기', cancel: '취소' }
   ])
- 
+
   const onChangeClick = () => {
-    alert("클릭!")
+    alert('클릭!')
   }
 
-  return(
-    <HomeContainer>
-      <HomeHeader>
-      <HomeText>홈</HomeText>
-      <HomeApply
-        onClick={onChangeClick}>연차/당직 신청</HomeApply>
-      </HomeHeader>
-      <CalendarHeader>
-        <ScheduleBarone><p>연차</p></ScheduleBarone>
-        <ScheduleBartwo><p>당직</p></ScheduleBartwo>
-      </CalendarHeader>
-      <CategoryBox>
-        <AnnualBox>
-          <AnnualBoxTextHeader>
-            <h3>연차 신청 현황</h3>
-            <p>남은 연차 12개</p>
-          </AnnualBoxTextHeader>
-          <AuualListBox>
-            {annual.map((el, index) => (
-               <AuualList>
-                  <h2>{el.date}</h2>
-                  <StatusBox>승인대기</StatusBox>             
-                  <CancelBox>취소</CancelBox>
-               
-               </AuualList> 
-            ))}
-          </AuualListBox>
-        </AnnualBox>
-        <DutyBox>
-          <DutyBoxTextHeader>
-            <h3>당직 신청 현황</h3>
-          </DutyBoxTextHeader>
-          <DutyListBox>
-            {duty.map((el, index) => (
-               <DutyList>
-                  <h2>{el.date}</h2>
-                  <StatusBox>승인대기</StatusBox>             
-                  <CancelBox>취소</CancelBox>
-               
-               </DutyList> 
-            ))}
-          </DutyListBox>
-        </DutyBox>
-      </CategoryBox>
-      <CalendarContainer>
-        <CalendarBox>  
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            events={[
-              {
-                title: '당직',
-                start: '2023-07-02',
-                end: '2023-07-02'
-              },
-              {
-                title: '연차',
-                start: '2023-07-22',
-                end: '2023-07-023'
-              }
-            ]}
-            //eventClick={}
-            //dateClick={}
-            //events={}
-            //datesSet={}
-          />
-        </CalendarBox>
-      </CalendarContainer>
-    </HomeContainer>
+  return (
+    // new
+    <>
+      <Boards>
+        <AnnualBoard>
+          <div className="list-title">{texts.annual}</div>
+        </AnnualBoard>
+        <DutyBoard>
+          <div className="list-title">{texts.duty}</div>
+        </DutyBoard>
+      </Boards>
+      <CalendarBoard></CalendarBoard>
+    </>
+
+    // prev
+    // <HomeContainer>
+    //   <HomeHeader>
+    //     <HomeText>홈</HomeText>
+    //     <HomeApply onClick={onChangeClick}>연차/당직 신청</HomeApply>
+    //   </HomeHeader>
+    //   <CalendarHeader>
+    //     <ScheduleBarone>
+    //       <p>연차</p>
+    //     </ScheduleBarone>
+    //     <ScheduleBartwo>
+    //       <p>당직</p>
+    //     </ScheduleBartwo>
+    //   </CalendarHeader>
+    //   <CategoryBox>
+    //     <AnnualBox>
+    //       <AnnualBoxTextHeader>
+    //         <h3>연차 신청 현황</h3>
+    //         <p>남은 연차 12개</p>
+    //       </AnnualBoxTextHeader>
+    //       <AuualListBox>
+    //         {annual.map((el, index) => (
+    //           <AuualList>
+    //             <h2>{el.date}</h2>
+    //             <StatusBox>승인대기</StatusBox>
+    //             <CancelBox>취소</CancelBox>
+    //           </AuualList>
+    //         ))}
+    //       </AuualListBox>
+    //     </AnnualBox>
+    //     <DutyBox>
+    //       <DutyBoxTextHeader>
+    //         <h3>당직 신청 현황</h3>
+    //       </DutyBoxTextHeader>
+    //       <DutyListBox>
+    //         {duty.map((el, index) => (
+    //           <DutyList>
+    //             <h2>{el.date}</h2>
+    //             <StatusBox>승인대기</StatusBox>
+    //             <CancelBox>취소</CancelBox>
+    //           </DutyList>
+    //         ))}
+    //       </DutyListBox>
+    //     </DutyBox>
+    //   </CategoryBox>
+    //   <CalendarContainer>
+    //     <CalendarBox>
+    //       <FullCalendar
+    //         plugins={[dayGridPlugin, interactionPlugin]}
+    //         initialView="dayGridMonth"
+    //         events={[
+    //           {
+    //             title: '당직',
+    //             start: '2023-07-02',
+    //             end: '2023-07-02'
+    //           },
+    //           {
+    //             title: '연차',
+    //             start: '2023-07-22',
+    //             end: '2023-07-023'
+    //           }
+    //         ]}
+    //         //eventClick={}
+    //         //dateClick={}
+    //         //events={}
+    //         //datesSet={}
+    //       />
+    //     </CalendarBox>
+    //   </CalendarContainer>
+    // </HomeContainer>
   )
 }
 
@@ -126,7 +147,7 @@ const ScheduleBarone = styled.div`
   width: 50%;
   height: 15px;
   border-radius: 30px;
-  background-color: #F97B22;
+  background-color: #f97b22;
 
   p {
     width: 60%;
@@ -135,7 +156,7 @@ const ScheduleBarone = styled.div`
   }
 `
 const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #E76161;
+  background-color: #e76161;
   margin-top: 10px;
 `
 
@@ -146,8 +167,8 @@ const HomeText = styled.div`
 `
 const HomeApply = styled.button`
   width: 13%;
-  background-color: #FBB04C;
-  color:#fff;
+  background-color: #fbb04c;
+  color: #fff;
   font-size: 15px;
   border: none;
   border-radius: 10px;
@@ -174,7 +195,7 @@ const AnnualBox = styled.div`
   position: absolute;
   top: 10px;
   border-radius: 20px;
-  border: 4px solid #9384D1;
+  border: 4px solid #9384d1;
   background-color: #ffff;
   box-shadow: rgba(7, 6, 6, 0.2) 4px 0px 20px 0px;
 `
@@ -188,7 +209,7 @@ const AnnualBoxTextHeader = styled.div`
   font-size: 18px;
   top: 20px;
 
-  p{
+  p {
     font-size: 13px;
     position: relative;
     left: 30%;
@@ -198,7 +219,7 @@ const AnnualBoxTextHeader = styled.div`
 
 const AuualListBox = styled.div`
   width: 80%;
-  height:300px;
+  height: 300px;
   ///background-color: tan;
   position: relative;
   top: 60px;
@@ -239,18 +260,15 @@ const StatusBox = styled.div`
 const CancelBox = styled(StatusBox)`
   right: 2%;
   padding: 10px 10px 10px 22px;
-  background-color: #212A3E;
+  background-color: #212a3e;
 `
 
 const DutyBox = styled(AnnualBox)`
   top: 80%;
 `
-const DutyBoxTextHeader = styled(AnnualBoxTextHeader)`
-`
-const DutyListBox = styled(AuualListBox)`
-`
-const DutyList = styled(AuualList)`
-`
+const DutyBoxTextHeader = styled(AnnualBoxTextHeader)``
+const DutyListBox = styled(AuualListBox)``
+const DutyList = styled(AuualList)``
 
 const CalendarContainer = styled.div`
   width: 70%;
@@ -259,7 +277,7 @@ const CalendarContainer = styled.div`
   position: absolute;
   top: 90px;
   left: 40%;
-  border: 4px solid #FBB04C;
+  border: 4px solid #fbb04c;
   border-radius: 10px;
 `
 
@@ -276,7 +294,7 @@ const CalendarBox = styled.div`
     border-radius: 10px;
     border: none;
   }
-  
+
   .fc-header-toolbar {
     width: 100%;
     position: relative;
@@ -287,32 +305,32 @@ const CalendarBox = styled.div`
   .fc .fc-toolbar-title {
     position: absolute;
     margin: auto;
-    color:#FBB04C;
+    color: #fbb04c;
     max-width: 30%;
     left: 40%;
     top: 20px;
   }
 
-  .fc-event-title fc-sticky{
+  .fc-event-title fc-sticky {
     padding: 2px;
   }
 
-  .fc-h-event{
+  .fc-h-event {
     border: none;
     background-color: #c9aae6;
     margin-top: 2px;
     border-radius: 5px;
   }
 
-  .fc .fc-button-primary{
+  .fc .fc-button-primary {
     border: none;
-    background-color: #FBB04C;
+    background-color: #fbb04c;
     position: relative;
     top: 15px;
     margin-right: 18px;
   }
 
-  .fc-button-group{
+  .fc-button-group {
     position: absolute;
     border: 0;
     outline: 0;
@@ -325,12 +343,12 @@ const CalendarBox = styled.div`
     right: 20px;
     font-size: 17px;
     font-weight: bold;
-    color:#FBB04C;
+    color: #fbb04c;
     margin-right: 10px;
   }
 
-  .fc-col-header-cell-cushion{
-    color:#FBB04C;
+  .fc-col-header-cell-cushion {
+    color: #fbb04c;
     width: 90%;
     height: 50px;
     font-size: 18px;
@@ -348,8 +366,9 @@ const CalendarBox = styled.div`
     height: 700px;
   }
 
-/* border값 초기화 */
-  .fc-theme-standard th, .fc-theme-standard td {
+  /* border값 초기화 */
+  .fc-theme-standard th,
+  .fc-theme-standard td {
     border: 0px;
   }
 
@@ -358,18 +377,49 @@ const CalendarBox = styled.div`
     right: 60px;
   }
 
-  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
+  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
     height: max-content;
     display: flex;
     position: relative;
     overflow: hidden;
-  } 
-  
+  }
+
   /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
     background-color: yellow;
   } */
 
-  .fc-event-time{
+  .fc-event-time {
     display: none;
   }
+`
+//////////////////////////////////////////////////////////////////////////////////////////////////// NEW
+
+const Boards = styled.div`
+  margin-top: 40px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+`
+const Board = styled.div`
+  width: 518px;
+  height: 266px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 24px;
+
+  .list-title {
+    color: ${props => props.theme.colors.listTitle};
+    font-size: 18px;
+    font-weight: 700;
+  }
+`
+
+const AnnualBoard = styled(Board)``
+const DutyBoard = styled(Board)``
+const CalendarBoard = styled.div`
+  width: 1060px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 20px;
 `
