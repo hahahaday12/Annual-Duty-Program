@@ -6,8 +6,9 @@ export const ResetPasswordForm = () => {
   const texts = {
     title: '비밀번호 재설정',
     email: '이메일',
-    hintText:
-      '입력하신 이메일 주소로 임시 비밀번호가 발급됩니다. 로그인 후 변경해주세요.',
+    hintText: '이메일을 입력해주세요.',
+    helpText:
+      '입력하신 이메일 주소로 임시 비밀번호가 발급됩니다. \n로그인 후 비밀번호를 변경해주세요.',
     reset: '전송'
   }
 
@@ -20,6 +21,8 @@ export const ResetPasswordForm = () => {
   return (
     <FormWrapper>
       <h1 className="title">{texts.title}</h1>
+      <div className="text-help">{texts.helpText}</div>
+
       <div className="email">{texts.email}</div>
       <form
         method="post"
@@ -28,11 +31,10 @@ export const ResetPasswordForm = () => {
         <input
           type="text"
           className="email-input"
-          // placeholder={texts.hintText}
+          placeholder={texts.hintText}
           ref={inputRef}
         />
       </form>
-      <div className="text-hint">{texts.hintText}</div>
       <button
         className="reset"
         onClick={submitHandler}>
@@ -93,5 +95,16 @@ const FormWrapper = styled.div`
     text-align: center;
     background-color: #ffd42e;
     border-radius: 10px;
+  }
+  .text-help {
+    color: gray;
+    opacity: 0.75;
+    align-self: center;
+    font-size: 14px;
+    position: absolute;
+    top: 220px;
+    white-space: pre-wrap;
+    text-align: center;
+    line-height: 20px;
   }
 `

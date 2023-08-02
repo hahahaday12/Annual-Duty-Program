@@ -16,7 +16,8 @@ export const SignUpForm = () => {
     toSignin: '로그인 하러가기',
     usernameText: '이름을 입력해주세요.',
     emailText: '이메일을 입력해주세요',
-    pwdText: '비밀번호를 입력해주세요.',
+    pwdText:
+      '영어 대문자, 영어 소문자, 숫자, 특수문자를 모두 포함 (8글자 이상)',
     pwdCheckText: '비밀번호를 다시 입력해주세요.'
   }
 
