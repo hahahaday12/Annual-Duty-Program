@@ -89,6 +89,9 @@ const SignInContainer = styled.div`
         width: 434px;
         height: 60px;
         margin-bottom: 36px;
+        &:focus {
+          outline: 1px solid #ffd42e;
+        }
       }
     }
   }
