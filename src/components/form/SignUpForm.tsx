@@ -1,5 +1,6 @@
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useRef, useEffect } from 'react'
 
 export const SignUpForm = () => {
   const texts = {
@@ -12,8 +13,19 @@ export const SignUpForm = () => {
     emailPh: '이메일을 입력하세요 ',
     registerBtn: '등록',
     hasAccount: '아이디가 있으신가요?',
-    toSignin: '로그인 하러가기'
+    toSignin: '로그인 하러가기',
+    usernameText: '이름을 입력해주세요.',
+    emailText: '이메일을 입력해주세요',
+    pwdText: '비밀번호를 입력해주세요.',
+    pwdCheckText: '비밀번호를 다시 입력해주세요.'
   }
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef?.current?.focus()
+  }, [])
+
   return (
     <SignInContainer>
       <div className="rectangle">
@@ -26,21 +38,26 @@ export const SignUpForm = () => {
           <input
             type="text"
             className="signin-input"
+            placeholder={texts.usernameText}
+            ref={inputRef}
           />
           <div className="email">{texts.email}</div>
           <input
             type="text"
             className="signin-input"
+            placeholder={texts.emailText}
           />
           <div className="password">{texts.password}</div>
           <input
             type="text"
             className="signin-input"
+            placeholder={texts.pwdText}
           />
           <div className="password-check">{texts.passwordCheck}</div>
           <input
             type="text"
             className="signin-input"
+            placeholder={texts.pwdCheckText}
           />
           <button className="signup">{texts.registerBtn}</button>
 
@@ -90,6 +107,9 @@ const SignInContainer = styled.div`
         width: 434px;
         height: 60px;
         margin-bottom: 18px;
+        &:focus {
+          outline: 1px solid #ffd42e;
+        }
       }
     }
 

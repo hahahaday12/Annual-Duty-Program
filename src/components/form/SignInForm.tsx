@@ -1,5 +1,7 @@
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useRef, useEffect } from 'react'
+
 // import IntroText from 'assets/intro-text.png'
 
 export const SignInForm = () => {
@@ -13,6 +15,13 @@ export const SignInForm = () => {
     emailPh: '이메일을 입력하세요 ',
     pwdPh: '비밀번호를 입력하세요 '
   }
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef?.current?.focus()
+  }, [])
+
   return (
     <SignInContainer>
       <div className="rectangle">
@@ -26,6 +35,7 @@ export const SignInForm = () => {
             type="text"
             className="signin-input"
             placeholder={texts.emailPh}
+            ref={inputRef}
           />
           <div className="password">{texts.pwd}</div>
           <input

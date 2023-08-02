@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 import { useRef, useEffect } from 'react'
 export const ResetPasswordForm = () => {
   const submitHandler = () => {}
+
   const texts = {
     title: '비밀번호 재설정',
     email: '이메일',
@@ -9,10 +10,13 @@ export const ResetPasswordForm = () => {
       '입력하신 이메일 주소로 임시 비밀번호가 발급됩니다. 로그인 후 변경해주세요.',
     reset: '전송'
   }
+
   const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     inputRef?.current?.focus()
   }, [])
+
   return (
     <FormWrapper>
       <h1 className="title">{texts.title}</h1>
