@@ -6,7 +6,8 @@ import {
   MainHome,
   SchedulePage,
   UpdatePage,
-  ApplyPage
+  ApplyPage,
+  ResetPassword
 } from 'pages/index'
 import { Layout, HeaderLayout } from 'components/index'
 
@@ -24,6 +25,11 @@ export const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />,
+        errorElement: <ErrorComponent />
+      },
+      {
+        path: '/reset',
+        element: <ResetPassword />,
         errorElement: <ErrorComponent />
       }
     ]

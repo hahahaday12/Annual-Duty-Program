@@ -8,13 +8,12 @@ export const SignInForm = () => {
     email: '이메일',
     pwd: '비밀번호',
     btn: '로그인',
-    findPwd: '비밀번호 찾기',
+    forgotPwd: '비밀번호 찾기',
     signup: '회원가입 하기',
     emailPh: '이메일을 입력하세요 ',
     pwdPh: '비밀번호를 입력하세요 '
   }
   return (
-    // <SignInWrapper>
     <SignInContainer>
       <div className="rectangle">
         <div className="signin-text">{texts.title}</div>
@@ -37,22 +36,17 @@ export const SignInForm = () => {
           <button className="signin">{texts.btn}</button>
           <div className="signup-cta">
             <Link
-              to="/find"
-              className="findpwd">
-              {texts.findPwd}
+              to="/reset"
+              className="forgot-pwd">
+              {texts.forgotPwd}
             </Link>
             <Link to="/signup">{texts.signup}</Link>
           </div>
         </form>
       </div>
     </SignInContainer>
-    // </SignInWrapper>
   )
 }
-
-// const SignInWrapper = styled.div`
-//   /* display: flex; */
-// `
 
 const SignInContainer = styled.div`
   display: flex;
@@ -124,7 +118,7 @@ const SignInContainer = styled.div`
     justify-content: center;
     margin: 0 10px;
     font-size: 14px;
-    .findpwd {
+    .forgot-pwd {
       border-right: 1px solid black;
     }
     span {
