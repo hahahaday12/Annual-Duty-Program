@@ -109,7 +109,7 @@ const SignInContainer = styled.div`
         height: 60px;
         margin-bottom: 18px;
         &:focus {
-          outline: 1px solid #ffd42e;
+          outline: 1px solid #2656f6;
         }
       }
     }
@@ -137,7 +137,7 @@ const SignInContainer = styled.div`
       height: 60px;
       color: #fff;
       text-align: center;
-      background-color: #ffd42e;
+      background-color: #2656f6;
       border-radius: 10px;
       margin-bottom: 36px;
       cursor: pointer;
@@ -154,12 +154,12 @@ const SignInContainer = styled.div`
       }
       a {
         text-decoration: underline;
-        color: #ffd42e;
+        color: #2656f6;
         padding-left: 20px;
         font-weight: 700;
 
         &:visited {
-          color: #ffd42e;
+          color: #2656f6;
         }
       }
     }

@@ -103,7 +103,7 @@ const SignInContainer = styled.div`
         height: 60px;
         margin-bottom: 24px;
         &:focus {
-          outline: 1px solid #2656f6;
+          outline: 1px solid ${props => props.theme.colors.primaryBlue};
         }
       }
     }
@@ -121,7 +121,7 @@ const SignInContainer = styled.div`
     height: 60px;
     color: #fff;
     text-align: center;
-    background-color: #2656f6;
+    background-color: ${props => props.theme.colors.primaryBlue};
     border-radius: 10px;
     margin-bottom: 36px;
     margin-top: 12px;

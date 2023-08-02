@@ -34,6 +34,6 @@ const Inputs = styled.div`
     border-radius: 10px;
     width: 434px;
     height: 50px;
-    margin-bottom: 36px;
+    margin-bottom: 18px;
   }
 `
