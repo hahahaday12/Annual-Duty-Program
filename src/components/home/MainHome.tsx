@@ -3,16 +3,18 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+
+const texts = {
+  annual: '· 연차 신청 현황',
+  duty: '· 당직 신청 현황',
+  pending: '승인대기',
+  approved: '승인완료',
+  rejected: '승인거절'
+}
 
 export const Home = () => {
-  const texts = {
-    annual: '· 연차 신청 현황',
-    duty: '· 당직 신청 현황',
-    pending: '승인대기',
-    approved: '승인완료',
-    rejected: '승인거절'
-  }
-
+  const navigate = useNavigate()
   const [annual, setAnnual] = useState([
     { id: 1, date: '2023년 7월 1일', status: '승인대기', cancel: '취소' },
     { id: 1, date: '2023년 7월 10일', status: '승인대기', cancel: '취소' },
@@ -28,7 +30,11 @@ export const Home = () => {
   ])
 
   const onChangeClick = () => {
-    alert('클릭!')
+    navigate('/application')
+  }
+
+  const eventContent = ({ event }) => {
+    return <CustomEvent title={event.title}>{event.title}</CustomEvent>
   }
 
   return (
@@ -44,78 +50,79 @@ export const Home = () => {
       </Boards>
       <CalendarBoard></CalendarBoard>
     </>
-
-    // prev
-    // <HomeContainer>
-    //   <HomeHeader>
-    //     <HomeText>홈</HomeText>
-    //     <HomeApply onClick={onChangeClick}>연차/당직 신청</HomeApply>
-    //   </HomeHeader>
-    //   <CalendarHeader>
-    //     <ScheduleBarone>
-    //       <p>연차</p>
-    //     </ScheduleBarone>
-    //     <ScheduleBartwo>
-    //       <p>당직</p>
-    //     </ScheduleBartwo>
-    //   </CalendarHeader>
-    //   <CategoryBox>
-    //     <AnnualBox>
-    //       <AnnualBoxTextHeader>
-    //         <h3>연차 신청 현황</h3>
-    //         <p>남은 연차 12개</p>
-    //       </AnnualBoxTextHeader>
-    //       <AuualListBox>
-    //         {annual.map((el, index) => (
-    //           <AuualList>
-    //             <h2>{el.date}</h2>
-    //             <StatusBox>승인대기</StatusBox>
-    //             <CancelBox>취소</CancelBox>
-    //           </AuualList>
-    //         ))}
-    //       </AuualListBox>
-    //     </AnnualBox>
-    //     <DutyBox>
-    //       <DutyBoxTextHeader>
-    //         <h3>당직 신청 현황</h3>
-    //       </DutyBoxTextHeader>
-    //       <DutyListBox>
-    //         {duty.map((el, index) => (
-    //           <DutyList>
-    //             <h2>{el.date}</h2>
-    //             <StatusBox>승인대기</StatusBox>
-    //             <CancelBox>취소</CancelBox>
-    //           </DutyList>
-    //         ))}
-    //       </DutyListBox>
-    //     </DutyBox>
-    //   </CategoryBox>
-    //   <CalendarContainer>
-    //     <CalendarBox>
-    //       <FullCalendar
-    //         plugins={[dayGridPlugin, interactionPlugin]}
-    //         initialView="dayGridMonth"
-    //         events={[
-    //           {
-    //             title: '당직',
-    //             start: '2023-07-02',
-    //             end: '2023-07-02'
-    //           },
-    //           {
-    //             title: '연차',
-    //             start: '2023-07-22',
-    //             end: '2023-07-023'
-    //           }
-    //         ]}
-    //         //eventClick={}
-    //         //dateClick={}
-    //         //events={}
-    //         //datesSet={}
-    //       />
-    //     </CalendarBox>
-    //   </CalendarContainer>
-    // </HomeContainer>
   )
+  //기존 작업 레이아웃, 주석 해제 후 영역 맞춰 삽입
+  // return (
+  //   <HomeContainer>
+  //     <HomeHeader>
+  //       <HomeText>홈</HomeText>
+  //       <HomeApply onClick={onChangeClick}>연차/당직 신청</HomeApply>
+  //     </HomeHeader>
+  //     <CalendarHeader>
+  //       <ScheduleBarone>
+  //         <p>연차</p>
+  //       </ScheduleBarone>
+  //       <ScheduleBartwo>
+  //         <p>당직</p>
+  //       </ScheduleBartwo>
+  //     </CalendarHeader>
+  //     <CategoryBox>
+  //       <AnnualBox>
+  //         <AnnualBoxTextHeader>
+  //           <h3>연차 신청 현황</h3>
+  //           <p>남은 연차 12개</p>
+  //         </AnnualBoxTextHeader>
+  //         <AuualListBox>
+  //           {annual.map((el, index) => (
+  //             <AuualList>
+  //               <h2>{el.date}</h2>
+  //               <StatusBox>승인대기</StatusBox>
+  //               <CancelBox>취소</CancelBox>
+  //             </AuualList>
+  //           ))}
+  //         </AuualListBox>
+  //       </AnnualBox>
+  //       <DutyBox>
+  //         <DutyBoxTextHeader>
+  //           <h3>당직 신청 현황</h3>
+  //         </DutyBoxTextHeader>
+  //         <DutyListBox>
+  //           {duty.map((el, index) => (
+  //             <DutyList>
+  //               <h2>{el.date}</h2>
+  //               <StatusBox>승인대기</StatusBox>
+  //               <CancelBox>취소</CancelBox>
+  //             </DutyList>
+  //           ))}
+  //         </DutyListBox>
+  //       </DutyBox>
+  //     </CategoryBox>
+  //     <CalendarContainer>
+  //       <CalendarBox>
+  //         <FullCalendar
+  //           plugins={[dayGridPlugin, interactionPlugin]}
+  //           initialView="dayGridMonth"
+  //           events={[
+  //             {
+  //               title: '당직',
+  //               start: '2023-07-02',
+  //               end: '2023-07-02'
+  //             },
+  //             {
+  //               title: '연차',
+  //               start: '2023-07-22',
+  //               end: '2023-07-023'
+  //             }
+  //           ]}
+  //           //eventClick={}
+  //           //dateClick={}
+  //           //events={}
+  //           //datesSet={}
+  //         />
+  //       </CalendarBox>
+  //     </CalendarContainer>
+  //   </HomeContainer>
+  // )
 }
 
 const HomeContainer = styled.div`
@@ -237,7 +244,7 @@ const AuualList = styled.div`
   margin-top: 20px;
 
   h2 {
-    width: 35%;
+    width: 40%;
     padding: 7px;
     padding-bottom: 2%;
     position: absolute;
@@ -391,6 +398,17 @@ const CalendarBox = styled.div`
     display: none;
   }
 `
+const CustomEvent = styled.div`
+  border: none;
+  font-size: 15px;
+  height: 20px;
+  padding: 5px;
+  margin-top: 2px;
+  border-radius: 5px;
+  background-color: ${({ title }) =>
+    title === 'annual' ? '#E76161' : '#F97B22'};
+`
+
 //////////////////////////////////////////////////////////////////////////////////////////////////// NEW
 
 const Boards = styled.div`

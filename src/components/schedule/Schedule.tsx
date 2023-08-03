@@ -3,13 +3,15 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
-export const Schedule = () => {
-  const texts = {
-    tab: '내 일정 보기',
-    duty: '당직',
-    annual: '연차'
-  }
+const texts = {
+  tab: '내 일정 보기',
+  duty: '당직',
+  annual: '연차'
+}
 
+// export const Schedule = () => {
+
+export const Schedule = () => {
   return (
     // new
     <Outermost>
