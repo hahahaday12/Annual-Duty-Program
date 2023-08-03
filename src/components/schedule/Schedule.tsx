@@ -13,7 +13,7 @@ export const Schedule = () => {
   return (
     // new
     <Outermost>
-      <div className="heading">{texts.tab}</div>
+      <ScheduleTitle>{texts.tab}</ScheduleTitle>
       <Rectangle>
         {/*캘린더 사이즈 조정 추후 */}
         <CalendarContainer>
@@ -237,21 +237,22 @@ const CalendarBox = styled.div`
   }
 `
 
+const ScheduleTitle = styled.div`
+  margin-top: 40px;
+  padding-left: 20px;
+  color: ${props => props.theme.colors.listTitle};
+  font-size: 20px;
+  font-weight: 700;
+`
+
 const Outermost = styled.div`
   display: flex;
   flex-direction: column;
-  .heading {
-    font-family: 'SpoqaHanSansNeo-Regular';
-    margin-top: 36px;
-    font-size: 22px;
-    font-weight: 700;
-    padding-left: 15px;
-    padding-bottom: 2px;
-  }
 `
 const Rectangle = styled.div`
   width: 1060px;
   height: 600px;
   border-radius: 10px;
   background-color: #fff;
+  margin: 24px 0;
 `

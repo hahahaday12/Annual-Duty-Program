@@ -24,39 +24,40 @@ export const SignInForm = () => {
 
   return (
     <SignInContainer>
-      <div className="rectangle">
-        {/* <div className="signin-text">{texts.title}</div> */}
-        <img
-          src={Title}
-          className="service-title"
-        />
-        <form
-          method="post"
-          // action='HOST URL'
-          className="form-container">
-          <div className="email">{texts.email}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={texts.emailPh}
-            ref={inputRef}
+      <div className="settler">
+        <div className="rectangle">
+          <img
+            src={Title}
+            className="service-title"
           />
-          <div className="password">{texts.pwd}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={texts.pwdPh}
-          />
-          <button className="signin">{texts.btn}</button>
-          <div className="signup-cta">
-            <Link
-              to="/reset"
-              className="forgot-pwd">
-              {texts.forgotPwd}
-            </Link>
-            <Link to="/signup">{texts.signup}</Link>
-          </div>
-        </form>
+          <form
+            method="post"
+            // action='HOST URL'
+            className="form-container">
+            <div className="email">{texts.email}</div>
+            <input
+              type="text"
+              className="signin-input"
+              placeholder={texts.emailPh}
+              ref={inputRef}
+            />
+            <div className="password">{texts.pwd}</div>
+            <input
+              type="text"
+              className="signin-input"
+              placeholder={texts.pwdPh}
+            />
+            <button className="signin">{texts.btn}</button>
+            <div className="signup-cta">
+              <Link
+                to="/reset"
+                className="forgot-pwd">
+                {texts.forgotPwd}
+              </Link>
+              <Link to="/signup">{texts.signup}</Link>
+            </div>
+          </form>
+        </div>
       </div>
     </SignInContainer>
   )
@@ -67,8 +68,21 @@ const SignInContainer = styled.div`
   flex-direction: column;
   align-items: end;
   flex-grow: 1;
+  .settler {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 568px;
+    background-color: white;
+  }
   .rectangle {
     width: 568px;
+    height: 600px;
     background-color: white;
     margin: auto;
     position: absolute;
@@ -82,7 +96,8 @@ const SignInContainer = styled.div`
     justify-content: center;
 
     .service-title {
-      top: 200px;
+      position: absolute;
+      top: 50px;
       width: 275px;
       height: 75px;
       z-index: 1;
