@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 import { AccountInputs } from 'components/form/index'
 export const UpdateForm = () => {
   const texts = {
+    update: '사원 정보 수정',
     profile: '프로필 사진',
     account: '계정',
     changePwd: '비밀번호 변경',
@@ -11,34 +12,37 @@ export const UpdateForm = () => {
     newPwdCheck: '비밀번호 확인',
     cancel: '취소',
     confirm: '등록',
-    delete: '사진 삭제',
-    upload: '사진 업로드'
+    delete: '삭제',
+    upload: '수정'
   }
   return (
     <>
+      <UpdateTitle>{texts.update}</UpdateTitle>
       <ProfileContainer>
-        <div className="image">
-          <div className="category">{texts.profile}</div>
-          <div className="profile-wrapper">
-            <div className="profile-box"></div>
-            <button className="delete">{texts.delete}</button>
-            <button className="upload">{texts.upload}</button>
+        <ImageRow>
+          <ImageCol>{texts.profile}</ImageCol>
+          <div className="profile-image">
+            <img src="" />
           </div>
-        </div>
-        <div className="account">
-          <div className="category">{texts.account}</div>
+          <div className="profile-btns">
+            <button className="delete">{texts.upload}</button>
+            <button className="upload">{texts.delete}</button>
+          </div>
+        </ImageRow>
+        <AccountRow>
+          <BaseCol>{texts.account}</BaseCol>
           <AccountInputs
             upper={texts.email}
             lower={texts.username}
           />
-        </div>
-        <div className="pwd-md">
-          <div className="category">{texts.changePwd}</div>
+        </AccountRow>
+        <ModificationRow>
+          <BaseCol>{texts.changePwd}</BaseCol>
           <AccountInputs
             upper={texts.newPwd}
             lower={texts.newPwdCheck}
           />
-        </div>
+        </ModificationRow>
       </ProfileContainer>
       <Actions>
         <button>{texts.cancel}</button>
@@ -48,51 +52,72 @@ export const UpdateForm = () => {
   )
 }
 
+const UpdateTitle = styled.div`
+  margin-top: 40px;
+  padding-left: 20px;
+  color: ${props => props.theme.colors.listTitle};
+  font-size: 20px;
+  font-weight: 700;
+`
+
 const ProfileContainer = styled.div`
-  margin: 40px 0;
+  margin: 24px 0;
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   height: 584px;
-  padding: 70px;
+  padding: 20px 50px;
+`
 
-  .image,
-  .account,
-  .pwd-md {
-    height: 150px;
-    display: flex;
-    border-bottom: 1px solid black;
-    .category {
-      width: 200px;
-      font-weight: 700;
-      font-size: 20px;
-      padding-top: 15px;
-    }
-    .profile-wrapper {
-      display: flex;
-      align-items: center;
-      /* margin-left: 30px;
-      margin-bottom: 25px; */
-      .profile-box {
-        border-radius: 16px;
-        background-color: #d9d9d9;
-        width: 116px;
-        height: 116px;
-      }
-
-      button {
-        all: unset;
-        cursor: pointer;
-        padding: 10px 20px;
-        border-radius: 8px;
-        align-self: center;
-        border: 1px solid red;
-        margin: 20px;
-      }
+const BaseRow = styled.div`
+  display: flex;
+  border-bottom: 1px solid ${props => props.theme.colors.sectionGrey};
+`
+const ImageRow = styled(BaseRow)`
+  .profile-image {
+    width: 200px;
+    image {
+      border-radius: 16px;
+      background-color: #d9d9d9;
+      width: 116px;
+      height: 116px;
     }
   }
+  .profile-btns {
+    display: flex;
+    align-items: center;
+    button {
+      all: unset;
+      cursor: pointer;
+      width: 120px;
+      height: 40px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      border: 1px solid ${props => props.theme.colors.buttonGrey};
+      margin-right: 20px;
+    }
+  }
+`
+
+const AccountRow = styled(BaseRow)`
+  margin-top: 24px;
+`
+const ModificationRow = styled(AccountRow)``
+
+const BaseCol = styled.div`
+  width: 200px;
+  height: 150px;
+  display: flex;
+  font-weight: 600;
+  font-size: 18px;
+  padding-top: 14px;
+`
+const ImageCol = styled(BaseCol)`
+  align-items: center;
+  margin-bottom: 34px;
+  padding-top: 34px;
 `
 
 const Actions = styled.div`
@@ -101,12 +126,19 @@ const Actions = styled.div`
   button {
     all: unset;
     cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 8px;
+    /* padding: 10px 20px; */
+    width: 220px;
+    height: 60px;
+    text-align: center;
+    border-radius: 10px;
     align-self: center;
-    border: 1px solid red;
+    border: 1px solid ${props => props.theme.colors.primaryBlue};
+    color: #fff;
+    background-color: ${props => props.theme.colors.primaryBlue};
     &:first-child {
       margin-right: 30px;
+      background-color: #fff;
+      color: ${props => props.theme.colors.primaryBlue};
     }
   }
 `

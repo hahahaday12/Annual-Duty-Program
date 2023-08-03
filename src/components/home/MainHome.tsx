@@ -124,7 +124,6 @@ const HomeContainer = styled.div`
   top: 100px;
   position: relative;
   margin: auto;
-  //background-color: #f17c7c;
   font-family: 'LINESeedKR-Bd';
 `
 const HomeHeader = styled.div`

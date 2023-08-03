@@ -3,29 +3,25 @@ import { styled } from 'styled-components'
 export const AccountInputs = props => {
   return (
     <Inputs>
-      <div className="inputs">
-        <div className="input-wrapper">
-          <span>{props.upper}</span>
-          <input type="text" />
-        </div>
-        <div className="input-wrapper">
-          <span>{props.lower}</span>
-          <input type="text" />
-        </div>
+      <div className="input-row">
+        <span>{props.upper}</span>
+        <input type="text" />
+      </div>
+      <div className="input-row">
+        <span>{props.lower}</span>
+        <input type="text" />
       </div>
     </Inputs>
   )
 }
 
 const Inputs = styled.div`
-  .input-wrapper {
+  .input-row {
     display: flex;
   }
   span {
     display: block;
-    /* padding-right: 20px; */
     width: 200px;
-    text-align: center;
     padding-top: 15px;
   }
   input {
@@ -35,5 +31,8 @@ const Inputs = styled.div`
     width: 434px;
     height: 50px;
     margin-bottom: 18px;
+    &:focus {
+      background-color: ${props => props.theme.colors.inputFocused};
+    }
   }
 `

@@ -95,10 +95,11 @@ const RightBox = styled.div`
     border: 1px solid black;
     width: 60px;
     height: 60px;
+    margin-right: 13px;
   }
   .info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 `
