@@ -1,21 +1,9 @@
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
-
+import { signinTexts } from 'constants/index'
 import Title from 'assets/service-title.png'
-
 export const SignInForm = () => {
-  const texts = {
-    title: '당연하지',
-    email: '이메일',
-    pwd: '비밀번호',
-    btn: '로그인',
-    forgotPwd: '비밀번호 찾기',
-    signup: '회원가입 하기',
-    emailPh: '이메일을 입력해주세요.',
-    pwdPh: '비밀번호를 입력해주세요'
-  }
-
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -34,27 +22,27 @@ export const SignInForm = () => {
             method="post"
             // action='HOST URL'
             className="form-container">
-            <div className="email">{texts.email}</div>
+            <div className="email">{signinTexts.email}</div>
             <input
               type="text"
               className="signin-input"
-              placeholder={texts.emailPh}
+              placeholder={signinTexts.emailPh}
               ref={inputRef}
             />
-            <div className="password">{texts.pwd}</div>
+            <div className="password">{signinTexts.pwd}</div>
             <input
               type="text"
               className="signin-input"
-              placeholder={texts.pwdPh}
+              placeholder={signinTexts.pwdPh}
             />
-            <button className="signin">{texts.btn}</button>
+            <button className="signin">{signinTexts.btn}</button>
             <div className="signup-cta">
               <Link
                 to="/reset"
                 className="forgot-pwd">
-                {texts.forgotPwd}
+                {signinTexts.forgotPwd}
               </Link>
-              <Link to="/signup">{texts.signup}</Link>
+              <Link to="/signup">{signinTexts.signup}</Link>
             </div>
           </form>
         </div>

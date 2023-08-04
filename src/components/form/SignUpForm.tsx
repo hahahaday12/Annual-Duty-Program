@@ -1,26 +1,9 @@
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
+import { signupTexts } from 'constants/index'
 
 export const SignUpForm = () => {
-  const texts = {
-    intro: 'Welcome👀',
-    signin: '회원가입',
-    username: '이름',
-    email: '이메일 주소',
-    password: '비밀번호',
-    passwordCheck: '비밀번호 확인',
-    emailPh: '이메일을 입력하세요 ',
-    registerBtn: '등록',
-    hasAccount: '아이디가 있으신가요?',
-    toSignin: '로그인 하러가기',
-    usernameText: '이름을 입력해주세요.',
-    emailText: '이메일을 입력해주세요',
-    pwdText:
-      '영어 대문자, 영어 소문자, 숫자, 특수문자를 모두 포함 (8글자 이상)',
-    pwdCheckText: '비밀번호를 다시 입력해주세요.'
-  }
-
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -30,44 +13,44 @@ export const SignUpForm = () => {
   return (
     <SignInContainer>
       <div className="rectangle">
-        <div className="signin-text">{texts.signin}</div>
+        <div className="signin-text">{signupTexts.signin}</div>
         <form
           method="post"
           // action='HOST URL'
           className="form-container">
-          <div className="username">{texts.username}</div>
+          <div className="username">{signupTexts.username}</div>
           <input
             type="text"
             className="signin-input"
-            placeholder={texts.usernameText}
+            placeholder={signupTexts.usernameText}
             ref={inputRef}
           />
-          <div className="email">{texts.email}</div>
+          <div className="email">{signupTexts.email}</div>
           <input
             type="text"
             className="signin-input"
-            placeholder={texts.emailText}
+            placeholder={signupTexts.emailText}
           />
-          <div className="password">{texts.password}</div>
+          <div className="password">{signupTexts.password}</div>
           <input
             type="text"
             className="signin-input"
-            placeholder={texts.pwdText}
+            placeholder={signupTexts.pwdText}
           />
-          <div className="password-check">{texts.passwordCheck}</div>
+          <div className="password-check">{signupTexts.passwordCheck}</div>
           <input
             type="text"
             className="signin-input"
-            placeholder={texts.pwdCheckText}
+            placeholder={signupTexts.pwdCheckText}
           />
-          <button className="signup">{texts.registerBtn}</button>
+          <button className="signup">{signupTexts.registerBtn}</button>
 
           <div className="signin-cta">
-            <span>{texts.hasAccount}</span>
+            <span>{signupTexts.hasAccount}</span>
             <Link
               to="/signup"
               className="signup-cta">
-              {texts.toSignin}
+              {signupTexts.toSignin}
             </Link>
           </div>
         </form>

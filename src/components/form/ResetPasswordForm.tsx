@@ -1,16 +1,9 @@
 import { styled } from 'styled-components'
 import { useRef, useEffect } from 'react'
+import { resetTexts } from 'constants/index'
+
 export const ResetPasswordForm = () => {
   const submitHandler = () => {}
-
-  const texts = {
-    title: '비밀번호 재설정',
-    email: '이메일',
-    hintText: '이메일을 입력해주세요.',
-    helpText:
-      '입력하신 이메일 주소로 임시 비밀번호가 발급됩니다. \n로그인 후 비밀번호를 변경해주세요.',
-    reset: '전송'
-  }
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -20,10 +13,10 @@ export const ResetPasswordForm = () => {
 
   return (
     <FormWrapper>
-      <h1 className="title">{texts.title}</h1>
-      <div className="text-help">{texts.helpText}</div>
+      <h1 className="title">{resetTexts.title}</h1>
+      <div className="text-help">{resetTexts.helpText}</div>
 
-      <div className="email">{texts.email}</div>
+      <div className="email">{resetTexts.email}</div>
       <form
         method="post"
         // action="URL"
@@ -31,14 +24,14 @@ export const ResetPasswordForm = () => {
         <input
           type="text"
           className="email-input"
-          placeholder={texts.hintText}
+          placeholder={resetTexts.hintText}
           ref={inputRef}
         />
       </form>
       <button
         className="reset"
         onClick={submitHandler}>
-        {texts.reset}
+        {resetTexts.reset}
       </button>
     </FormWrapper>
   )

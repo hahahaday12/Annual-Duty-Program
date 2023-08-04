@@ -10,7 +10,9 @@ export const texts = {
   cancel: '취소',
   confirm: '등록',
   delete: '삭제',
-  upload: '수정'
+  upload: '수정',
+  newPwdPh: '새로운 비밀번호를 입력해주세요.',
+  newPwdCheckPh: '새로운 비밀번호를 한번 더 입력해주세요.'
 }
 
 export const accountInputs = [

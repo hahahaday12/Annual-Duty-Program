@@ -1,15 +1,21 @@
 import { styled } from 'styled-components'
-
+import { texts } from 'constants/index'
 export const AccountInputs = props => {
   return (
     <Inputs>
       <div className="input-row">
         <span>{props.upper}</span>
-        <input type="text" />
+        <input
+          type="text"
+          placeholder=""
+        />
       </div>
       <div className="input-row">
         <span>{props.lower}</span>
-        <input type="text" />
+        <input
+          type="text"
+          placeholder=""
+        />
       </div>
     </Inputs>
   )
