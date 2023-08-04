@@ -13,41 +13,40 @@ export const ResetPasswordForm = () => {
 
   return (
     <FormWrapper>
-      <h1 className="title">{resetTexts.title}</h1>
-      <div className="text-help">{resetTexts.helpText}</div>
-
-      <div className="email">{resetTexts.email}</div>
+      <Title>{resetTexts.title}</Title>
+      <HelpText>{resetTexts.helpText}</HelpText>
+      <EmailText>{resetTexts.email}</EmailText>
       <form
         method="post"
         // action="URL"
       >
-        <input
-          type="text"
-          className="email-input"
+        <EmailInput
           placeholder={resetTexts.hintText}
-          ref={inputRef}
-        />
+          ref={inputRef}></EmailInput>
       </form>
-      <button
-        className="reset"
-        onClick={submitHandler}>
-        {resetTexts.reset}
-      </button>
+      <ResetButton onClick={submitHandler}>{resetTexts.reset}</ResetButton>
     </FormWrapper>
   )
 }
 
+const Title = styled.h2``
+const HelpText = styled.div``
+const EmailInput = styled.input``
+const EmailText = styled.div``
+const ResetButton = styled.button``
+
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  .title {
+
+  ${Title} {
     align-self: center;
     position: absolute;
     font-size: 35px;
     font-weight: 700;
     top: 140px;
   }
-  .email-input {
+  ${EmailInput} {
     background: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: 10px;
@@ -63,20 +62,14 @@ const FormWrapper = styled.div`
       outline: 1px solid #ffd42e;
     }
   }
-  .email {
+
+  ${EmailText} {
     padding: 10px;
     line-height: 16px;
     letter-spacing: -0.48px;
     font-weight: 700;
   }
-  .text-hint {
-    color: gray;
-    opacity: 0.75;
-    padding-left: 10px;
-    font-size: 12px;
-    margin-bottom: 40px;
-  }
-  .reset {
+  ${ResetButton} {
     all: unset;
     cursor: pointer;
     position: absolute;
@@ -89,7 +82,7 @@ const FormWrapper = styled.div`
     background-color: #ffd42e;
     border-radius: 10px;
   }
-  .text-help {
+  ${HelpText} {
     color: gray;
     opacity: 0.75;
     align-self: center;

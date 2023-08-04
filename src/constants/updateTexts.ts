@@ -11,19 +11,23 @@ export const texts = {
   confirm: '등록',
   delete: '삭제',
   upload: '수정',
-  newPwdPh: '새로운 비밀번호를 입력해주세요.',
-  newPwdCheckPh: '새로운 비밀번호를 한번 더 입력해주세요.'
+  newPwdPh: '    새로운 비밀번호를 입력해주세요.',
+  newPwdCheckPh: '    새로운 비밀번호를 한번 더 입력해주세요.'
 }
 
 export const accountInputs = [
   {
     title: texts.account,
     first: texts.email,
-    second: texts.username
+    second: texts.username,
+    phFirst: '',
+    phSecond: ''
   },
   {
     title: texts.changePwd,
     first: texts.newPwd,
-    second: texts.newPwdCheck
+    second: texts.newPwdCheck,
+    phFirst: texts.newPwdPh,
+    phSecond: texts.newPwdCheckPh
   }
 ]

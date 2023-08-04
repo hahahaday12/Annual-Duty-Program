@@ -74,8 +74,6 @@ const SignInContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
-    /* border-radius: 36px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +90,7 @@ const SignInContainer = styled.div`
         height: 60px;
         margin-bottom: 18px;
         &:focus {
-          outline: 1px solid #2656f6;
+          outline: 1px solid ${props => props.theme.colors.primaryBlue};
         }
       }
     }
@@ -111,16 +109,13 @@ const SignInContainer = styled.div`
       letter-spacing: -0.48px;
       font-weight: 700;
     }
-    .username {
-      /* margin-top: 100px; */
-    }
     .signup {
       all: unset;
       width: 434px;
       height: 60px;
       color: #fff;
       text-align: center;
-      background-color: #2656f6;
+      background-color: ${props => props.theme.colors.primaryBlue};
       border-radius: 10px;
       margin-bottom: 36px;
       cursor: pointer;
@@ -137,12 +132,12 @@ const SignInContainer = styled.div`
       }
       a {
         text-decoration: underline;
-        color: #2656f6;
+        color: ${props => props.theme.colors.primaryBlue};
         padding-left: 20px;
         font-weight: 700;
 
         &:visited {
-          color: #2656f6;
+          color: ${props => props.theme.colors.primaryBlue};
         }
       }
     }

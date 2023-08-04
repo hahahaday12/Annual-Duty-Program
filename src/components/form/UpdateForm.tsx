@@ -6,11 +6,13 @@ import { useCallback } from 'react'
 export const UpdateForm = () => {
   const modifiers = accountInputs.map(
     useCallback(
-      ({ title, first, second }) => (
+      ({ title, first, second, phFirst, phSecond }) => (
         <UpdateInputForm
           category={title}
           upper={first}
-          lower={second}></UpdateInputForm>
+          lower={second}
+          phFirst={phFirst}
+          phSecond={phSecond}></UpdateInputForm>
       ),
       []
     )

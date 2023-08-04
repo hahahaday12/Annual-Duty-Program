@@ -2,7 +2,13 @@ import { styled } from 'styled-components'
 import { BaseRow, BaseCol } from 'components/index'
 import { AccountInputs } from 'components/form/index'
 
-export const UpdateInputForm = ({ category, upper, lower }) => {
+export const UpdateInputForm = ({
+  category,
+  upper,
+  lower,
+  phFirst,
+  phSecond
+}) => {
   return (
     <>
       <AccountRow>
@@ -10,6 +16,8 @@ export const UpdateInputForm = ({ category, upper, lower }) => {
         <AccountInputs
           upper={upper}
           lower={lower}
+          phFirst={phFirst}
+          phSecond={phSecond}
         />
       </AccountRow>
     </>
