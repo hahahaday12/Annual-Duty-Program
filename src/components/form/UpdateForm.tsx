@@ -1,20 +1,21 @@
 import { styled } from 'styled-components'
-import { AccountInputs } from 'components/form/index'
+import { texts, accountInputs } from 'constants/updateTexts'
+import { UpdateInputForm } from 'components/index'
+import { useCallback } from 'react'
+
 export const UpdateForm = () => {
-  const texts = {
-    update: '사원 정보 수정',
-    profile: '프로필 사진',
-    account: '계정',
-    changePwd: '비밀번호 변경',
-    email: '이메일',
-    username: '이름',
-    newPwd: '새로운 비밀번호',
-    newPwdCheck: '비밀번호 확인',
-    cancel: '취소',
-    confirm: '등록',
-    delete: '삭제',
-    upload: '수정'
-  }
+  const modifiers = accountInputs.map(
+    useCallback(
+      ({ title, first, second }) => (
+        <UpdateInputForm
+          category={title}
+          upper={first}
+          lower={second}></UpdateInputForm>
+      ),
+      []
+    )
+  )
+
   return (
     <>
       <UpdateTitle>{texts.update}</UpdateTitle>
@@ -29,20 +30,7 @@ export const UpdateForm = () => {
             <button className="upload">{texts.delete}</button>
           </div>
         </ImageRow>
-        <AccountRow>
-          <BaseCol>{texts.account}</BaseCol>
-          <AccountInputs
-            upper={texts.email}
-            lower={texts.username}
-          />
-        </AccountRow>
-        <ModificationRow>
-          <BaseCol>{texts.changePwd}</BaseCol>
-          <AccountInputs
-            upper={texts.newPwd}
-            lower={texts.newPwdCheck}
-          />
-        </ModificationRow>
+        {modifiers}
       </ProfileContainer>
       <Actions>
         <button>{texts.cancel}</button>
@@ -70,7 +58,7 @@ const ProfileContainer = styled.div`
   padding: 20px 50px;
 `
 
-const BaseRow = styled.div`
+export const BaseRow = styled.div`
   display: flex;
   border-bottom: 1px solid ${props => props.theme.colors.sectionGrey};
 `
@@ -100,13 +88,7 @@ const ImageRow = styled(BaseRow)`
     }
   }
 `
-
-const AccountRow = styled(BaseRow)`
-  margin-top: 24px;
-`
-const ModificationRow = styled(AccountRow)``
-
-const BaseCol = styled.div`
+export const BaseCol = styled.div`
   width: 200px;
   height: 150px;
   display: flex;

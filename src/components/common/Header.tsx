@@ -1,26 +1,25 @@
 import { styled } from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Title from 'assets/service-title.png'
-import { useNavigate } from 'react-router-dom'
+import { links } from 'constants/index'
+import { useCallback } from 'react'
 
 export const Header = () => {
   const navigate = useNavigate()
 
-  const links = [
-    { path: '/home', text: '홈' },
-    { path: '/profile', text: '프로필 수정' },
-    { path: '/schedule', text: '내 일정보기' },
-    { path: '/application', text: '연차/당직 신청' }
-  ]
-
-  const searchLinks = links.map(link => (
-    <NavLink
-      key={link.path}
-      className={({ isActive }) => (isActive ? 'active' : '')}
-      to={link.path}>
-      {link.text}
-    </NavLink>
-  ))
+  const searchLinks = links.map(
+    useCallback(
+      ({ path, text }) => (
+        <NavLink
+          key={path}
+          className={({ isActive }) => (isActive ? 'active' : '')}
+          to={path}>
+          {text}
+        </NavLink>
+      ),
+      []
+    )
+  )
 
   return (
     <>
