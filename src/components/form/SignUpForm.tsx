@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 import { signupTexts } from 'constants/index'
-import { InputField } from 'components/index'
+import { InputField, SignInCallToAction } from 'components/index'
 
 export const SignUpForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -35,17 +35,8 @@ export const SignUpForm = () => {
             title={signupTexts.passwordCheck}
             ph={signupTexts.pwdCheckText}
             inputRef={null}></InputField>
-
           <StyledButton>{signupTexts.registerBtn}</StyledButton>
-
-          <div className="signin-cta">
-            <span>{signupTexts.hasAccount}</span>
-            <Link
-              to="/signup"
-              className="signup-cta">
-              {signupTexts.toSignin}
-            </Link>
-          </div>
+          <SignInCallToAction />
         </form>
       </div>
     </SignInContainer>
@@ -93,30 +84,6 @@ const SignInContainer = styled.div`
     .form-container {
       display: flex;
       flex-direction: column;
-    }
-  }
-
-  .signup {
-  }
-  .signin-cta {
-    width: 434px;
-    /* height: 60px; */
-    display: flex;
-    justify-content: center;
-    margin: 0 10px;
-    font-size: 14px;
-    span {
-      padding-right: 20px;
-    }
-    a {
-      text-decoration: underline;
-      color: ${props => props.theme.colors.primaryBlue};
-      padding-left: 20px;
-      font-weight: 700;
-
-      &:visited {
-        color: ${props => props.theme.colors.primaryBlue};
-      }
     }
   }
 `

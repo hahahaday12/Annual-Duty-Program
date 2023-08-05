@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 import { signinTexts } from 'constants/index'
 import Title from 'assets/service-title.png'
-import { InputField, StyledButton } from 'components/index'
+import { InputField, StyledButton, SignUpCallToAction } from 'components/index'
 
 export const SignInForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -35,15 +35,8 @@ export const SignInForm = () => {
               inputRef={null}></InputField>
 
             <StyledButton>{signinTexts.btn}</StyledButton>
-            {/* <button className="signin">{signinTexts.btn}</button> */}
-            <div className="signup-cta">
-              <Link
-                to="/reset"
-                className="forgot-pwd">
-                {signinTexts.forgotPwd}
-              </Link>
-              <Link to="/signup">{signinTexts.signup}</Link>
-            </div>
+
+            <SignUpCallToAction />
           </form>
         </div>
       </div>
@@ -107,29 +100,5 @@ const SignInContainer = styled.div`
     margin-bottom: 36px;
     margin-top: 12px;
     cursor: pointer;
-  }
-
-  .signup-cta {
-    width: 434px;
-    height: 16px;
-    display: flex;
-    justify-content: center;
-    margin: 0 10px;
-    font-size: 14px;
-    .forgot-pwd {
-      border-right: 1px solid black;
-    }
-    span {
-      padding-right: 20px;
-    }
-    a {
-      text-decoration: none;
-      padding: 0 30px;
-      color: black;
-
-      &:visited {
-        color: black;
-      }
-    }
   }
 `
