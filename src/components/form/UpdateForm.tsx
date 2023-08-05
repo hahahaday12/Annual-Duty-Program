@@ -63,6 +63,9 @@ const ProfileContainer = styled.div`
 export const BaseRow = styled.div`
   display: flex;
   border-bottom: 1px solid ${props => props.theme.colors.sectionGrey};
+  &:last-child {
+    border: none;
+  }
 `
 const ImageRow = styled(BaseRow)`
   .profile-image {

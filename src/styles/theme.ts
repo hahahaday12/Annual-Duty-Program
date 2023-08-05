@@ -5,6 +5,7 @@ export const theme = {
     listTitle: '#374984',
     inputFocused: '#f4f4f4',
     buttonGrey: '#ccc',
-    sectionGrey: '#e7eaf4'
+    sectionGrey: '#e7eaf4',
+    borderGrey: '#d9d9d9'
   }
 }
