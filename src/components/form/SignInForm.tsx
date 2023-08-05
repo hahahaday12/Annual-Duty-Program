@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 import { signinTexts } from 'constants/index'
 import Title from 'assets/service-title.png'
-import { InputField } from 'components/index'
+import { InputField, StyledButton } from 'components/index'
 
 export const SignInForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -33,7 +33,9 @@ export const SignInForm = () => {
               title={signinTexts.pwd}
               ph={signinTexts.pwdPh}
               inputRef={null}></InputField>
-            <button className="signin">{signinTexts.btn}</button>
+
+            <StyledButton>{signinTexts.btn}</StyledButton>
+            {/* <button className="signin">{signinTexts.btn}</button> */}
             <div className="signup-cta">
               <Link
                 to="/reset"

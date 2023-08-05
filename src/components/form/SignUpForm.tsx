@@ -36,7 +36,7 @@ export const SignUpForm = () => {
             ph={signupTexts.pwdCheckText}
             inputRef={null}></InputField>
 
-          <button className="signup">{signupTexts.registerBtn}</button>
+          <StyledButton>{signupTexts.registerBtn}</StyledButton>
 
           <div className="signin-cta">
             <span>{signupTexts.hasAccount}</span>
@@ -51,6 +51,19 @@ export const SignUpForm = () => {
     </SignInContainer>
   )
 }
+
+export const StyledButton = styled.button`
+  all: unset;
+  width: 434px;
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background-color: ${props => props.theme.colors.primaryBlue};
+  border-radius: 10px;
+  margin-bottom: 36px;
+  margin-top: 18px;
+  cursor: pointer;
+`
 
 const SigninTitle = styled.div`
   font-size: 40px;
@@ -84,15 +97,6 @@ const SignInContainer = styled.div`
   }
 
   .signup {
-    all: unset;
-    width: 434px;
-    height: 60px;
-    color: #fff;
-    text-align: center;
-    background-color: ${props => props.theme.colors.primaryBlue};
-    border-radius: 10px;
-    margin-bottom: 36px;
-    cursor: pointer;
   }
   .signin-cta {
     width: 434px;
