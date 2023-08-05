@@ -1,5 +1,4 @@
 import { styled } from 'styled-components'
-import { texts } from 'constants/index'
 
 export const AccountInputs = ({ upper, lower, phFirst, phSecond }) => {
   return (

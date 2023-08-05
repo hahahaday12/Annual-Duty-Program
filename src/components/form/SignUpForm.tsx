@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 import { signupTexts } from 'constants/index'
+import { InputField } from 'components/index'
 
 export const SignUpForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -13,36 +14,28 @@ export const SignUpForm = () => {
   return (
     <SignInContainer>
       <div className="rectangle">
-        <div className="signin-text">{signupTexts.signin}</div>
+        <SigninTitle>{signupTexts.signin}</SigninTitle>
         <form
           method="post"
           // action='HOST URL'
           className="form-container">
-          <div className="username">{signupTexts.username}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={signupTexts.usernameText}
-            ref={inputRef}
-          />
-          <div className="email">{signupTexts.email}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={signupTexts.emailText}
-          />
-          <div className="password">{signupTexts.password}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={signupTexts.pwdText}
-          />
-          <div className="password-check">{signupTexts.passwordCheck}</div>
-          <input
-            type="text"
-            className="signin-input"
-            placeholder={signupTexts.pwdCheckText}
-          />
+          <InputField
+            title={signupTexts.username}
+            ph={signupTexts.usernameText}
+            inputRef={inputRef}></InputField>
+          <InputField
+            title={signupTexts.email}
+            ph={signupTexts.emailText}
+            inputRef={null}></InputField>
+          <InputField
+            title={signupTexts.password}
+            ph={signupTexts.pwdText}
+            inputRef={null}></InputField>
+          <InputField
+            title={signupTexts.passwordCheck}
+            ph={signupTexts.pwdCheckText}
+            inputRef={null}></InputField>
+
           <button className="signup">{signupTexts.registerBtn}</button>
 
           <div className="signin-cta">
@@ -58,6 +51,12 @@ export const SignUpForm = () => {
     </SignInContainer>
   )
 }
+
+const SigninTitle = styled.div`
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
+`
 
 const SignInContainer = styled.div`
   display: flex;
@@ -81,64 +80,38 @@ const SignInContainer = styled.div`
     .form-container {
       display: flex;
       flex-direction: column;
-      .signin-input {
-        background: #ffffff;
-        border: 1px solid #d9d9d9;
-        border-radius: 10px;
-        padding-left: 10px;
-        width: 434px;
-        height: 60px;
-        margin-bottom: 18px;
-        &:focus {
-          outline: 1px solid ${props => props.theme.colors.primaryBlue};
-        }
-      }
     }
+  }
 
-    .signin-text {
-      font-size: 40px;
+  .signup {
+    all: unset;
+    width: 434px;
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: ${props => props.theme.colors.primaryBlue};
+    border-radius: 10px;
+    margin-bottom: 36px;
+    cursor: pointer;
+  }
+  .signin-cta {
+    width: 434px;
+    /* height: 60px; */
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
+    font-size: 14px;
+    span {
+      padding-right: 20px;
+    }
+    a {
+      text-decoration: underline;
+      color: ${props => props.theme.colors.primaryBlue};
+      padding-left: 20px;
       font-weight: 700;
-      margin-bottom: 40px;
-    }
-    .email,
-    .password,
-    .password-check,
-    .username {
-      padding: 10px;
-      line-height: 16px;
-      letter-spacing: -0.48px;
-      font-weight: 700;
-    }
-    .signup {
-      all: unset;
-      width: 434px;
-      height: 60px;
-      color: #fff;
-      text-align: center;
-      background-color: ${props => props.theme.colors.primaryBlue};
-      border-radius: 10px;
-      margin-bottom: 36px;
-      cursor: pointer;
-    }
-    .signin-cta {
-      width: 434px;
-      /* height: 60px; */
-      display: flex;
-      justify-content: center;
-      margin: 0 10px;
-      font-size: 14px;
-      span {
-        padding-right: 20px;
-      }
-      a {
-        text-decoration: underline;
+
+      &:visited {
         color: ${props => props.theme.colors.primaryBlue};
-        padding-left: 20px;
-        font-weight: 700;
-
-        &:visited {
-          color: ${props => props.theme.colors.primaryBlue};
-        }
       }
     }
   }

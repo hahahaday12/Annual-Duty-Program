@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useRef, useEffect } from 'react'
 import { signinTexts } from 'constants/index'
 import Title from 'assets/service-title.png'
+import { InputField } from 'components/index'
 
 export const SignInForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -13,6 +14,7 @@ export const SignInForm = () => {
 
   return (
     <SignInContainer>
+      {/* SETTLER, RECTANGLE TO PAGE */}
       <div className="settler">
         <div className="rectangle">
           <img
@@ -23,19 +25,14 @@ export const SignInForm = () => {
             method="post"
             // action='HOST URL'
             className="form-container">
-            <div className="email">{signinTexts.email}</div>
-            <input
-              type="text"
-              className="signin-input"
-              placeholder={signinTexts.emailPh}
-              ref={inputRef}
-            />
-            <div className="password">{signinTexts.pwd}</div>
-            <input
-              type="text"
-              className="signin-input"
-              placeholder={signinTexts.pwdPh}
-            />
+            <InputField
+              title={signinTexts.email}
+              ph={signinTexts.emailPh}
+              inputRef={inputRef}></InputField>
+            <InputField
+              title={signinTexts.pwd}
+              ph={signinTexts.pwdPh}
+              inputRef={null}></InputField>
             <button className="signin">{signinTexts.btn}</button>
             <div className="signup-cta">
               <Link
@@ -83,7 +80,6 @@ const SignInContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     .service-title {
       position: absolute;
       top: 50px;
@@ -91,32 +87,12 @@ const SignInContainer = styled.div`
       height: 75px;
       z-index: 1;
     }
-
     .form-container {
       display: flex;
       flex-direction: column;
       position: absolute;
       margin-top: 150px;
-      .signin-input {
-        background: #ffffff;
-        border: 1px solid #d9d9d9;
-        border-radius: 10px;
-        padding-left: 10px;
-        width: 434px;
-        height: 60px;
-        margin-bottom: 24px;
-        &:focus {
-          outline: 1px solid ${props => props.theme.colors.primaryBlue};
-        }
-      }
     }
-  }
-  .email,
-  .password {
-    padding: 0 10px 10px;
-    line-height: 16px;
-    letter-spacing: -0.48px;
-    font-weight: 700;
   }
   .signin {
     all: unset;

@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import { useRef, useEffect } from 'react'
 import { resetTexts } from 'constants/index'
-
+import { InputField } from 'components/index'
 export const ResetPasswordForm = () => {
   const submitHandler = () => {}
 
@@ -15,14 +15,14 @@ export const ResetPasswordForm = () => {
     <FormWrapper>
       <Title>{resetTexts.title}</Title>
       <HelpText>{resetTexts.helpText}</HelpText>
-      <EmailText>{resetTexts.email}</EmailText>
       <form
         method="post"
         // action="URL"
       >
-        <EmailInput
-          placeholder={resetTexts.hintText}
-          ref={inputRef}></EmailInput>
+        <InputField
+          title={resetTexts.email}
+          inputRef={inputRef}
+          ph={resetTexts.hintText}></InputField>
       </form>
       <ResetButton onClick={submitHandler}>{resetTexts.reset}</ResetButton>
     </FormWrapper>
@@ -60,7 +60,7 @@ const EmailInput = styled.input`
     opacity: 0.75;
   }
   &:focus {
-    outline: 1px solid #ffd42e;
+    outline: 1px solid ${props => props.theme.colors.primaryBlue};
   }
 `
 const EmailText = styled.div`
@@ -79,7 +79,7 @@ const ResetButton = styled.button`
   height: 60px;
   color: #fff;
   text-align: center;
-  background-color: #ffd42e;
+  background-color: ${props => props.theme.colors.primaryBlue};
   border-radius: 10px;
 `
 
