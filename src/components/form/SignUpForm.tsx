@@ -11,36 +11,36 @@ export const SignUpForm = () => {
   }, [])
 
   return (
-    <SignInContainer>
-      <div className="rectangle">
-        <SigninTitle>{signupTexts.signin}</SigninTitle>
-        <form
-          method="post"
-          // action='HOST URL'
-          className="form-container">
-          <InputField
-            title={signupTexts.username}
-            ph={signupTexts.usernameText}
-            inputRef={inputRef}></InputField>
-          <InputField
-            title={signupTexts.email}
-            ph={signupTexts.emailText}
-            inputRef={null}></InputField>
-          <InputField
-            title={signupTexts.password}
-            ph={signupTexts.pwdText}
-            inputRef={null}></InputField>
-          <InputField
-            title={signupTexts.passwordCheck}
-            ph={signupTexts.pwdCheckText}
-            inputRef={null}></InputField>
-          <StyledButton>{signupTexts.registerBtn}</StyledButton>
-          <SignInCallToAction />
-        </form>
-      </div>
-    </SignInContainer>
+    <StyledForm
+      method="post"
+      // action='HOST URL'
+    >
+      <InputField
+        title={signupTexts.username}
+        ph={signupTexts.usernameText}
+        inputRef={inputRef}></InputField>
+      <InputField
+        title={signupTexts.email}
+        ph={signupTexts.emailText}
+        inputRef={null}></InputField>
+      <InputField
+        title={signupTexts.password}
+        ph={signupTexts.pwdText}
+        inputRef={null}></InputField>
+      <InputField
+        title={signupTexts.passwordCheck}
+        ph={signupTexts.pwdCheckText}
+        inputRef={null}></InputField>
+      <StyledButton>{signupTexts.registerBtn}</StyledButton>
+      <SignInCallToAction />
+    </StyledForm>
   )
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`
 
 export const StyledButton = styled.button`
   all: unset;
@@ -53,36 +53,4 @@ export const StyledButton = styled.button`
   margin-bottom: 36px;
   margin-top: 18px;
   cursor: pointer;
-`
-
-const SigninTitle = styled.div`
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 40px;
-`
-
-const SignInContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  flex-grow: 1;
-  .rectangle {
-    width: 568px;
-    height: 100vh;
-    background-color: white;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .form-container {
-      display: flex;
-      flex-direction: column;
-    }
-  }
 `

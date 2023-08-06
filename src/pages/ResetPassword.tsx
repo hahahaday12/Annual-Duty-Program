@@ -3,15 +3,15 @@ import { ResetPasswordForm } from 'components/form/index'
 
 export const ResetPassword = () => {
   return (
-    <ResetPasswordSettler>
-      <ResetPasswordWrapper>
+    <ResetPasswordWrapper>
+      <ResetPasswordConatiner>
         <ResetPasswordForm />
-      </ResetPasswordWrapper>
-    </ResetPasswordSettler>
+      </ResetPasswordConatiner>
+    </ResetPasswordWrapper>
   )
 }
 
-const ResetPasswordSettler = styled.div`
+const ResetPasswordWrapper = styled.div`
   margin: auto;
   position: absolute;
   top: 0;
@@ -24,7 +24,7 @@ const ResetPasswordSettler = styled.div`
   background-color: white;
 `
 
-const ResetPasswordWrapper = styled(ResetPasswordSettler)`
+const ResetPasswordConatiner = styled(ResetPasswordWrapper)`
   height: 774px;
   align-items: center;
   justify-content: center;
