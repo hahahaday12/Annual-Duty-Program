@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 import { useRef, useEffect } from 'react'
 import { resetTexts } from 'constants/index'
 import { InputField } from 'components/index'
+
 export const ResetPasswordForm = () => {
   const submitHandler = () => {}
 

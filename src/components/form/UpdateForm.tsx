@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
-import { texts, accountInputs } from 'constants/updateTexts'
-import { UpdateInputForm } from 'components/index'
+import { UpdateTexts, accountInputs } from 'constants/index'
+import { UpdateInputForm, UpdateImageForm } from 'components/index'
 import { useCallback } from 'react'
 
 export const UpdateForm = () => {
@@ -20,23 +20,14 @@ export const UpdateForm = () => {
 
   return (
     <>
-      <UpdateTitle>{texts.update}</UpdateTitle>
+      <UpdateTitle>{UpdateTexts.update}</UpdateTitle>
       <ProfileContainer>
-        <ImageRow>
-          <ImageCol>{texts.profile}</ImageCol>
-          <div className="profile-image">
-            <img src="" />
-          </div>
-          <div className="profile-btns">
-            <button className="delete">{texts.upload}</button>
-            <button className="upload">{texts.delete}</button>
-          </div>
-        </ImageRow>
+        <UpdateImageForm />
         {modifiers}
       </ProfileContainer>
       <Actions>
-        <button>{texts.cancel}</button>
-        <button>{texts.confirm}</button>
+        <button>{UpdateTexts.cancel}</button>
+        <button>{UpdateTexts.confirm}</button>
       </Actions>
     </>
   )
@@ -67,32 +58,7 @@ export const BaseRow = styled.div`
     border: none;
   }
 `
-const ImageRow = styled(BaseRow)`
-  .profile-image {
-    width: 200px;
-    image {
-      border-radius: 16px;
-      background-color: #d9d9d9;
-      width: 116px;
-      height: 116px;
-    }
-  }
-  .profile-btns {
-    display: flex;
-    align-items: center;
-    button {
-      all: unset;
-      cursor: pointer;
-      width: 120px;
-      height: 40px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 14px;
-      border: 1px solid ${props => props.theme.colors.buttonGrey};
-      margin-right: 20px;
-    }
-  }
-`
+
 export const BaseCol = styled.div`
   width: 200px;
   height: 150px;
@@ -101,11 +67,6 @@ export const BaseCol = styled.div`
   font-size: 18px;
   padding-top: 14px;
 `
-const ImageCol = styled(BaseCol)`
-  align-items: center;
-  margin-bottom: 34px;
-  padding-top: 34px;
-`
 
 const Actions = styled.div`
   display: flex;
@@ -113,7 +74,6 @@ const Actions = styled.div`
   button {
     all: unset;
     cursor: pointer;
-    /* padding: 10px 20px; */
     width: 220px;
     height: 60px;
     text-align: center;

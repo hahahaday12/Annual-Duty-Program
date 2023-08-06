@@ -1,4 +1,4 @@
-export const texts = {
+export const UpdateTexts = {
   update: '사원 정보 수정',
   profile: '프로필 사진',
   account: '계정',
@@ -17,17 +17,17 @@ export const texts = {
 
 export const accountInputs = [
   {
-    title: texts.account,
-    first: texts.email,
-    second: texts.username,
+    title: UpdateTexts.account,
+    first: UpdateTexts.email,
+    second: UpdateTexts.username,
     phFirst: '',
     phSecond: ''
   },
   {
-    title: texts.changePwd,
-    first: texts.newPwd,
-    second: texts.newPwdCheck,
-    phFirst: texts.newPwdPh,
-    phSecond: texts.newPwdCheckPh
+    title: UpdateTexts.changePwd,
+    first: UpdateTexts.newPwd,
+    second: UpdateTexts.newPwdCheck,
+    phFirst: UpdateTexts.newPwdPh,
+    phSecond: UpdateTexts.newPwdCheckPh
   }
 ]
