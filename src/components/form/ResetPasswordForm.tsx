@@ -1,9 +1,11 @@
 import { styled } from 'styled-components'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { resetTexts } from 'constants/index'
 import { InputField } from 'components/index'
 
 export const ResetPasswordForm = () => {
+  const [email, setEmail] = useState<string>('')
+
   const submitHandler = () => {}
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -21,9 +23,12 @@ export const ResetPasswordForm = () => {
         // action="URL"
       >
         <InputField
+          fn={setEmail}
+          val={''}
           title={resetTexts.email}
           inputRef={inputRef}
-          ph={resetTexts.hintText}></InputField>
+          ph={resetTexts.hintText}
+          type={'text'}></InputField>
       </form>
       <ResetButton onClick={submitHandler}>{resetTexts.reset}</ResetButton>
     </FormWrapper>
