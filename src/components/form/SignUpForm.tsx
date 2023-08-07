@@ -16,21 +16,33 @@ export const SignUpForm = () => {
       // action='HOST URL'
     >
       <InputField
+        fn={null}
+        val={''}
         title={signupTexts.username}
         ph={signupTexts.usernameText}
-        inputRef={inputRef}></InputField>
+        inputRef={inputRef}
+        type={'text'}></InputField>
       <InputField
+        fn={null}
+        val={''}
         title={signupTexts.email}
         ph={signupTexts.emailText}
-        inputRef={null}></InputField>
+        inputRef={null}
+        type={'text'}></InputField>
       <InputField
+        fn={null}
+        val={''}
         title={signupTexts.password}
         ph={signupTexts.pwdText}
-        inputRef={null}></InputField>
+        inputRef={null}
+        type={'password'}></InputField>
       <InputField
+        fn={null}
+        val={''}
         title={signupTexts.passwordCheck}
         ph={signupTexts.pwdCheckText}
-        inputRef={null}></InputField>
+        inputRef={null}
+        type={'password'}></InputField>
       <StyledButton>{signupTexts.registerBtn}</StyledButton>
       <SignInCallToAction />
     </StyledForm>

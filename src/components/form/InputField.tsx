@@ -1,12 +1,15 @@
 import { styled } from 'styled-components'
 
-export const InputField = ({ inputRef, title, ph }) => {
+export const InputField = ({ inputRef, title, ph, fn, val, type }) => {
   return (
     <>
       <TitleText>{title}</TitleText>
       <Input
+        onChange={e => fn(e.target.value)}
+        value={val}
         placeholder={ph}
-        ref={inputRef}></Input>
+        ref={inputRef}
+        type={type}></Input>
     </>
   )
 }
