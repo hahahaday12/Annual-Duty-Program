@@ -34,7 +34,8 @@
       "api/*": ["src/api/*"],
       "styles/*": ["src/styles/*"],
       "assets/*": ["src/assets/*"],
-      "constants/*": ["src/constants/*"]
+      "constants/*": ["src/constants/*"],
+      "utils/*": ["src/utils/*"]
     }
   },
   "include": [

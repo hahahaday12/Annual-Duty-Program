@@ -1,8 +1,13 @@
 import { baseInstance, authInstance } from 'api/index'
 
 //회원가입 -- base
-export const signUp = async newAccount => {
-  const res = await baseInstance.post('/signup', newAccount)
+export const signUp = async ({ password, email, hireDate, username }) => {
+  const res = await baseInstance.post('/signup', {
+    password: password,
+    email: email,
+    hireDate: hireDate,
+    username: username
+  })
   return res.data
 }
 
@@ -15,26 +20,23 @@ export const signIn = async (email: string, password: string) => {
   return res
 }
 
-//로그아웃 -- auth -- API X => **remove token**
-// export const signOut = async () => {
-//   const res = await authInstance.post('/signin')
-//   return res.data
-// }
-
 //이메일 중복체크 -- base
 export const checkEmailAvailable = async (email: string) => {
-  const res = await baseInstance.post('/update', email)
+  const res = await baseInstance.get(`/emailCheck?email=${email}`)
   return res.data
 }
 
 //정보 수정(update) -- auth
-export const updateProfile = async account => {
-  const res = await authInstance.post('/findPassword', account)
+export const updateProfile = async (profile: string, password: string) => {
+  const res = await authInstance.post('/update', {
+    profile: profile,
+    password: password
+  })
   return res.data
 }
 
-//비밀번호 재설정(이메일 전송) -- auth
+//비밀번호 재설정(이메일 전송) -- base
 export const resetPassword = async (email: string) => {
-  const res = await authInstance.post('/findPassword', email)
+  const res = await baseInstance.post('/findPassword', { email: email })
   return res.data
 }

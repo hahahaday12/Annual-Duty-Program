@@ -14,7 +14,7 @@ export const InputField = ({ inputRef, title, ph, fn, val, type }) => {
   )
 }
 
-const TitleText = styled.div`
+export const TitleText = styled.div`
   padding: 10px;
   line-height: 16px;
   letter-spacing: -0.48px;
