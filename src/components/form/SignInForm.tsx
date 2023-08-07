@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react'
 import { signinTexts } from 'constants/index'
 import { signIn } from 'api/account'
 import { InputField, StyledButton, SignUpCallToAction } from 'components/index'
-import { AxiosHeaders, AxiosResponse } from 'axios'
+import { AxiosError, AxiosHeaders, AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 export const SignInForm = () => {
@@ -28,9 +28,11 @@ export const SignInForm = () => {
         localStorage.setItem('token', jwtToken as string)
         navigate('/home')
       }
-    } catch (err) {
-      //실패 alert 알림 추가
-      console.error('Error:', err)
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const error = e.response?.data.error.message
+        alert(error)
+      }
     }
   }
 
