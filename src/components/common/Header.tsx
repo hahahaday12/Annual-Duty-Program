@@ -20,6 +20,10 @@ export const Header = () => {
       []
     )
   )
+  const signOut = () => {
+    localStorage.removeItem('token')
+    navigate('/')
+  }
 
   return (
     <>
@@ -37,7 +41,8 @@ export const Header = () => {
             <div className="image">ICON</div>
             <div className="info">
               <div>USERNAME</div>
-              <div>LOGOUT</div>
+              {/* 뒤로가기 예외처리 */}
+              <button onClick={signOut}>LOGOUT</button>
             </div>
           </RightBox>
         </WidthSettler>
@@ -100,5 +105,8 @@ const RightBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    button {
+      all: unset;
+    }
   }
 `
