@@ -1,38 +1,36 @@
 import { styled } from 'styled-components'
 
-export const AccountInputs = props => {
+export const AccountInputs = ({ upper, lower, phFirst, phSecond }) => {
   return (
-    <Inputs>
-      <div className="input-row">
-        <span>{props.upper}</span>
-        <input type="text" />
-      </div>
-      <div className="input-row">
-        <span>{props.lower}</span>
-        <input type="text" />
-      </div>
-    </Inputs>
+    <div>
+      <InputRow>
+        <StyledSpan>{upper}</StyledSpan>
+        <StyledInput placeholder={phFirst}></StyledInput>
+      </InputRow>
+      <InputRow>
+        <StyledSpan>{lower}</StyledSpan>
+        <StyledInput placeholder={phSecond}></StyledInput>
+      </InputRow>
+    </div>
   )
 }
 
-const Inputs = styled.div`
-  .input-row {
-    display: flex;
+const StyledInput = styled.input`
+  background: #ffffff;
+  border: 1px solid ${props => props.theme.colors.borderGrey};
+  border-radius: 10px;
+  width: 434px;
+  height: 50px;
+  margin-bottom: 18px;
+  &:focus {
+    background-color: ${props => props.theme.colors.inputFocused};
   }
-  span {
-    display: block;
-    width: 200px;
-    padding-top: 15px;
-  }
-  input {
-    background: #ffffff;
-    border: 1px solid #d9d9d9;
-    border-radius: 10px;
-    width: 434px;
-    height: 50px;
-    margin-bottom: 18px;
-    &:focus {
-      background-color: ${props => props.theme.colors.inputFocused};
-    }
-  }
+`
+const StyledSpan = styled.span`
+  display: block;
+  width: 200px;
+  padding-top: 15px;
+`
+const InputRow = styled.div`
+  display: flex;
 `

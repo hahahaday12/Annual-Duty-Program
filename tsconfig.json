@@ -33,7 +33,8 @@
       "types/*": ["src/types/*"],
       "api/*": ["src/api/*"],
       "styles/*": ["src/styles/*"],
-      "assets/*": ["src/assets/*"]
+      "assets/*": ["src/assets/*"],
+      "constants/*": ["src/constants/*"]
     }
   },
   "include": [
@@ -43,7 +44,6 @@
     "src/**/*.js",
     "src/**/*.d.ts",
     "src/**/*.svg"
-
   ],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
