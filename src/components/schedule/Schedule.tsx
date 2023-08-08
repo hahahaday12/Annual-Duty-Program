@@ -2,8 +2,72 @@ import styled from 'styled-components'
 import FullCalendar from "@fullcalendar/react"; 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from '@fullcalendar/interaction'; 
+import { useEffect, useState, useRef } from 'react';
+import { MyAnnualList, MyDutyList } from 'api/index';
+import { getMyTitleWithStatus} from '../custom/index';
 
 export const Schedule =  () => {
+
+  const [CalDate, setCalDate] = useState<number>(2023);
+  const calendarRef = useRef<FullCalendar | null>(null);
+  const [viewDrow, setViewDrow] = useState([{
+    title:""
+    ,start: ""
+    ,end: ""
+    ,status:""
+    ,type : ""
+  }]);
+
+  useEffect(() => {
+    MyAnnualList(CalDate.toString())
+      .then((data) => {
+        const returnDatalist = data.data.response;
+        const modifiedReturnDatalist = returnDatalist.map((item) => ({
+          title: getMyTitleWithStatus(item),
+          start: new Date(item.startDate).toISOString(),
+          end: new Date(item.endDate).toISOString(),
+          type: "ANNUAL"
+        }));
+        console.log(data)
+        setViewDrow(modifiedReturnDatalist);
+        return MyDutyList(CalDate.toString()); // MyDutyList 호출을 return 합니다.
+      })
+      .then((data) => {
+        const returnDatalist = data.data.response;
+        const modifiedReturnDatalist = returnDatalist.map(item => ({
+          ...item,
+          title: getMyTitleWithStatus(item),
+          date: new Date(item.dutyDate),
+          type: "DUTY"
+        }));
+        setViewDrow(prevViewDrow => [...prevViewDrow ,...modifiedReturnDatalist]); // 이전의 viewDrow state를 활용하여 업데이트합니다.
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  
+  },[CalDate]);
+
+  const eventContent = ({ event }) => {
+    
+    return ( 
+      <CustomEvent title={event._def.extendedProps.type}>
+        {event.title}
+      </CustomEvent>
+    );
+  };
+
+  const handleDatesSet = () => {
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      const date = calendarApi.getDate();
+      const year = date.getFullYear();
+      if (year !== CalDate) {
+        setCalDate(year);
+      }
+    }
+  };
+
   return(
     <ScheduleContainer>
       <TopContainer>
@@ -18,11 +82,11 @@ export const Schedule =  () => {
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView='dayGridMonth'
-          
-          //eventClick={}
-          //dateClick={}
-          //events={}
-          //datesSet={}
+          events={viewDrow as unknown as EventInit[]}
+          timeZone="Asia/Seoul"
+          eventContent={eventContent}
+          datesSet={handleDatesSet}
+          ref={calendarRef}
         />
       </CalendarBox>
       </CalendarContainer>
@@ -193,6 +257,10 @@ const CalendarBox = styled.div`
     position: relative;
   } */
 
+  .fc-daygrid-day-bg{
+    background-color: red;
+  }
+
   div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
     height: max-content;
     display: flex;
@@ -208,3 +276,17 @@ const CalendarBox = styled.div`
     display: none;
   }
 `
+
+const CustomEvent = styled.div`
+  border: none;
+  font-size: 15px;
+  overflow: hidden;
+  width: 100%;
+  height: 20px;
+  padding: 4px;
+  margin-top: 2px;
+  margin: auto;
+  border-radius: 3px;
+  color:#ffff;
+  background-color: ${({ title}) => ( title === 'ANNUAL' ? '#F97B22' : '#E76161')};
+`;
