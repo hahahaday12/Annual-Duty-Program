@@ -47,7 +47,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   padding-bottom: 20px;
   position: fixed;
-  z-index: 200;
+  z-index: 300;
 `
 const HeaderBox = styled.div`
   width: 60%;

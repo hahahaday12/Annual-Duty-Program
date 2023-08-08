@@ -8,7 +8,7 @@ export const Layout = () => {
     <>
       <GlobalStyles />
       <Wrapper>
-        <img src="/image/backgroundImage.jpg" />
+        <img src="/image/bg.jpg" />
         <Outlet />
       </Wrapper>
     </>
