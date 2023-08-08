@@ -33,7 +33,7 @@ export const SignUpForm = () => {
     e.preventDefault()
     try {
       // 유저 입력 데이터들 부재시
-      if (!(email && password && startDate && name)) {
+      if (!(email && password === verification && startDate && name)) {
         alert(`${signupTexts.requiredData}`)
         return
       }
@@ -62,10 +62,7 @@ export const SignUpForm = () => {
   }
 
   return (
-    <StyledForm
-      method="post"
-      // action='HOST URL'
-    >
+    <StyledForm method="post">
       <InputField
         fn={setName}
         val={name}

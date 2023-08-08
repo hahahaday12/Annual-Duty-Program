@@ -28,19 +28,16 @@ export const SignInForm = () => {
         localStorage.setItem('token', jwtToken as string)
         navigate('/home')
       }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        const error = e.response?.data.error.message
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const error = err.response?.data.error.message
         alert(error)
       }
     }
   }
 
   return (
-    <StyledForm
-      method="post"
-      // action='HOST URL'
-    >
+    <StyledForm method="post">
       <InputField
         fn={setEmail}
         val={email}

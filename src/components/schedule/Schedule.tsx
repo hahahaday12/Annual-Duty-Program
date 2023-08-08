@@ -20,6 +20,7 @@ export const Schedule = () => {
         {/*캘린더 사이즈 조정 추후 */}
         <CalendarContainer>
           <CalendarBox>
+            {/* CALENDARBOX 사이에 캘린더 */}
             <FullCalendar
               plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
@@ -32,33 +33,6 @@ export const Schedule = () => {
         </CalendarContainer>
       </Rectangle>
     </Outermost>
-
-    // prev
-    // <ScheduleContainer>
-    //   <TopContainer>
-    //     <ScheduleText>내 일정보기</ScheduleText>
-    //     <ScheduleBarbox>
-    //       <ScheduleBarone>
-    //         <p>연차</p>
-    //       </ScheduleBarone>
-    //       <ScheduleBartwo>
-    //         <p>당직</p>
-    //       </ScheduleBartwo>
-    //     </ScheduleBarbox>
-    //   </TopContainer>
-    //   <CalendarContainer>
-    //     <CalendarBox>
-    //       <FullCalendar
-    //         plugins={[dayGridPlugin, interactionPlugin]}
-    //         initialView="dayGridMonth"
-    //         //eventClick={}
-    //         //dateClick={}
-    //         //events={}
-    //         //datesSet={}
-    //       />
-    //     </CalendarBox>
-    //   </CalendarContainer>
-    // </ScheduleContainer>
   )
 }
 

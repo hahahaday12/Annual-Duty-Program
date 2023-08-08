@@ -2,9 +2,24 @@ import { styled } from 'styled-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Title from 'assets/service-title.png'
 import { links } from 'constants/index'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { getUserInfo } from 'api/index'
+import { AxiosResponse } from 'axios'
+
+export interface InfoResponse extends AxiosResponse {
+  response: {
+    email: string
+    hireDate: string
+    profileImage: string
+    remainVacation: number
+    usedVacation: number
+    username: string
+  }
+}
 
 export const Header = () => {
+  const [username, setUsername] = useState<string>('')
+
   const navigate = useNavigate()
 
   const searchLinks = links.map(
@@ -25,10 +40,20 @@ export const Header = () => {
     navigate('/')
   }
 
+  //진입시 유저정보 렌더링
+  useEffect(() => {
+    const fetchData = async () => {
+      const res: InfoResponse = await getUserInfo()
+      setUsername(res?.response?.username)
+    }
+    fetchData()
+  }, [username])
+
   return (
     <>
       <Outermost>
         <WidthSettler>
+          {/* 컴포넌트 분리?? */}
           <LeftBox>
             <img
               src={Title}
@@ -36,11 +61,16 @@ export const Header = () => {
             />
             {searchLinks}
           </LeftBox>
+          {/* 컴포넌트 분리? */}
           <RightBox>
             {/* USERINFO */}
-            <div className="image">ICON</div>
+            {/* USEREF? USESTATE? - [USERNAME, ICON] - */}
+            <div className="image">
+              {/* 이미지 불러오기 조사 필요 */}
+              <img src="" />
+            </div>
             <div className="info">
-              <div>USERNAME</div>
+              <div>{username}</div>
               {/* 뒤로가기 예외처리 */}
               <button onClick={signOut}>LOGOUT</button>
             </div>

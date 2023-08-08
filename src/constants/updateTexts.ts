@@ -11,23 +11,6 @@ export const UpdateTexts = {
   confirm: '등록',
   delete: '삭제',
   upload: '수정',
-  newPwdPh: '    새로운 비밀번호를 입력해주세요.',
-  newPwdCheckPh: '    새로운 비밀번호를 한번 더 입력해주세요.'
+  newPwdPh: '새로운 비밀번호를 입력해주세요.',
+  newPwdCheckPh: '새로운 비밀번호를 한번 더 입력해주세요.'
 }
-
-export const accountInputs = [
-  {
-    title: UpdateTexts.account,
-    first: UpdateTexts.email,
-    second: UpdateTexts.username,
-    phFirst: '',
-    phSecond: ''
-  },
-  {
-    title: UpdateTexts.changePwd,
-    first: UpdateTexts.newPwd,
-    second: UpdateTexts.newPwdCheck,
-    phFirst: UpdateTexts.newPwdPh,
-    phSecond: UpdateTexts.newPwdCheckPh
-  }
-]

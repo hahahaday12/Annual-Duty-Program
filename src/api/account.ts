@@ -40,3 +40,11 @@ export const resetPassword = async (email: string) => {
   const res = await baseInstance.post('/findPassword', { email: email })
   return res.data
 }
+
+// 유저 상세정보
+export const getUserInfo = async () => {
+  const res = await authInstance.get('/info')
+  return res.data
+}
+
+// 내 정보 수정

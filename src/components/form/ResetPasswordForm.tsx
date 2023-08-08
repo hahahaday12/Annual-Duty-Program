@@ -11,7 +11,8 @@ export const ResetPasswordForm = () => {
     e.preventDefault()
     try {
       if (email) {
-        await resetPassword(email)
+        const res = await resetPassword(email)
+        alert()
       }
     } catch (error) {
       console.log(error)

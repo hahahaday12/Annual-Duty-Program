@@ -7,7 +7,9 @@ export const UpdateInputForm = ({
   upper,
   lower,
   phFirst,
-  phSecond
+  phSecond,
+  value,
+  fn
 }) => {
   return (
     <>
@@ -18,6 +20,8 @@ export const UpdateInputForm = ({
           lower={lower}
           phFirst={phFirst}
           phSecond={phSecond}
+          value={value}
+          fn={fn}
         />
       </AccountRow>
     </>
@@ -25,5 +29,5 @@ export const UpdateInputForm = ({
 }
 
 const AccountRow = styled(BaseRow)`
-  margin-top: 24px;
+  padding-top: 24px;
 `
