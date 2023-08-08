@@ -14,3 +14,18 @@ export const UpdateTexts = {
   newPwdPh: '새로운 비밀번호를 입력해주세요.',
   newPwdCheckPh: '새로운 비밀번호를 한번 더 입력해주세요.'
 }
+
+export const nameTexts = [
+  UpdateTexts.account,
+  UpdateTexts.email,
+  UpdateTexts.username,
+  '',
+  ''
+]
+export const passwordTexts = [
+  UpdateTexts.changePwd,
+  UpdateTexts.newPwd,
+  UpdateTexts.newPwdCheck,
+  UpdateTexts.newPwdPh,
+  UpdateTexts.newPwdCheckPh
+]

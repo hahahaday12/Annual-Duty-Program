@@ -35,6 +35,8 @@ const StyledInput = styled.input`
   width: 434px;
   height: 50px;
   margin-bottom: 18px;
+  background-color: ${({ value, theme }) =>
+    value ? `${theme.colors.inputFocused}` : `${theme.colors.white}`};
   padding-left: 10px;
   &:focus {
     background-color: ${props => props.theme.colors.inputFocused};

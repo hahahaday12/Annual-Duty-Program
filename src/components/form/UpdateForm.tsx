@@ -1,5 +1,5 @@
 import { styled } from 'styled-components'
-import { UpdateTexts } from 'constants/index'
+import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
 import { useState, useEffect } from 'react'
 import { InfoResponse } from 'components/index'
@@ -31,20 +31,12 @@ export const UpdateForm = () => {
       <ProfileContainer>
         <UpdateImageForm />
         <UpdateInputForm
-          category={UpdateTexts.account}
-          upper={UpdateTexts.email}
-          lower={UpdateTexts.username}
-          phFirst={''}
-          phSecond={''}
+          texts={nameTexts}
           value={nameStates}
           fn={null}
         />
         <UpdateInputForm
-          category={UpdateTexts.changePwd}
-          upper={UpdateTexts.newPwd}
-          lower={UpdateTexts.newPwdCheck}
-          phFirst={UpdateTexts.newPwdPh}
-          phSecond={UpdateTexts.newPwdCheckPh}
+          texts={passwordTexts}
           value={passwordStates}
           fn={passwordFunctions}
         />

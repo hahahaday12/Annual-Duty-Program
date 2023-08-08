@@ -14,6 +14,23 @@ export const SignInForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const emailProps = [
+    setEmail,
+    email,
+    signinTexts.email,
+    signinTexts.emailPh,
+    inputRef,
+    'text'
+  ]
+  const passwordProps = [
+    setPassword,
+    password,
+    signinTexts.pwd,
+    signinTexts.pwdPh,
+    null,
+    'password'
+  ]
+
   useEffect(() => {
     inputRef?.current?.focus()
   }, [])
@@ -38,20 +55,8 @@ export const SignInForm = () => {
 
   return (
     <StyledForm method="post">
-      <InputField
-        fn={setEmail}
-        val={email}
-        title={signinTexts.email}
-        ph={signinTexts.emailPh}
-        inputRef={inputRef}
-        type={'text'}></InputField>
-      <InputField
-        fn={setPassword}
-        val={password}
-        title={signinTexts.pwd}
-        ph={signinTexts.pwdPh}
-        inputRef={null}
-        type={'password'}></InputField>
+      <InputField fieldProps={emailProps} />
+      <InputField fieldProps={passwordProps} />
 
       <StyledButton
         onClick={e => {
