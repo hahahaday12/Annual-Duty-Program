@@ -1,9 +1,9 @@
-import { UpdateForm } from "components/form"
+import { UpdateForm } from 'components/form/index'
 
 export const UpdatePage = () => {
-  return(
+  return (
     <>
-    <UpdateForm/>
+      <UpdateForm />
     </>
   )
-};
+}

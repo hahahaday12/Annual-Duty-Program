@@ -12,7 +12,7 @@ export const Home =  () => {
   const navigate = useNavigate();
 
   const onChangeClick = () => {
-    navigate('/application');
+    navigate('/application')
   }
 
 
@@ -42,21 +42,15 @@ export const Home =  () => {
 
   return(
     <HomeContainer>
+       <Boards>
       <HomeHeader>
-      <HomeText>홈</HomeText>
       <HomeApply
         onClick={onChangeClick}>연차/당직 신청</HomeApply>
       </HomeHeader>
-      <CalendarHeader>
-        <ScheduleBarone><p>연차</p></ScheduleBarone>
-        <ScheduleBartwo><p>당직</p></ScheduleBartwo>
-      </CalendarHeader>
-      <CategoryBox>
+      <AnnualBoard>
+        <div className="list-title">연차 신청</div>
+        <p>남은 연차 12개</p>
         <AnnualBox>
-          <AnnualBoxTextHeader>
-            <h3>연차 신청 현황</h3>
-            <p>남은 연차 12개</p>
-          </AnnualBoxTextHeader>
           <AuualListBox>
             {annualData?.data.response && annualData?.data.response.map((item, index) => (
               <AuualList key={index}>
@@ -67,24 +61,28 @@ export const Home =  () => {
             ))}
           </AuualListBox>
         </AnnualBox>
+      </AnnualBoard>
+      <DutyBoard>
+        <div className="list-title">당직 신청</div>
         <DutyBox>
-          <DutyBoxTextHeader>
-            <h3>당직 신청 현황</h3>
-          </DutyBoxTextHeader>
-          <DutyListBox>
-            {dutyData?.data.response && dutyData?.data.response.map((el, index) => (
-               <DutyList key={index}>
-                <h2>📌 {extractDate(el.dutyDate)}</h2>
-                <StatusBox>{el.status}</StatusBox>             
-                <CancelBox>취소</CancelBox> 
-               </DutyList> 
-            ))}
-          </DutyListBox>
-        </DutyBox>
-      </CategoryBox>
-      <AllDataList/>
+        <DutyListBox>
+          {dutyData?.data.response && dutyData?.data.response.map((el, index) => (
+              <DutyList key={index}>
+              <h2>📌 {extractDate(el.dutyDate)}</h2>
+              <StatusBox>{el.status}</StatusBox>             
+              <CancelBox>취소</CancelBox> 
+              </DutyList> 
+          ))}
+        </DutyListBox>
+      </DutyBox>
+      </DutyBoard>
+      </Boards>
+      <CalendarBoard>
+        <AllDataList/>
+      </CalendarBoard>
     </HomeContainer>
   )
+
 }
 
 const HomeContainer = styled.div`
@@ -93,9 +91,38 @@ const HomeContainer = styled.div`
   top: 100px;
   position: relative;
   margin: auto;
-  //background-color: #f17c7c;
   font-family: 'LINESeedKR-Bd';
 `
+const Boards = styled.div`
+  margin-top: 40px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+`
+const Board = styled.div`
+  width: 518px;
+  height: 266px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 24px;
+
+  .list-title {
+    color: ${props => props.theme.colors.listTitle};
+    font-size: 18px;
+    font-weight: 700;
+  }
+`
+
+const AnnualBoard = styled(Board)``
+const DutyBoard = styled(Board)``
+const CalendarBoard = styled.div`
+  width: 1060px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+`
+
 const HomeHeader = styled.div`
   width: 80%;
   height: 40px;
@@ -103,20 +130,12 @@ const HomeHeader = styled.div`
   position: absolute;
   display: flex;
 `
-const CalendarHeader = styled.div`
-  width: 10%;
-  height: 40px;
-  top: 3%;
-  right: -9%;
-  //background-color: #82aaf9;
-  position: absolute;
-`
 
 const ScheduleBarone = styled.div`
   width: 50%;
   height: 15px;
   border-radius: 30px;
-  background-color: #F97B22;
+  background-color: #f97b22;
 
   p {
     width: 60%;
@@ -124,20 +143,10 @@ const ScheduleBarone = styled.div`
     left: 80px;
   }
 `
-const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #E76161;
-  margin-top: 10px;
-`
-
-const HomeText = styled.div`
-  width: 10%;
-  height: 20px;
-  font-size: 20px;
-`
 const HomeApply = styled.button`
   width: 13%;
-  background-color: #FBB04C;
-  color:#fff;
+  background-color: #fbb04c;
+  color: #fff;
   font-size: 15px;
   border: none;
   border-radius: 10px;
@@ -147,16 +156,6 @@ const HomeApply = styled.button`
   font-weight: bold;
   cursor: pointer;
 `
-
-const CategoryBox = styled.div`
-  width: 36%;
-  padding-bottom: 500px;
-  //background-color: blue;
-  position: relative;
-  top: 80px;
-  left: 1%;
-`
-
 const AnnualBox = styled.div`
   width: 550px;
   padding-bottom: 70px;
@@ -164,7 +163,7 @@ const AnnualBox = styled.div`
   position: absolute;
   top: 10px;
   border-radius: 20px;
-  border: 4px solid #9384D1;
+  border: 4px solid #9384d1;
   background-color: #ffff;
   box-shadow: rgba(7, 6, 6, 0.2) 4px 0px 20px 0px;
 `
@@ -178,7 +177,7 @@ const AnnualBoxTextHeader = styled.div`
   font-size: 18px;
   top: 20px;
 
-  p{
+  p {
     font-size: 13px;
     position: relative;
     left: 30%;
@@ -233,8 +232,6 @@ const CancelBox = styled(StatusBox)`
 
 const DutyBox = styled(AnnualBox)`
   top: 80%;
-`
-const DutyBoxTextHeader = styled(AnnualBoxTextHeader)`
 `
 const DutyListBox = styled(AuualListBox)`
 `

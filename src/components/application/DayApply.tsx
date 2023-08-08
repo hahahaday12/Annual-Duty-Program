@@ -156,6 +156,11 @@ export const Apply =  () => {
   }, [selectedButton, CalDate]);
 
   return(
+    <ApplyWrapper>
+    <ApplyTitle>
+    
+    </ApplyTitle>
+    <Rectangle>
     <ApplyContainer>
       <TopContainer>
         <ApplyText>{ApplyTexts.Apply}</ApplyText>
@@ -194,8 +199,28 @@ export const Apply =  () => {
         searchData={dataSearch}/>
       )}
     </ApplyContainer>
+    </Rectangle>
+    </ApplyWrapper>
   )
 }
+
+const ApplyWrapper = styled.div``
+
+const Rectangle = styled.div`
+  width: 1060px;
+  height: 600px;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 24px 0;
+`
+const ApplyTitle = styled.div`
+  margin-top: 40px;
+  padding-left: 20px;
+  color: ${props => props.theme.colors.listTitle};
+  font-size: 20px;
+  font-weight: 700;
+`
+
 
 const ApplyContainer = styled.div`
   width: 1400px;
