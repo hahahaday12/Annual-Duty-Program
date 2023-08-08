@@ -2,11 +2,21 @@ import { styled } from 'styled-components'
 import { useRef, useEffect, useState } from 'react'
 import { resetTexts } from 'constants/index'
 import { InputField } from 'components/index'
+import { resetPassword } from 'api/index'
 
 export const ResetPasswordForm = () => {
   const [email, setEmail] = useState<string>('')
 
-  const submitHandler = () => {}
+  const handlePasswordReset = async e => {
+    e.preventDefault()
+    try {
+      if (email) {
+        await resetPassword(email)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -24,13 +34,15 @@ export const ResetPasswordForm = () => {
       >
         <InputField
           fn={setEmail}
-          val={''}
+          val={email}
           title={resetTexts.email}
           inputRef={inputRef}
           ph={resetTexts.hintText}
           type={'text'}></InputField>
       </form>
-      <ResetButton onClick={submitHandler}>{resetTexts.reset}</ResetButton>
+      <ResetButton onClick={handlePasswordReset}>
+        {resetTexts.reset}
+      </ResetButton>
     </FormWrapper>
   )
 }

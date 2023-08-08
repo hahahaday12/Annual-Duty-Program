@@ -1,7 +1,20 @@
 import { styled } from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+
 import { ResetPasswordForm } from 'components/form/index'
 
 export const ResetPassword = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      //이미 로그인한 유저에 대한 예외처리, 토큰 존재한다면, 로그인/회원가입 진입불가
+      navigate('/home')
+    }
+  }, [])
+
   return (
     <ResetPasswordWrapper>
       <ResetPasswordConatiner>

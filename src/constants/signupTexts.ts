@@ -1,5 +1,4 @@
 export const signupTexts = {
-  intro: 'Welcome👀',
   signin: '회원가입',
   username: '이름',
   email: '이메일 주소',
@@ -12,5 +11,10 @@ export const signupTexts = {
   usernameText: '이름을 입력해주세요.',
   emailText: '이메일을 입력해주세요',
   pwdText: '영어 대문자, 영어 소문자, 숫자, 특수문자를 모두 포함 (8글자 이상)',
-  pwdCheckText: '비밀번호를 다시 입력해주세요.'
+  pwdCheckText: '비밀번호를 다시 입력해주세요.',
+  hireDate: '입사날짜',
+  emailInUse: '이미 사용중인 이메일입니다.',
+  emailAvailable: '사용가능한 이메일입니다.',
+  requiredData: '회원기입에 실패했습니다. 입력항목을 다시 확인해주세요.',
+  validationRequired: '이메일 인증을 진행해주세요.'
 }
