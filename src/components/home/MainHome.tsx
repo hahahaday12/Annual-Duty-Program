@@ -1,38 +1,43 @@
 import styled from 'styled-components'
-import FullCalendar from "@fullcalendar/react"; 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from '@fullcalendar/interaction';
-import { useNavigate, Link } from 'react-router-dom'; 
-import { useState } from 'react';
+import { useNavigate, } from 'react-router-dom'; 
+import { AllDataList } from './index';
+import { useMyAnnualList, useMyDutyList} from '../custom/index';
 
+
+// 내 연차/당직 api 
+// 전체 연차 리스트 , 당직 api
 
 export const Home =  () => {
-
+  
   const navigate = useNavigate();
-  const [annual, setAnnual] = useState([
-    {id:1 , date:"2023년 7월 1일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 10일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 5일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 20일", status:"승인대기", cancel:"취소"},
-  ])
 
-  const [duty, setDuty] = useState([
-    {id:1 , date:"2023년 7월 2일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 11일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 6일", status:"승인대기", cancel:"취소"},
-    {id:1 , date:"2023년 7월 21일", status:"승인대기", cancel:"취소"},
-  ])
- 
   const onChangeClick = () => {
     navigate('/application');
   }
 
-  const eventContent = ({ event }) => {
-    return (
-      <CustomEvent title={event.title}>
-        {event.title}
-      </CustomEvent>
-    );
+
+  const { data: annualData,  isLoading: isAnnualLoading, isError: isAnnualError } = useMyAnnualList(2023);
+  const { data: dutyData,  isLoading: isDutyLoading, isError: isDutyError } = useMyDutyList(2023);
+
+  if (isAnnualLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isAnnualError) {
+    return <div>Error: 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (isDutyLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isDutyError) {
+    return <div>Error: 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  const extractDate = (dateString) => {
+    const date = dateString.split('T')[0];
+    return date;
   };
 
   return(
@@ -53,13 +58,12 @@ export const Home =  () => {
             <p>남은 연차 12개</p>
           </AnnualBoxTextHeader>
           <AuualListBox>
-            {annual.map((el, index) => (
-               <AuualList>
-                  <h2>{el.date}</h2>
-                  <StatusBox>승인대기</StatusBox>             
-                  <CancelBox>취소</CancelBox>
-               
-               </AuualList> 
+            {annualData?.data.response && annualData?.data.response.map((item, index) => (
+              <AuualList key={index}>
+                <h2>📌 {extractDate(item.startDate)} ~ {extractDate(item.endDate)}</h2>
+                <StatusBox>{item.status}</StatusBox>
+                <CancelBox>취소</CancelBox>
+              </AuualList>
             ))}
           </AuualListBox>
         </AnnualBox>
@@ -68,44 +72,17 @@ export const Home =  () => {
             <h3>당직 신청 현황</h3>
           </DutyBoxTextHeader>
           <DutyListBox>
-            {duty.map((el, index) => (
-               <DutyList>
-                  <h2>{el.date}</h2>
-                  <StatusBox>승인대기</StatusBox>             
-                  <CancelBox>취소</CancelBox>
-               
+            {dutyData?.data.response && dutyData?.data.response.map((el, index) => (
+               <DutyList key={index}>
+                <h2>📌 {extractDate(el.dutyDate)}</h2>
+                <StatusBox>{el.status}</StatusBox>             
+                <CancelBox>취소</CancelBox> 
                </DutyList> 
             ))}
           </DutyListBox>
         </DutyBox>
       </CategoryBox>
-      <CalendarContainer>
-        <CalendarBox>  
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            events={[
-              {
-                title: 'duty',
-                //status: 'duty',
-                start: '2023-07-02',
-                end: '2023-07-02'
-              },
-              {
-                title: 'annual',
-                //status: 'annual',
-                start: '2023-07-22',
-                end: '2023-07-023'
-              }
-            ]}
-            //eventClick={}
-            //dateClick={}
-            //events={}
-            //datesSet={}
-            eventContent={eventContent}
-          />
-        </CalendarBox>
-      </CalendarContainer>
+      <AllDataList/>
     </HomeContainer>
   )
 }
@@ -181,8 +158,8 @@ const CategoryBox = styled.div`
 `
 
 const AnnualBox = styled.div`
-  width: 90%;
-  padding-bottom: 10%;
+  width: 550px;
+  padding-bottom: 70px;
   background-color: #ffff;
   position: absolute;
   top: 10px;
@@ -210,48 +187,47 @@ const AnnualBoxTextHeader = styled.div`
 `
 
 const AuualListBox = styled.div`
-  width: 80%;
-  height:300px;
-  ///background-color: tan;
+  width: 453px;
+  height:210px;
+  //background-color: tan;
   position: relative;
-  top: 60px;
-  left: 10%;
+  top: 40px;
+  //left: 50px;
+  margin: auto;
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 400px;
 `
 
 const AuualList = styled.div`
   width: 100%;
   height: 30px;
   margin: auto;
-  //background-color: yellow;
+  background-color: yellow;
   display: flex;
-  position: relative;
+  //position: absolute;
   margin-top: 20px;
 
   h2 {
-    width: 40%;
+    width: 250px;
     padding: 7px;
     padding-bottom: 2%;
-    position: absolute;
-    //background-color: pink;
+    //position: absolute;
+    background-color: pink;
   }
 `
 const StatusBox = styled.div`
-  width: 20%;
-  max-width: 20%;
-  //height: 30px;
+  width: 70px;
   border-radius: 5px;
   background-color: gray;
   position: absolute;
   right: 23%;
   font-size: 12px;
-  padding: 10px;
+  padding: 8px;
   color: #ffff;
 `
 const CancelBox = styled(StatusBox)`
   right: 2%;
-  padding: 10px 10px 10px 22px;
+  padding: 10px 10px 7px 22px;
   background-color: #212A3E;
 `
 
@@ -267,133 +243,4 @@ const DutyList = styled(AuualList)`
   font-family: 'LINESeedKR-Bd';
 `
 
-const CalendarContainer = styled.div`
-  width: 70%;
-  padding-bottom: 5%;
-  background-color: #fff;
-  position: absolute;
-  top: 90px;
-  left: 40%;
-  border: 4px solid #FBB04C;
-  border-radius: 10px;
-`
 
-const CalendarBox = styled.div`
-  width: 95%;
-  position: relative;
-  margin: 0 auto;
-  top: 20px;
-  border-radius: 10px;
-  font-family: 'LINESeedKR-Bd';
-
-  .fc-theme-standard .fc-scrollgrid {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-  }
-  
-  .fc-header-toolbar {
-    width: 100%;
-    position: relative;
-    border-radius: 10px 10px 0px 0px;
-    padding-bottom: 10px;
-  }
-
-  .fc .fc-toolbar-title {
-    position: absolute;
-    margin: auto;
-    color:#FBB04C;
-    max-width: 30%;
-    left: 40%;
-    top: 20px;
-  }
-
-  .fc-event-title fc-sticky{
-    padding: 2px;
-  }
-
-  .fc-h-event{
-    border: none;
-    background-color: #c9aae6;
-    margin-top: 2px;
-    border-radius: 5px;
-  }
-
-  .fc .fc-button-primary{
-    border: none;
-    background-color: #FBB04C;
-    position: relative;
-    top: 15px;
-    margin-right: 18px;
-  }
-
-  .fc-button-group{
-    position: absolute;
-    border: 0;
-    outline: 0;
-    width: 5rem;
-    left: 10%;
-  }
-
-  .fc .fc-daygrid-day-number {
-    position: relative;
-    right: 20px;
-    font-size: 17px;
-    font-weight: bold;
-    color:#FBB04C;
-    margin-right: 10px;
-  }
-
-  .fc-col-header-cell-cushion{
-    color:#FBB04C;
-    width: 90%;
-    height: 50px;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: bold;
-  }
-
-  /* 요일 행 */
-  .fc .fc-scrollgrid-section table {
-    height: 11px;
-  }
-
-  table .fc-scrollgrid-sync-table {
-    width: 538px;
-    height: 700px;
-  }
-
-/* border값 초기화 */
-  .fc-theme-standard th, .fc-theme-standard td {
-    border: 0px;
-  }
-
-  .fc .fc-daygrid-day-top {
-    //position: relative;
-    right: 60px;
-  }
-
-  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
-    height: max-content;
-    display: flex;
-    position: relative;
-    overflow: hidden;
-  } 
-  
-  /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
-    background-color: yellow;
-  } */
-
-  .fc-event-time{
-    display: none;
-  }
-`
-const CustomEvent = styled.div`
-  border: none;
-  font-size: 15px;
-  height: 20px;
-  padding: 5px;
-  margin-top: 2px;
-  border-radius: 5px;
-  background-color: ${({ title }) => ( title === 'annual' ? '#E76161' : '#F97B22')};
-`
