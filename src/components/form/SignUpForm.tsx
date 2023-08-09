@@ -75,6 +75,7 @@ export const SignUpForm = () => {
       })
       // 회원가입 성공시 로그인 화면으로 이동
       if (res.status === 204) {
+        alert(`${signupTexts.success}`)
         navigate('/')
         return
       }

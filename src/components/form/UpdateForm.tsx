@@ -3,17 +3,32 @@ import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
 import { useState, useEffect } from 'react'
 import { InfoResponse } from 'components/index'
-import { getUserInfo } from 'api/index'
+import { getUserInfo, updateUserInfo } from 'api/index'
+import { useNavigate } from 'react-router-dom'
+import { ProfileContext } from 'contexts/index'
 
 export const UpdateForm = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState<string>('')
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [verification, setVerification] = useState<string>('')
+  const [profileImage, setProfileImage] = useState<string>('')
 
   const nameStates = [email, username]
   const passwordStates = [password, verification]
   const passwordFunctions = [setPassword, setVerification]
+
+  const handleCancel = () => {
+    navigate('/home')
+  }
+  //페이지종합 수정 로직
+  const handleSubmit = () => {
+    console.log(profileImage)
+    if (password === verification) {
+      updateUserInfo(profileImage, password)
+    }
+  }
 
   //진입시 유저정보 렌더링
   useEffect(() => {
@@ -27,9 +42,13 @@ export const UpdateForm = () => {
 
   return (
     <>
+      {/* SEPERATION => Update.tsx*/}
       <UpdateTitle>{UpdateTexts.update}</UpdateTitle>
       <ProfileContainer>
-        <UpdateImageForm />
+        <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
+          <UpdateImageForm />
+        </ProfileContext.Provider>
+
         <UpdateInputForm
           texts={nameTexts}
           value={nameStates}
@@ -42,8 +61,8 @@ export const UpdateForm = () => {
         />
       </ProfileContainer>
       <Actions>
-        <button>{UpdateTexts.cancel}</button>
-        <button>{UpdateTexts.confirm}</button>
+        <button onClick={handleCancel}>{UpdateTexts.cancel}</button>
+        <button onClick={handleSubmit}>{UpdateTexts.confirm}</button>
       </Actions>
     </>
   )

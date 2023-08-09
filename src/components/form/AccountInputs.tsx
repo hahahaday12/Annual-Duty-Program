@@ -12,6 +12,7 @@ export const AccountInputs = ({
     <div>
       <InputRow>
         <StyledSpan>{upper}</StyledSpan>
+        {/* INPUT TYPE CLARIFICATION REQUIRED */}
         <StyledInput
           placeholder={phFirst}
           value={value[0]}

@@ -1,19 +1,62 @@
 import { styled } from 'styled-components'
 import { UpdateTexts } from 'constants/index'
-
+import { useRef, useContext } from 'react'
 import { BaseRow, BaseCol } from 'components/index'
+import { ProfileContext } from 'contexts/index'
 
 export const UpdateImageForm = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const { profileImage, setProfileImage } = useContext(ProfileContext)
+
+  const handleLoadImage = e => {
+    if (!e.target.files?.length) {
+      return
+    }
+    const reader = new FileReader()
+    reader.readAsDataURL(e.target.files[0])
+
+    reader.onloadend = () => {
+      const base64 = reader.result
+      if (base64) {
+        setProfileImage(base64?.toString())
+      }
+    }
+  }
+
+  // 수정 버튼 FileReader
+  const onClickFileInput = e => {
+    e.preventDefault()
+    if (!fileInputRef.current) {
+      return
+    }
+    fileInputRef?.current?.click()
+  }
+
+  const handleRemoveImage = () => {
+    if (profileImage) {
+      setProfileImage('')
+    }
+  }
+
   return (
     <div>
       <BaseRow>
         <ImageCol>{UpdateTexts.profile}</ImageCol>
         <ImageFrame>
-          <Profile />
+          <Profile imageurl={profileImage || ''} />
+          <ImageInput
+            type={'file'}
+            ref={fileInputRef}
+            onChange={handleLoadImage}
+          />
         </ImageFrame>
         <ProfileButtons>
-          <ProfileButton>{UpdateTexts.upload}</ProfileButton>
-          <ProfileButton>{UpdateTexts.delete}</ProfileButton>
+          <ProfileButton onClick={onClickFileInput}>
+            {UpdateTexts.upload}
+          </ProfileButton>
+          <ProfileButton onClick={handleRemoveImage}>
+            {UpdateTexts.delete}
+          </ProfileButton>
         </ProfileButtons>
       </BaseRow>
     </div>
@@ -37,11 +80,21 @@ const ProfileButtons = styled.div`
   align-items: center;
 `
 
-const Profile = styled.div`
+const Profile = styled.div<{ imageurl?: string }>`
   border-radius: 16px;
   width: 116px;
   height: 116px;
-  background-image: url('/src/assets/QR.PNG');
+  background-image: url(${props => props.imageurl});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`
+
+const ImageInput = styled.input`
+  border-radius: 16px;
+  width: 116px;
+  height: 116px;
+  display: none;
   background-size: contain;
   background-repeat: no-repeat;
 `
