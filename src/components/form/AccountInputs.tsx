@@ -41,6 +41,7 @@ const StyledInput = styled.input`
   padding-left: 10px;
   &:focus {
     background-color: ${props => props.theme.colors.inputFocused};
+    outline: none;
   }
 `
 const StyledSpan = styled.span`

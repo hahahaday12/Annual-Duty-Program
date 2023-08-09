@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState, useContext } from 'react'
 import { getUserInfo } from 'api/index'
 import { AxiosResponse } from 'axios'
 import { ProfileContext } from 'contexts/index'
+import DefaultImage from 'assets/dafault.png'
 
 export interface InfoResponse extends AxiosResponse {
   response: {
@@ -47,10 +48,14 @@ export const Header = () => {
     const fetchData = async () => {
       const res: InfoResponse = await getUserInfo()
       setUsername(res?.response?.username)
+      if (res?.response?.profileImage === '/image/default.png') {
+        setProfileImage(DefaultImage)
+        return
+      }
       setProfileImage(res?.response?.profileImage)
+      console.log(res)
     }
     fetchData()
-    console.log(profileImage)
   }, [username])
 
   return (
@@ -69,7 +74,11 @@ export const Header = () => {
           <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
             <RightBox imageurl={profileImage || ''}>
               {/* USERINFO */}
-              <div className="image"></div>
+              <div
+                className="image"
+                onClick={() => {
+                  navigate('/profile')
+                }}></div>
               <div className="info">
                 <div>{username}</div>
                 {/* 뒤로가기 예외처리 */}
@@ -128,7 +137,6 @@ const LeftBox = styled.div`
 const RightBox = styled.div<{ imageurl?: string }>`
   display: flex;
   .image {
-    /* border: 1px solid black; */
     border-radius: 60px;
     width: 60px;
     height: 60px;
@@ -137,6 +145,7 @@ const RightBox = styled.div<{ imageurl?: string }>`
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
   }
   .info {
     display: flex;
@@ -147,6 +156,7 @@ const RightBox = styled.div<{ imageurl?: string }>`
       all: unset;
       font-size: 13px;
       font-weight: 400;
+      cursor: pointer;
     }
   }
 `

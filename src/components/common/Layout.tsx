@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import { GlobalStyles } from 'styles/index'
-import { Header, Footer } from 'components/index'
+import { Header } from 'components/index'
 import bg from 'assets/bgblue.png'
 import { ProfileContext } from 'contexts/index'
 import { useState } from 'react'

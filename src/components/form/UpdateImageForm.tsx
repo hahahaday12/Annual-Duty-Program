@@ -70,9 +70,16 @@ const ProfileButton = styled.button`
   height: 40px;
   border-radius: 8px;
   text-align: center;
+  color: ${props => props.theme.colors.updateGrey};
   font-size: 14px;
   border: 1px solid ${props => props.theme.colors.buttonGrey};
   margin-right: 20px;
+  &:hover {
+    background-color: ${props => props.theme.colors.buttonGrey};
+    color: ${props => props.theme.colors.white};
+    font-weight: 700;
+    transition: 0.2s ease-out;
+  }
 `
 
 const ProfileButtons = styled.div`
@@ -95,8 +102,6 @@ const ImageInput = styled.input`
   width: 116px;
   height: 116px;
   display: none;
-  background-size: contain;
-  background-repeat: no-repeat;
 `
 
 const ImageFrame = styled.div`

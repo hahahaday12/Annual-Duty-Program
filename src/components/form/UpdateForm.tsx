@@ -6,6 +6,7 @@ import { InfoResponse } from 'components/index'
 import { getUserInfo, updateUserInfo } from 'api/index'
 import { useNavigate } from 'react-router-dom'
 import { ProfileContext } from 'contexts/index'
+import DefaultImage from 'assets/dafault.png'
 
 export const UpdateForm = () => {
   const navigate = useNavigate()
@@ -35,6 +36,10 @@ export const UpdateForm = () => {
       const res: InfoResponse = await getUserInfo()
       setUsername(res?.response?.username)
       setEmail(res?.response?.email)
+      if (res?.response?.profileImage === '/image/default.png') {
+        setProfileImage(DefaultImage)
+        return
+      }
       setProfileImage(res?.response?.profileImage)
     }
     fetchData()

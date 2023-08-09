@@ -7,6 +7,7 @@ export const theme = {
     buttonGrey: '#ccc',
     sectionGrey: '#e7eaf4',
     borderGrey: '#d9d9d9',
-    white: '#fff'
+    white: '#fff',
+    updateGrey: '#666'
   }
 }

@@ -48,7 +48,9 @@ export const SignInForm = () => {
     } catch (err) {
       if (err instanceof AxiosError) {
         const error = err.response?.data.error.message
-        alert(error)
+        error && error !== 'Bad credentials'
+          ? alert(error)
+          : alert(signinTexts.alertText)
       }
     }
   }
