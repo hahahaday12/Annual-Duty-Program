@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { InfoResponse } from 'components/index'
 import { getUserInfo, updateUserInfo } from 'api/index'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ export const UpdateForm = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [verification, setVerification] = useState<string>('')
-  const [profileImage, setProfileImage] = useState<string>('')
+  const { profileImage, setProfileImage } = useContext(ProfileContext)
 
   const nameStates = [email, username]
   const passwordStates = [password, verification]
@@ -24,9 +24,8 @@ export const UpdateForm = () => {
   }
   //페이지종합 수정 로직
   const handleSubmit = () => {
-    console.log(profileImage)
     if (password === verification) {
-      updateUserInfo(profileImage, password)
+      updateUserInfo(profileImage.replace(/\r?\n?/g, '').trim(), password)
     }
   }
 
@@ -36,6 +35,7 @@ export const UpdateForm = () => {
       const res: InfoResponse = await getUserInfo()
       setUsername(res?.response?.username)
       setEmail(res?.response?.email)
+      setProfileImage(res?.response?.profileImage)
     }
     fetchData()
   }, [])

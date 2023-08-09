@@ -1,10 +1,11 @@
 import { styled } from 'styled-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Title from 'assets/service-title.png'
-import { links } from 'constants/index'
-import { useCallback, useEffect, useState } from 'react'
+import { links, headerText } from 'constants/index'
+import { useCallback, useEffect, useState, useContext } from 'react'
 import { getUserInfo } from 'api/index'
 import { AxiosResponse } from 'axios'
+import { ProfileContext } from 'contexts/index'
 
 export interface InfoResponse extends AxiosResponse {
   response: {
@@ -19,6 +20,7 @@ export interface InfoResponse extends AxiosResponse {
 
 export const Header = () => {
   const [username, setUsername] = useState<string>('')
+  const { profileImage, setProfileImage } = useContext(ProfileContext)
 
   const navigate = useNavigate()
 
@@ -45,8 +47,10 @@ export const Header = () => {
     const fetchData = async () => {
       const res: InfoResponse = await getUserInfo()
       setUsername(res?.response?.username)
+      setProfileImage(res?.response?.profileImage)
     }
     fetchData()
+    console.log(profileImage)
   }, [username])
 
   return (
@@ -62,19 +66,17 @@ export const Header = () => {
             {searchLinks}
           </LeftBox>
           {/* 컴포넌트 분리? */}
-          <RightBox>
-            {/* USERINFO */}
-            {/* USEREF? USESTATE? - [USERNAME, ICON] - */}
-            <div className="image">
-              {/* 이미지 불러오기 조사 필요 */}
-              <img src="" />
-            </div>
-            <div className="info">
-              <div>{username}</div>
-              {/* 뒤로가기 예외처리 */}
-              <button onClick={signOut}>LOGOUT</button>
-            </div>
-          </RightBox>
+          <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
+            <RightBox imageurl={profileImage || ''}>
+              {/* USERINFO */}
+              <div className="image"></div>
+              <div className="info">
+                <div>{username}</div>
+                {/* 뒤로가기 예외처리 */}
+                <button onClick={signOut}>{headerText.signout}</button>
+              </div>
+            </RightBox>
+          </ProfileContext.Provider>
         </WidthSettler>
       </Outermost>
     </>
@@ -123,20 +125,28 @@ const LeftBox = styled.div`
 `
 
 //우측 유저 아이콘 및 정보 영역
-const RightBox = styled.div`
+const RightBox = styled.div<{ imageurl?: string }>`
   display: flex;
   .image {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 60px;
     width: 60px;
     height: 60px;
     margin-right: 13px;
+    background-image: url(${props => props.imageurl});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .info {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    font-weight: bold;
     button {
       all: unset;
+      font-size: 13px;
+      font-weight: 400;
     }
   }
 `

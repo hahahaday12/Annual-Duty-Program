@@ -4,3 +4,7 @@ export const links = [
   { path: '/schedule', text: '내 일정보기' },
   { path: '/application', text: '연차/당직 신청' }
 ]
+
+export const headerText = {
+  signout: '로그아웃'
+}
