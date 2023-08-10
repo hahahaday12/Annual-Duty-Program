@@ -7,6 +7,7 @@ import { getUserInfo, updateUserInfo } from 'api/index'
 import { useNavigate } from 'react-router-dom'
 import { ProfileContext } from 'contexts/index'
 import DefaultImage from 'assets/dafault.png'
+import { AxiosError } from 'axios'
 
 export const UpdateForm = () => {
   const navigate = useNavigate()
@@ -26,18 +27,27 @@ export const UpdateForm = () => {
 
   //등록 버튼
   const handleSubmit = async () => {
-    if (!(password === verification)) {
-      alert(`${UpdateTexts.verification}`)
-      return
-    }
-    const res = await updateUserInfo(
-      profileImage.replace(/\r?\n?/g, '').trim(),
-      password
-    )
-    if (res.status === 204) {
-      alert(`${UpdateTexts.success}`)
-      localStorage.removeItem('token')
-      navigate('/')
+    try {
+      const checked = password === verification
+      if (!checked) {
+        alert(`${UpdateTexts.verification}`)
+        return
+      }
+      const res = await updateUserInfo(
+        profileImage.replace(/\r?\n?/g, '').trim(),
+        password
+      )
+      const success = res.status === 204
+      if (success) {
+        alert(`${UpdateTexts.success}`)
+        localStorage.removeItem('token')
+        navigate('/')
+        return
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(`${UpdateTexts.failure}`)
+      }
     }
   }
 

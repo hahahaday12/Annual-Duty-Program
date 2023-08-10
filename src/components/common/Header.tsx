@@ -38,6 +38,7 @@ export const Header = () => {
       []
     )
   )
+
   const signOut = () => {
     localStorage.removeItem('token')
     navigate('/')
@@ -125,11 +126,15 @@ const LeftBox = styled.div`
   a {
     color: black;
     font-family: 'LINESeedKR-Bd';
-    margin: 0 20px;
+    margin: 0 30px;
+    white-space: pre;
   }
   .active {
     color: ${props => props.theme.colors.primaryBlue};
-    /* border-bottom: 2px solid ${props => props.theme.colors.primaryBlue}; */
+    white-space: pre;
+    text-decoration-skip: none;
+    text-decoration: 2px underline;
+    text-underline-offset: 44px;
   }
 `
 
@@ -157,6 +162,9 @@ const RightBox = styled.div<{ imageurl?: string }>`
       font-size: 13px;
       font-weight: 400;
       cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `

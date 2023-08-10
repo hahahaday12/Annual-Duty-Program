@@ -80,9 +80,9 @@ export const SignUpForm = () => {
         return
       }
     } catch (err) {
+      // 예외처리 서버에서 완료, alert로만 예외처리
       if (err instanceof AxiosError) {
-        const error = e.response?.data.error.message
-        alert(error)
+        alert(`${signupTexts.requiredData}`)
       }
     }
   }
