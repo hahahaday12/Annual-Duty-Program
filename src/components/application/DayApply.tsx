@@ -2,19 +2,22 @@ import styled from 'styled-components'
 import FullCalendar from "@fullcalendar/react"; 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from '@fullcalendar/interaction';
-import { ModalSubmit, DuttyModal} from './index';
+import { AnnualModal, DuttyModal} from './index';
 import { useEffect, useState, useRef } from 'react';
-import { useAllAnnualList, useAllDutyList, getTitleWithStatus} from '../custom/index';
+import { getTitleWithStatus} from '../custom/index';
+import { allAnnualList, allDutyList, UserInfoList } from 'api/index';
 
-
-interface Item {
-  email: string;
+interface DataItem {
+  filter(arg0: (item: any) => any):any;
   title: string;
-  startDate: string;
-  endDate: string;
-  username: string;
-  status: 'PENDING' | 'APPROVE' | 'REJECT';
+  start: any;
+  end: any;
+  type: string;
+  username:string;
+  date:  any;
 }
+
+
 
 export const Apply =  () => {
   
@@ -29,6 +32,8 @@ export const Apply =  () => {
   const [selectedModal, setSelectedModal] = useState<'ANNUAL_MODAL' | 'DUTY_MODAL' | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [CalDate, setCalDate] = useState<number>(2023);
+  const [username, SetUserName] = useState("");
+  const [data, setData] = useState<DataItem[]>([]);
   const [viewDrow, setViewDrow] = useState([{
     email:""
     ,title:""
@@ -38,12 +43,21 @@ export const Apply =  () => {
     , status:""
   }]);
 
-  const annualListQuery = useAllAnnualList(CalDate);
-  const dutyListQuery = useAllDutyList(CalDate);
+  // 유저 정보 api 
+  useEffect(() => {
+    searchInfoUser()
+  },[]);
+
+  const searchInfoUser = () => {
+    UserInfoList()
+    .then((data) => {
+      const userData = data.data.response;
+      SetUserName(userData.username);
+    })
+  }
 
   const eventContent = ({ event }) => {
-    console.log(selectedButton);
-    
+  
     return (
       <CustomEvent title={selectedButton}>
         {event.title}
@@ -55,22 +69,58 @@ export const Apply =  () => {
     setSelectedButton(button);
   };
 
-  const UTCchangeKST = (date) => {
-    let krDate = new Date(date);
-    krDate.setHours(krDate.getHours() -9);
-    return krDate;
-  };
-
   const handleModalClick = (info:any) => {
-    const dateSelect = new Date(info.date);
-    const today = UTCchangeKST(new Date());
-
-    if (dateSelect < today) {
-      alert("오늘 날짜 이전은 선택할 수 없습니다.");
+    let dateSelect = new Date(info.date);
+    if (dateSelect.getDay() === 0 || dateSelect.getDay() === 6) {
+      alert("토요일 또는 일요일은 선택할 수 없습니다.");
       return;
     }
 
-    const dateUser = viewDrow.find((item) => {
+    dateSelect.setHours(9, 0, 0, 0);
+  
+    const dupuleData = data.filter((item:DataItem) => {
+    console.log(item);
+
+    if(item.type === "ANNUAL"){
+      const startDay = item.start;
+      const endDay = item.end;
+      startDay.setHours(9,0,0,0)
+      endDay.setHours(9,0,0,0)
+      if (
+        dateSelect >= startDay && dateSelect <= endDay
+        && item.username === username
+      ) {
+        return item;
+      }
+    } else{
+      const dutyDate = item.date;
+      dutyDate.setHours(9,0,0,0)
+      if (
+        dateSelect === dutyDate
+        && item.username === username
+      ) {
+        console.log("c");
+        return item;
+      }
+    }
+  });
+
+  console.log(dupuleData)
+  if (dupuleData.length > 0) {
+    alert("이미 해당 날짜에 신청한 연차가 존재합니다.");
+    return false;
+  }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);//시간 분 초 초기화
+
+
+
+    if (dateSelect < today ) {
+      alert("오늘 날짜 이전은 선택할 수 없습니다.");
+      return;
+    }
+    viewDrow.find((item) => {
       const start = new Date(item.start);
       const end = new Date(item.end);
       if (!start || !end) {
@@ -79,11 +129,8 @@ export const Apply =  () => {
       const inRange = dateSelect.getTime() >= start.getTime() && dateSelect.getTime() <= end.getTime();
       return inRange;
     });
-      
-    
     setSelectedModal(selectedButton === 'ANNUAL' ? 'ANNUAL_MODAL' : 'DUTY_MODAL');
-      setSelectedDate(dateSelect);
-
+    setSelectedDate(dateSelect);
   };
 
   const CloseModal = () => {
@@ -99,72 +146,66 @@ export const Apply =  () => {
         setCalDate(year);
       }
     }
-    console.log("--------")
-    console.log(setCalDate)
+  };
+
+  const searchData = () => {
+    if (calendarRef.current) {
+      if (selectedButton === 'ANNUAL') {
+        allAnnualList(CalDate.toString())
+          .then((data) => {
+            const returnDatalist = data.data.response;
+            const modifiedReturnDatalist = returnDatalist.map((item) => ({
+              title: getTitleWithStatus(item),
+              username: item.username,
+              start: new Date(item.startDate),
+              end: new Date(item.endDate),
+              type: "ANNUAL",
+            }));
+            setViewDrow(modifiedReturnDatalist);
+            setData(modifiedReturnDatalist)
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+      } else {
+        allDutyList(CalDate.toString())
+          .then((data) => {
+            const returnDatalist = data.data.response;
+            const modifiedReturnDatalist = returnDatalist.map((item) => ({
+              ...item,
+              title: getTitleWithStatus(item),
+              username: item.username,
+              date: new Date(item.dutyDate),
+              type: "DUTY",
+
+            }));
+            setViewDrow(modifiedReturnDatalist);
+            setData(modifiedReturnDatalist)
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+      }
+    } else {
+      console.log('Not Found Year');
+    }
   };
 
   useEffect(() => {
-    dataSearch();
-  }, [annualListQuery.data, dutyListQuery.data, selectedButton]);
-
-  const dataSearch = (param?) => {
-
-    //React Query 사용하면서 데이터를 다시 가져와야할때 캐시된값으로 가져와서 
-    //파라미터가 있는 값은 강제로 신규 데이터 가져올수있도록 수정
-    if(param){
-      dataReolad();
-    }
-
-    if (calendarRef.current) {  
-      if (!annualListQuery.isLoading && !dutyListQuery.isLoading) {
-        const annualListData = annualListQuery.data?.data?.response ?? [];
-        const dutyListData = dutyListQuery.data?.data?.response ?? [];
-        const modifiedReturnDatalist = [
-          ...(selectedButton === 'ANNUAL'
-            ? annualListData.map((item) => ({
-                title: getTitleWithStatus(item),
-                start: new Date(item.startDate).toISOString(),
-                end: new Date(item.endDate).toISOString(),
-              }))
-            : []),
-          ...(selectedButton === 'DUTY'
-            ? dutyListData.map((item) => ({
-                ...item,
-                title: getTitleWithStatus(item),
-                date: new Date(item.dutyDate),
-              }))
-            : []),
-        ];
-        console.log(modifiedReturnDatalist);
-        setViewDrow(modifiedReturnDatalist);
-      }
-    } else {
-      console.log("Not Found Year");
-    } 
-  }
-
-  const dataReolad = () => {
-    if (selectedButton === 'ANNUAL') {
-      annualListQuery.refetch();
-    } else {
-      dutyListQuery.refetch();
-    }
-  }
-
-  useEffect(() => {
-    dataReolad();
+    searchData();
   }, [selectedButton, CalDate]);
 
   return(
     <ApplyWrapper>
     <ApplyTitle>
-    
+
     </ApplyTitle>
     <Rectangle>
     <ApplyContainer>
-      <TopContainer>
-        <ApplyText>{ApplyTexts.Apply}</ApplyText>
-      </TopContainer>
+    <BarBox>
+      <ScheduleBarone><p>연차</p></ScheduleBarone>
+      <ScheduleBartwo><p>당직</p></ScheduleBartwo>
+    </BarBox>
       <ButtonContainer>
         <AnnualButton onClick={() => handleButtonClick('ANNUAL')} data-select="ANNUAL">{ApplyTexts.ApplyAnnual}</AnnualButton>
         <DutyButton onClick={() => handleButtonClick('DUTY')} data-select="DUTY">{ApplyTexts.ApplyDuty}</DutyButton>
@@ -181,22 +222,30 @@ export const Apply =  () => {
             ref={calendarRef}
             timeZone="Asia/Seoul"
             events={viewDrow as unknown as EventInit[]}
+            dayMaxEvents= {true}
+            locale={"ko"}
           />
         </CalendarBox> 
       </CalendarContainer>
       {selectedModal === 'ANNUAL_MODAL' && (
-        <ModalSubmit 
+        <AnnualModal
         close={CloseModal} 
         selectedDate={selectedDate} 
         setSelectedDate={setSelectedDate} 
-        searchData={dataSearch} />
+        searchData={searchData}
+        data={data}
+        username={username}
+       />
       )}
       {selectedModal === 'DUTY_MODAL' && (
         <DuttyModal 
         close={CloseModal} 
         selectedDate={selectedDate} 
-        setSelectedDate={setSelectedDate} 
-        searchData={dataSearch}/>
+        setSelectedDate={setSelectedDate}
+        searchData={searchData} 
+        data={data}
+        username={username}
+        />
       )}
     </ApplyContainer>
     </Rectangle>
@@ -204,14 +253,14 @@ export const Apply =  () => {
   )
 }
 
-const ApplyWrapper = styled.div``
+const ApplyWrapper = styled.div`
+  width: 1200px;
+`
 
 const Rectangle = styled.div`
-  width: 1060px;
-  height: 600px;
+  width: 1300px;
+  padding-bottom: 40px;
   border-radius: 10px;
-  background-color: #fff;
-  margin: 24px 0;
 `
 const ApplyTitle = styled.div`
   margin-top: 40px;
@@ -221,67 +270,70 @@ const ApplyTitle = styled.div`
   font-weight: 700;
 `
 
-
 const ApplyContainer = styled.div`
-  width: 1400px;
+  width: 1309px;
   position: relative;
   margin: auto;
-  top: 90px;
+  top: 50px;
   padding-bottom: 1000px;
-  //background-color: #7486ef;
 `
-const TopContainer = styled.div`
-  width: 90%;
-  padding-bottom: 3%;
+const BarBox = styled.div`
+  width: 140px;
+  margin-left: 700px;
   position: relative;
-  margin: auto;
-  display: flex;
-  top: 30px;
-  font-family: 'LINESeedKR-Bd';
+  margin-bottom: 10px;
 `
-const ApplyText = styled.div`
-  width: 20%;
-  top: 20%;
-  font-size: 20px;
-  position: absolute;
-  left: 50px;
-  color:#374984;
+const ScheduleBarone = styled.div`
+  width: 100px;
+  height: 15px;
+  border-radius: 30px;
+  background-color: #4a42e4d4;
+  position: relative;
+
+  p {
+    width: 50px;
+    margin-left: 110px;
+  }
 `
+const ScheduleBartwo = styled(ScheduleBarone)`
+  background-color: #8696FE;
+  margin-top: 10px;
+`
+
 const ButtonContainer = styled.div`
-  width: 200px;
-  height: 50%;
-  top: 85px;
+  width: 250px;
+  bottom: 50px;
   position: relative;
+  display: flex;
+  gap: 30px;
+  float: right;
+  margin-right: 200px;
 `
 const AnnualButton = styled.button`
-  width: 150px;
-  background-color: orange;
+  width: 125px;
+  background-color: #1a3ba5e2;
+  color: #ffff;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   font-weight: 800;
   border: none;
   cursor: pointer;
 `
 
-const DutyButton = styled(AnnualButton)`
-  position: relative;
-  background-color: #fadea1;
-  margin-top: 10px;
-`
+const DutyButton = styled(AnnualButton)``
 
 const CalendarContainer = styled.div`
-  width: 1300px;
-  padding-bottom: 5%;
+  width: 86%;
+  padding-bottom: 40px;
   background-color: #fff;
   position: absolute;
-  top: 80px;
-  left: 120px;
-  border: 4px solid #374984;
+  border: 2px solid #696ea6;
+  box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
 `
 
 const CalendarBox = styled.div`
-  width: 1200px;
+  width: 1100px;
   position: relative;
   margin: 0 auto;
   top: 20px;
@@ -321,7 +373,7 @@ const CalendarBox = styled.div`
 
   .fc .fc-button-primary{
     border: none;
-    background-color: #FBB04C;
+    background-color:#1C3879;
     position: relative;
     top: 15px;
     margin-right: 18px;
@@ -347,7 +399,7 @@ const CalendarBox = styled.div`
   .fc-col-header-cell-cushion{
     color:#374984;
     width: 90%;
-    height: 50px;
+    height: 55px;
     font-size: 18px;
     padding: 10px;
     font-weight: bold;
@@ -365,41 +417,30 @@ const CalendarBox = styled.div`
 
 /* border값 초기화 */
   .fc-theme-standard th, .fc-theme-standard td {
-    border: 1px solid black;
+    border: none;
   }
 
   .fc .fc-daygrid-day-top {
     position: relative;
-    right: 110px;
+    right: 90px;
     top: 10px;
   }
 
-  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
-    height: max-content;
-    display: flex;
-    position: relative;
-    overflow: hidden;
-  } 
-  
-  /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
-    background-color: yellow;
-  } */
+  .fc .fc-daygrid-day-frame {
+    height: 120px;
+  }
 
   .fc-event-time{
     display: none;
   }
 `
-const CustomEvent = styled.div`
+const CustomEvent = styled.div` 
   border: none;
   font-size: 15px;
-  overflow: hidden;
+  margin-top: 10px;
   width: 100%;
-  height: 20px;
-  padding: 4px;
-  top: 10px;
-  position: absolute;
-  margin: auto;
+  padding: 3px;
   border-radius: 3px;
   color:#ffff;
-  background-color: ${({ title}) => ( title === 'ANNUAL' ? '#F97B22' : '#E76161')};
+  background-color: ${({ title}) => ( title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE')};
 `;

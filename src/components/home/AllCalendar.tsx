@@ -4,52 +4,43 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from '@fullcalendar/interaction';
 import { useEffect, useState, useRef } from 'react';
 import { allAnnualList, allDutyList } from 'api/index';
-import { useMyAnnualList, useMyDutyList, getTitleWithStatus} from '../custom/index';
+import { getTitleWithStatus } from '../custom/index';
 
 
-export const AllDataList = () => {
+export const AllDataList = ({CalendarDate, annualData, dutyData}) => {
   
   const calendarRef = useRef<FullCalendar | null>(null);
   const [CalDate, setCalDate] = useState<number>(2023);
-  const [viewDrow, setViewDrow] = useState([{
-    email:""
-    ,title:""
-    ,start: ""
-    ,end: ""
-    ,username : ""
-    , status:""
-  }]);
+  const [viewDrow, setViewDrow] = useState<any>([]);
 
   useEffect(() => {
-    allAnnualList(CalDate.toString())
-      .then((data) => {
-        const returnDatalist = data.data.response;
-        const modifiedReturnDatalist = returnDatalist.map((item) => ({
+    searchCalendar();
+  }, [CalendarDate,annualData, dutyData]);
+
+  const searchCalendar = () => {
+    Promise.all([allAnnualList(CalDate.toString()), allDutyList(CalDate.toString())])
+      .then(([annualData, dutyData]) => {
+        const annualReturnData = annualData.data.response.map((item: any) => ({
           title: getTitleWithStatus(item),
           start: new Date(item.startDate).toISOString(),
           end: new Date(item.endDate).toISOString(),
-          type: "ANNUAL"
+          type: "ANNUAL",
         }));
-        console.log(data)
-        setViewDrow(modifiedReturnDatalist);
-        return allDutyList(CalDate.toString()); // MyDutyList 호출을 return 합니다.
-      })
-      .then((data) => {
-        const returnDatalist = data.data.response;
-        const modifiedReturnDatalist = returnDatalist.map(item => ({
+  
+        const dutyReturnData = dutyData.data.response.map((item: any) => ({
           ...item,
           title: getTitleWithStatus(item),
           date: new Date(item.dutyDate),
-          type: "DUTY"
+          type: "DUTY",
         }));
-        setViewDrow(prevViewDrow => [...prevViewDrow ,...modifiedReturnDatalist]); // 이전의 viewDrow state를 활용하여 업데이트합니다.
+  
+        const combinedData = [...annualReturnData, ...dutyReturnData];
+        setViewDrow(combinedData);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  
-  },[CalDate]);
-
+  };
 
   const eventContent = ({ event }) => {
     return (
@@ -66,12 +57,14 @@ export const AllDataList = () => {
       const year = date.getFullYear();
       if (year !== CalDate) {
         setCalDate(year);
+        CalendarDate(year);
       }
     }
   };
 
   return(
     <CalendarContainer>
+      
       <CalendarBox>  
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -81,6 +74,7 @@ export const AllDataList = () => {
           ref={calendarRef}
           timeZone="Asia/Seoul"
           events={viewDrow as unknown as EventInit[]}
+          locale={"ko"} 
         />
       </CalendarBox>
     </CalendarContainer>
@@ -88,13 +82,12 @@ export const AllDataList = () => {
 }
 
 const CalendarContainer = styled.div`
-  width: 70%;
+  width: 100%;
   padding-bottom: 5%;
-  background-color: #fff;
+  background-color: #ffffff;
   position: absolute;
-  top: 90px;
-  left: 40%;
-  border: 4px solid #FBB04C;
+  border: 2px solid #696ea6;
+  box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
 `
 
@@ -122,7 +115,7 @@ const CalendarBox = styled.div`
   .fc .fc-toolbar-title {
     position: absolute;
     margin: auto;
-    color:#FBB04C;
+    color:#0815a6;
     max-width: 30%;
     left: 40%;
     top: 20px;
@@ -141,7 +134,7 @@ const CalendarBox = styled.div`
 
   .fc .fc-button-primary{
     border: none;
-    background-color: #FBB04C;
+    background-color:#1C3879;
     position: relative;
     top: 15px;
     margin-right: 18px;
@@ -160,12 +153,23 @@ const CalendarBox = styled.div`
     right: 20px;
     font-size: 17px;
     font-weight: bold;
-    color:#FBB04C;
+    color:#0815a6;
     margin-right: 10px;
   }
 
+
+/* 일요일 날짜 빨간색 */
+.fc-col-header-cell fc-day fc-day-sat {
+  color: red;
+}
+
+/* 토요일 날짜 파란색 */
+.fc-col-header-cell fc-day fc-day-sat {
+  color: blue;
+}
+
   .fc-col-header-cell-cushion{
-    color:#FBB04C;
+    color:#0815a6;
     width: 90%;
     height: 50px;
     font-size: 18px;
@@ -175,7 +179,7 @@ const CalendarBox = styled.div`
 
   /* 요일 행 */
   .fc .fc-scrollgrid-section table {
-    height: 11px;
+    height: 15px;
   }
 
   table .fc-scrollgrid-sync-table {
@@ -189,8 +193,8 @@ const CalendarBox = styled.div`
   }
 
   .fc .fc-daygrid-day-top {
-    //position: relative;
-    right: 60px;
+    position: relative;
+    right: 90px;
   }
 
   div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
@@ -200,21 +204,17 @@ const CalendarBox = styled.div`
     overflow: hidden;
   } 
   
-  /* .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
-    background-color: yellow;
-  } */
-
-  .fc-event-time{
+   .fc-event-time{
     display: none;
   }
 `
 const CustomEvent = styled.div`
   border: none;
-  font-size: 15px;
+  font-size: 12px;
   height: 20px;
   padding: 5px;
   margin-top: 2px;
   color: #ffff;
   border-radius: 5px;
-  background-color: ${({ title }) => ( title === 'ANNUAL' ? '#F97B22' : '#E76161')};
+  background-color: ${({ title }) => ( title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE')}
 `
