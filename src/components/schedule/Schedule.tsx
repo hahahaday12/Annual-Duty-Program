@@ -2,97 +2,137 @@ import styled from 'styled-components'
 import FullCalendar from "@fullcalendar/react"; 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from '@fullcalendar/interaction'; 
+import { useEffect, useState, useRef } from 'react';
+import { MyAnnualList, MyDutyList } from 'api/index';
+import { getMyTitleWithStatus} from '../custom/index';
 
 export const Schedule =  () => {
+
+  const [CalDate, setCalDate] = useState<number>(2023);
+  const calendarRef = useRef<FullCalendar | null>(null);
+  const [viewDrow, setViewDrow] = useState([{
+    title:""
+    ,start: ""
+    ,end: ""
+    ,status:""
+    ,type : ""
+  }]);
+
+  useEffect(() => {
+    MyAnnualList(CalDate.toString())
+      .then((data) => {
+        const returnDatalist = data.data.response;
+        const modifiedReturnDatalist = returnDatalist.map((item) => ({
+          title: getMyTitleWithStatus(item),
+          start: new Date(item.startDate).toISOString(),
+          end: new Date(item.endDate).toISOString(),
+          type: "ANNUAL"
+        }));
+        console.log(data)
+        setViewDrow(modifiedReturnDatalist);
+        return MyDutyList(CalDate.toString()); // MyDutyList 호출을 return 합니다.
+      })
+      .then((data) => {
+        const returnDatalist = data.data.response;
+        const modifiedReturnDatalist = returnDatalist.map(item => ({
+          ...item,
+          title: getMyTitleWithStatus(item),
+          date: new Date(item.dutyDate),
+          type: "DUTY"
+        }));
+        setViewDrow(prevViewDrow => [...prevViewDrow ,...modifiedReturnDatalist]); // 이전의 viewDrow state를 활용하여 업데이트합니다.
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  
+  },[CalDate]);
+
+  const eventContent = ({ event }) => {
+    
+    return ( 
+      <CustomEvent title={event._def.extendedProps.type}>
+        {event.title}
+      </CustomEvent>
+    );
+  };
+
+  const handleDatesSet = () => {
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      const date = calendarApi.getDate();
+      const year = date.getFullYear();
+      if (year !== CalDate) {
+        setCalDate(year);
+      }
+    }
+  };
+
   return(
-    <ScheduleContainer>
-      <TopContainer>
-        <ScheduleText>내 일정보기</ScheduleText>
-        <ScheduleBarbox>
-          <ScheduleBarone><p>연차</p></ScheduleBarone>
-          <ScheduleBartwo><p>당직</p></ScheduleBartwo>
-        </ScheduleBarbox>
-      </TopContainer>
+    <Outermost>
+      <Rectangle>
+      <BarBox>
+        <ScheduleBarone><p>연차</p></ScheduleBarone>
+        <ScheduleBartwo><p>당직</p></ScheduleBartwo>
+      </BarBox>
       <CalendarContainer>
       <CalendarBox>  
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          //eventClick={}
-          //dateClick={}
-          //events={}
-          //datesSet={}
+          initialView='dayGridMonth'
+          events={viewDrow as unknown as EventInit[]}
+          timeZone="Asia/Seoul"
+          eventContent={eventContent}
+          datesSet={handleDatesSet}
+          ref={calendarRef}
+          dayMaxEvents= {true}
+          locale={"ko"} 
         />
       </CalendarBox>
       </CalendarContainer>
-    </ScheduleContainer>
+      </Rectangle>
+    </Outermost>
   )
 }
 
-const ScheduleContainer = styled.div`
-  width: 80%;
-  position: relative;
-  margin: auto;
-  padding-bottom: 10%;
+const Rectangle = styled.div`
+  width: 1060px;
+  height: 600px;
+  border-radius: 10px;
+  margin: 24px 0;
 `
-const TopContainer = styled.div`
-  width: 90%;
-  padding-bottom: 5%;
-  position: relative;
-  margin: auto;
-  display: flex;
-  top: 50px;
-  font-family: 'LINESeedKR-Bd';
-`
-const ScheduleText = styled.div`
-  width: 10%;
-  height: 20px;
-  font-size: 20px;
-  position: absolute;
-  left: 50px;
-`
-const ScheduleBarbox = styled.div`
-  width: 10%;
-  padding-bottom: 20px;
-  top: 5px;
-  position: absolute;
-  right: 5%;
-`
-const ScheduleBarone = styled.div`
-  width: 50%;
-  height: 15px;
-  border-radius: 30px;
-  background-color: #F97B22;
-
-  p {
-    width: 50%;
-    position: absolute;
-    left: 80px;
-  }
-`
-const ScheduleBartwo = styled.div`
-  width: 50%;
-  height: 15px;
-  border-radius: 30px;
-  background-color: #E76161;
-  margin-top: 10px;
-
-  p {
-    width: 50%;
-    position: absolute;
-    left: 80px;
-  }
-`
-
 const CalendarContainer = styled.div`
-  width: 82%;
-  height: 870px;
+  width: 100%;
+  padding-bottom: 40px;
   background-color: #ffff;
   position: relative;
-  top: 50px;
   margin: auto;
-  border: 4px solid #FBB04C;
+  top: 10px;
+  border: 2px solid #696ea6;
+  box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
+`
+const BarBox = styled.div`
+  width: 210px;
+  position: relative;
+  margin-left: 800px;
+  margin-top: 12px;
+`
+const ScheduleBarone = styled.div`
+  width: 100px;
+  height: 15px;
+  border-radius: 30px;
+  background-color: #4a42e4d4;
+  position: relative;
+
+  p {
+    width: 50px;
+    margin-left: 110px;
+  }
+`
+const ScheduleBartwo = styled(ScheduleBarone)`
+  background-color: #8696FE;
+  margin-top: 10px;
 `
 const CalendarBox = styled.div`
   width: 90%;
@@ -100,18 +140,15 @@ const CalendarBox = styled.div`
   margin: 0 auto;
   height: 80%;
   top: 20px;
-  background-color: #fdfbff;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
 
   .fc-theme-standard .fc-scrollgrid {
     width: 100%;
-    position: absolute;
-    background-color: #fcfafe;
     border-radius: 10px;
     border: none;
   }
-  
+
   .fc-header-toolbar {
     width: 100%;
     position: relative;
@@ -122,32 +159,25 @@ const CalendarBox = styled.div`
   .fc .fc-toolbar-title {
     position: absolute;
     margin: auto;
-    color:#FBB04C;
+    color: #0815a6;
     max-width: 30%;
     left: 40%;
     top: 20px;
   }
 
-  .fc-event-title fc-sticky{
+  .fc-event-title fc-sticky {
     padding: 2px;
   }
 
-  .fc-h-event{
+  .fc .fc-button-primary {
     border: none;
-    background-color: #c9aae6;
-    margin-top: 2px;
-    border-radius: 5px;
-  }
-
-  .fc .fc-button-primary{
-    border: none;
-    background-color: #FBB04C;
+    background-color:#1C3879;
     position: relative;
     top: 15px;
     margin-right: 18px;
   }
 
-  .fc-button-group{
+  .fc-button-group {
     position: absolute;
     border: 0;
     outline: 0;
@@ -160,12 +190,12 @@ const CalendarBox = styled.div`
     right: 20px;
     font-size: 17px;
     font-weight: bold;
-    color:#FBB04C;
-    margin-right: 10px;
+    color: #0815a6;
+    margin-right: 15px;
   }
 
-  .fc-col-header-cell-cushion{
-    color:#FBB04C;
+  .fc-col-header-cell-cushion {
+    color: #0815a6;
     width: 90%;
     height: 50px;
     font-size: 18px;
@@ -173,37 +203,45 @@ const CalendarBox = styled.div`
     font-weight: bold;
   }
 
-  /* 요일 행 */
-  .fc .fc-scrollgrid-section table {
-    height: 11px;
+  table .fc-scrollgrid-sync-table {
+    width: 538px;
+    height: 700px;
   }
 
-/* border값 초기화 */
-  .fc-theme-standard th, .fc-theme-standard td {
+  /* border값 초기화 */
+  .fc-theme-standard th,.fc-theme-standard td {
     border: 0px;
   }
 
   .fc .fc-daygrid-day-top {
-    //position: relative;
+    position: relative;
     right: 60px;
   }
-
-  .fc .fc-scroller-liquid-absolute {
-    position: relative;
-  }
-
-  div > .fc-daygrid-day-frame.fc-scrollgrid-sync-inner{
-    height: max-content;
-    display: flex;
-    position: relative;
-    overflow: hidden;
-  } 
-
-  .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
-    background-color: yellow;
-  }
-
-  .fc-event-time{
+  
+ 
+  .fc-event-time {
     display: none;
   }
 `
+
+const CustomEvent = styled.div`
+  border: none;
+  font-size: 15px;
+  overflow: hidden;
+  width: 100%;
+  height: 20px;
+  padding: 4px;
+  margin-top: 2px;
+  margin: auto;
+  border-radius: 3px;
+  color:#ffff;
+  border: none;
+  background-color: ${({ title}) => ( title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE')};
+`;
+
+
+const Outermost = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
