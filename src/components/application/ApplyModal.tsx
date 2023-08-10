@@ -2,10 +2,17 @@ import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react';
-import  {CategoryBox}  from './section/Data';
 import { applyAnnual } from 'api/index';
+import { CategoryBox } from 'constants/index';
 
-export const ModalSubmit = ({close, selectedDate, setSelectedDate, searchData}) => {
+export const AnnualModal = ({
+  close, 
+  selectedDate, 
+  setSelectedDate, 
+  searchData, 
+  data, 
+  username
+  }) => {
 
   const SubmitText = {
     ApplyAnnual:'연차 신청',
@@ -13,10 +20,10 @@ export const ModalSubmit = ({close, selectedDate, setSelectedDate, searchData}) 
     SelectReason:'사유선택'
   }
 
-  const [startDate, setStartDate] = useState(selectedDate || new Date());
+  const [startDate] = useState(selectedDate || new Date());
   const [endDate, setEndDate] = useState(selectedDate || new Date());
-  const [getReason, setReason] = useState("병가")
-  const [ViewData, setViewData] = useState({
+  const [getReason, setReason] = useState("연차")
+  const [ViewData] = useState({
     startDate: '',
     endDate: '',
     reason:''
@@ -29,10 +36,28 @@ export const ModalSubmit = ({close, selectedDate, setSelectedDate, searchData}) 
   }
 
   const submitButton = () => {
+    selectedDate.setHours(9, 0, 0, 0);
+    const isDuplicateDate = data.filter((item) => {
+      console.log(item)
+      const startDay = item.start;
+      const endDay = item.end;
+      startDay.setHours(9,0,0,0)
+      endDay.setHours(9,0,0,0)
+      endDate.setHours(9,0,0,0)
 
-    console.log(getReason);
-  
-    //현재 선택한 날짜에 사용자가 등록했는지 중복체크 
+      if (
+        endDate >= startDay && endDate <= endDay
+        && item.username === username
+      ) {
+        return item;
+      }
+    });
+
+    if (isDuplicateDate.length > 0) {
+      alert("이미 해당 날짜에 신청한 연차가 존재합니다.");
+      return false;
+    }
+    
     const updatedData = {
       ...ViewData,
       startDate: UTCchangeKST(startDate),
@@ -56,8 +81,7 @@ export const ModalSubmit = ({close, selectedDate, setSelectedDate, searchData}) 
       const response = await applyAnnual(updatedData)
       if (response.status === 200) {
         alert('연차가 신청 되었습니다.')
-        //onSearch(updatedData.date)
-        searchData('re');
+        searchData();
         close();
       } else {
         alert('등록 실패했습니다. 관리자에게 문의하세요.')
@@ -125,13 +149,13 @@ export const ModalSubmit = ({close, selectedDate, setSelectedDate, searchData}) 
 const ModalContent = styled.div`
   width: 400px;
   background-color: #ffff;
-  position: absolute;
-  top: 150px;
+  position: relative;
+  top: 200px;
   z-index:100;
-  left: 0;
-  right: 0;
+  left: -90px;
+  right: 0px;
   margin: auto;
-  border: 2px solid #FBB04C;
+  border: 2px solid #696ea6;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
 `
@@ -172,7 +196,6 @@ const PickDate = styled.div`
 const DateContainer = styled.div`
   width: 230px;
   height: 50px;
-  /* background-color: red; */
   margin-top: 30px;
   display: flex;
   gap: 30px;
@@ -189,7 +212,7 @@ const DateContainer = styled.div`
       height: 40px;
       padding: 10px;
       font-family: 'LINESeedKR-Bd';
-      background-color: #FBB04C;
+      background-color: #a8a3e29a;
       border-radius: 5px;
       border: none;
       cursor: pointer;
@@ -207,7 +230,7 @@ const XbuttonBox = styled.button`
   top: -10px;
   right: 10px;
   z-index: 100;
-  border: 2px solid #FBB04C;
+  border: 2px solid #696ea6;
   background-color: #ffff;
 ` 
 const PickReason = styled.div`
@@ -227,7 +250,7 @@ const Selectbox = styled.select`
   width: 100%;
   background-color: #fefefe;
   padding: 10px;
-  border: 2px solid #FBB04C;
+  border: 2px solid #999fe3;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
 `
@@ -239,7 +262,7 @@ const Register = styled.button`
   top: 30px;
   margin-left: 80px;
   padding-bottom: 10px;
-  background-color: #FBB04C;
+  background-color: #a8a3e29a;
   border: none ;
   border-radius: 10px;
   font-weight: bold;

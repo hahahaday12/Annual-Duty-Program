@@ -4,7 +4,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react';
 import { applyDuty } from 'api/index';
 
-export const DuttyModal = ({close, selectedDate, setSelectedDate, searchData}) => {
+export const DuttyModal = ({
+  close, 
+  selectedDate, 
+  setSelectedDate, 
+  searchData, 
+  data, 
+  username}) => {
 
   const SubmitText = {
     ApplyDutty:'당직 신청',
@@ -20,10 +26,24 @@ export const DuttyModal = ({close, selectedDate, setSelectedDate, searchData}) =
 
 
   const submitButton = () => {  
-    //현재 선택한 날짜에 사용자가 등록했는지 중복체크 
+    const isDuplicateDate = data.filter((item) => {
+      const itemDay = item.date;
+      itemDay.setHours(9,0,0,0);
+      selectedDate.setHours(9, 0, 0, 0);
+      if (
+        selectedDate.getTime() === itemDay.getTime()
+        && item.username === username
+      ) {
+        return item;
+      }
+   });
+    if (isDuplicateDate.length > 0) {
+      alert("이미 해당 날짜에 신청한 연차가 존재합니다.");
+      return false;
+    }
     const updatedData = {
       ...ViewData,
-      dutyDate: dutyDate
+      dutyDate: UTCchangeKST(dutyDate)
     }
 
     if (confirm('당직 신청 하시겠습니까?')) {
@@ -31,12 +51,18 @@ export const DuttyModal = ({close, selectedDate, setSelectedDate, searchData}) =
     }
   }
 
+  const UTCchangeKST = (date) => {
+    let krDate = new Date(date);
+    krDate.setHours(krDate.getHours() + 9);
+    return krDate.toISOString();
+  };
+
   const sendReg = async (updatedData: any) => {
     try {
       const response = await applyDuty(updatedData)
       if (response.status === 200) {
         alert('당직이 신청 되었습니다.')
-        searchData('re');
+        searchData();
         close();
       } else {
         alert('신청 실패했습니다. 관리자에게 문의하세요.')
