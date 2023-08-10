@@ -23,7 +23,7 @@ const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
 const host =
   window.location.hostname === 'localhost'
     ? import.meta.env.VITE_BASE_URL
-    : 'api'
+    : '/proxy'
 
 // Authorization 설정이 없는 일반 사용자 API용 Instance
 export const baseInstance: AxiosInstance = axios.create({
