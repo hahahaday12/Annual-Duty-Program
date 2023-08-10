@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import { SignInForm } from 'components/form/index'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import Title from 'assets/service-title.png'
+import Title from 'assets/main.png'
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -38,9 +38,9 @@ const SignInWrapper = styled.div`
 
   ${ServiceImage} {
     position: absolute;
-    top: 50px;
-    width: 275px;
-    height: 75px;
+    top: -200px;
+    width: 400px;
+    height: 400px;
     z-index: 1;
   }
 `
@@ -62,7 +62,7 @@ const SignInContainer = styled.div`
   background-color: white;
   margin: auto;
   position: absolute;
-  top: 0;
+  top: 190px;
   bottom: 0;
   left: 0;
   right: 0;
