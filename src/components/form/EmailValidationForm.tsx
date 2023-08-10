@@ -39,6 +39,8 @@ export const EmailValidationForm = ({
     }
   }
 
+  const ValidationProps = [setEmail, email, title, ph, null, 'text']
+
   return (
     //코드 더러움 수정 필요
     <ValidationFormWrapper>
@@ -50,13 +52,7 @@ export const EmailValidationForm = ({
             mail
           </span>
         </i>
-        <InputField
-          fn={setEmail}
-          val={email}
-          title={title}
-          ph={ph}
-          inputRef={null}
-          type={'text'}></InputField>
+        <InputField fieldProps={ValidationProps} />
       </label>
     </ValidationFormWrapper>
   )

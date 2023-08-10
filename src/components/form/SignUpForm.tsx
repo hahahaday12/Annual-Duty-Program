@@ -25,6 +25,31 @@ export const SignUpForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const nameProps = [
+    setName,
+    name,
+    signupTexts.username,
+    signupTexts.usernameText,
+    inputRef,
+    'text'
+  ]
+  const passwordProps = [
+    setPassword,
+    password,
+    signupTexts.password,
+    signupTexts.pwdText,
+    null,
+    'password'
+  ]
+  const verificationProps = [
+    setVerification,
+    verification,
+    signupTexts.passwordCheck,
+    signupTexts.pwdCheckText,
+    null,
+    'password'
+  ]
+
   useEffect(() => {
     inputRef?.current?.focus()
   }, [])
@@ -33,7 +58,7 @@ export const SignUpForm = () => {
     e.preventDefault()
     try {
       // 유저 입력 데이터들 부재시
-      if (!(email && password && startDate && name)) {
+      if (!(email && password === verification && startDate && name)) {
         alert(`${signupTexts.requiredData}`)
         return
       }
@@ -49,7 +74,8 @@ export const SignUpForm = () => {
         username: name
       })
       // 회원가입 성공시 로그인 화면으로 이동
-      if (res.status === 200) {
+      if (res.status === 204) {
+        alert(`${signupTexts.success}`)
         navigate('/')
         return
       }
@@ -62,17 +88,8 @@ export const SignUpForm = () => {
   }
 
   return (
-    <StyledForm
-      method="post"
-      // action='HOST URL'
-    >
-      <InputField
-        fn={setName}
-        val={name}
-        title={signupTexts.username}
-        ph={signupTexts.usernameText}
-        inputRef={inputRef}
-        type={'text'}></InputField>
+    <StyledForm method="post">
+      <InputField fieldProps={nameProps} />
       <EmailValidationForm
         setEmail={setEmail}
         email={email}
@@ -80,20 +97,8 @@ export const SignUpForm = () => {
         ph={signupTexts.emailText}
         setIsEmailInUse={setIsEmailInUse}
       />
-      <InputField
-        fn={setPassword}
-        val={password}
-        title={signupTexts.password}
-        ph={signupTexts.pwdText}
-        inputRef={null}
-        type={'password'}></InputField>
-      <InputField
-        fn={setVerification}
-        val={verification}
-        title={signupTexts.passwordCheck}
-        ph={signupTexts.pwdCheckText}
-        inputRef={null}
-        type={'password'}></InputField>
+      <InputField fieldProps={passwordProps} />
+      <InputField fieldProps={verificationProps} />
       <DatePickerForm
         date={startDate}
         setDate={setStartDate}

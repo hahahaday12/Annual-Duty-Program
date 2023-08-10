@@ -1,15 +1,15 @@
 import { styled } from 'styled-components'
 
-export const InputField = ({ inputRef, title, ph, fn, val, type }) => {
+export const InputField = ({ fieldProps }) => {
   return (
     <>
-      <TitleText>{title}</TitleText>
+      <TitleText>{fieldProps[2]}</TitleText>
       <Input
-        onChange={e => fn(e.target.value)}
-        value={val}
-        placeholder={ph}
-        ref={inputRef}
-        type={type}></Input>
+        onChange={e => fieldProps[0](e.target.value)}
+        value={fieldProps[1]}
+        placeholder={fieldProps[3]}
+        ref={fieldProps[4]}
+        type={fieldProps[5]}></Input>
     </>
   )
 }

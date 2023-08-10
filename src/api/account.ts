@@ -26,17 +26,26 @@ export const checkEmailAvailable = async (email: string) => {
   return res.data
 }
 
-//정보 수정(update) -- auth
-export const updateProfile = async (profile: string, password: string) => {
-  const res = await authInstance.post('/update', {
-    profile: profile,
-    password: password
-  })
-  return res.data
-}
-
 //비밀번호 재설정(이메일 전송) -- base
 export const resetPassword = async (email: string) => {
   const res = await baseInstance.post('/findPassword', { email: email })
+  return res.data
+}
+
+// 유저 상세정보 -- auth
+export const getUserInfo = async () => {
+  const res = await authInstance.get('/info')
+  return res.data
+}
+
+//정보 수정(update) -- auth
+export const updateUserInfo = async (
+  profileImage: string,
+  password: string
+) => {
+  const res = await authInstance.post('/update', {
+    profileImage: profileImage,
+    password: password
+  })
   return res.data
 }

@@ -43,12 +43,14 @@ export const Home = () => {
       <Boards>
         <AnnualBoard>
           <div className="list-title">{texts.annual}</div>
+          {/* 연차신청현황 들어갈 부분 */}
         </AnnualBoard>
         <DutyBoard>
           <div className="list-title">{texts.duty}</div>
+          {/* 당직신청현황 들어갈 부분 */}
         </DutyBoard>
       </Boards>
-      <CalendarBoard></CalendarBoard>
+      <CalendarBoard>{/* 달력 들어갈 부분 */}</CalendarBoard>
     </>
   )
   //기존 작업 레이아웃, 주석 해제 후 영역 맞춰 삽입

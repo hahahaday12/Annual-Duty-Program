@@ -1,10 +1,28 @@
 import { styled } from 'styled-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Title from 'assets/service-title.png'
-import { links } from 'constants/index'
-import { useCallback } from 'react'
+import { links, headerText } from 'constants/index'
+import { useCallback, useEffect, useState, useContext } from 'react'
+import { getUserInfo } from 'api/index'
+import { AxiosResponse } from 'axios'
+import { ProfileContext } from 'contexts/index'
+import DefaultImage from 'assets/dafault.png'
+
+export interface InfoResponse extends AxiosResponse {
+  response: {
+    email: string
+    hireDate: string
+    profileImage: string
+    remainVacation: number
+    usedVacation: number
+    username: string
+  }
+}
 
 export const Header = () => {
+  const [username, setUsername] = useState<string>('')
+  const { profileImage, setProfileImage } = useContext(ProfileContext)
+
   const navigate = useNavigate()
 
   const searchLinks = links.map(
@@ -25,10 +43,26 @@ export const Header = () => {
     navigate('/')
   }
 
+  //진입시 유저정보 렌더링
+  useEffect(() => {
+    const fetchData = async () => {
+      const res: InfoResponse = await getUserInfo()
+      setUsername(res?.response?.username)
+      if (res?.response?.profileImage === '/image/default.png') {
+        setProfileImage(DefaultImage)
+        return
+      }
+      setProfileImage(res?.response?.profileImage)
+      console.log(res)
+    }
+    fetchData()
+  }, [username])
+
   return (
     <>
       <Outermost>
         <WidthSettler>
+          {/* 컴포넌트 분리?? */}
           <LeftBox>
             <img
               src={Title}
@@ -36,15 +70,22 @@ export const Header = () => {
             />
             {searchLinks}
           </LeftBox>
-          <RightBox>
-            {/* USERINFO */}
-            <div className="image">ICON</div>
-            <div className="info">
-              <div>USERNAME</div>
-              {/* 뒤로가기 예외처리 */}
-              <button onClick={signOut}>LOGOUT</button>
-            </div>
-          </RightBox>
+          {/* 컴포넌트 분리? */}
+          <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
+            <RightBox imageurl={profileImage || ''}>
+              {/* USERINFO */}
+              <div
+                className="image"
+                onClick={() => {
+                  navigate('/profile')
+                }}></div>
+              <div className="info">
+                <div>{username}</div>
+                {/* 뒤로가기 예외처리 */}
+                <button onClick={signOut}>{headerText.signout}</button>
+              </div>
+            </RightBox>
+          </ProfileContext.Provider>
         </WidthSettler>
       </Outermost>
     </>
@@ -93,20 +134,29 @@ const LeftBox = styled.div`
 `
 
 //우측 유저 아이콘 및 정보 영역
-const RightBox = styled.div`
+const RightBox = styled.div<{ imageurl?: string }>`
   display: flex;
   .image {
-    border: 1px solid black;
+    border-radius: 60px;
     width: 60px;
     height: 60px;
     margin-right: 13px;
+    background-image: url(${props => props.imageurl});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
   }
   .info {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    font-weight: bold;
     button {
       all: unset;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
     }
   }
 `
