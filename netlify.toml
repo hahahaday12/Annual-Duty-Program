@@ -1,5 +1,4 @@
 [[redirects]]
-from = "/proxy/*"
-  to = "http://kdtmini5.kr:8080/api/user:splat"  
+from = "/*"
+  to = "/index.html"  
   status = 200
-  force = true
