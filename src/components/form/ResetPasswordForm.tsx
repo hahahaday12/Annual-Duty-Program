@@ -11,7 +11,9 @@ export const ResetPasswordForm = () => {
     e.preventDefault()
     try {
       if (email) {
-        await resetPassword(email)
+        const res = await resetPassword(email)
+        res && alert(`${resetTexts.success}`)
+        return
       }
     } catch (error) {
       console.log(error)
@@ -19,6 +21,15 @@ export const ResetPasswordForm = () => {
   }
 
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const resetProps = [
+    setEmail,
+    email,
+    resetTexts.email,
+    resetTexts.hintText,
+    inputRef,
+    'text'
+  ]
 
   useEffect(() => {
     inputRef?.current?.focus()
@@ -28,17 +39,8 @@ export const ResetPasswordForm = () => {
     <FormWrapper>
       <Title>{resetTexts.title}</Title>
       <HelpText>{resetTexts.helpText}</HelpText>
-      <form
-        method="post"
-        // action="URL"
-      >
-        <InputField
-          fn={setEmail}
-          val={email}
-          title={resetTexts.email}
-          inputRef={inputRef}
-          ph={resetTexts.hintText}
-          type={'text'}></InputField>
+      <form method="post">
+        <InputField fieldProps={resetProps} />
       </form>
       <ResetButton onClick={handlePasswordReset}>
         {resetTexts.reset}

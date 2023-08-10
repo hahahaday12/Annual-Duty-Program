@@ -15,6 +15,8 @@ export const signupTexts = {
   hireDate: '입사날짜',
   emailInUse: '이미 사용중인 이메일입니다.',
   emailAvailable: '사용가능한 이메일입니다.',
-  requiredData: '회원기입에 실패했습니다. 입력항목을 다시 확인해주세요.',
-  validationRequired: '이메일 인증을 진행해주세요.'
+  requiredData: '회원가입에 실패했습니다. 입력항목을 다시 확인해주세요.',
+  validationRequired: '이메일 인증을 진행해주세요.',
+  success:
+    '회원가입신청이 완료되었습니다. 관리자 승인을 기다려주세요. 로그인 화면으로 이동합니다.'
 }

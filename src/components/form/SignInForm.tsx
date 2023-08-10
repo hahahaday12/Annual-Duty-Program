@@ -14,6 +14,23 @@ export const SignInForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const emailProps = [
+    setEmail,
+    email,
+    signinTexts.email,
+    signinTexts.emailPh,
+    inputRef,
+    'text'
+  ]
+  const passwordProps = [
+    setPassword,
+    password,
+    signinTexts.pwd,
+    signinTexts.pwdPh,
+    null,
+    'password'
+  ]
+
   useEffect(() => {
     inputRef?.current?.focus()
   }, [])
@@ -28,33 +45,20 @@ export const SignInForm = () => {
         localStorage.setItem('token', jwtToken as string)
         navigate('/home')
       }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        const error = e.response?.data.error.message
-        alert(error)
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const error = err.response?.data.error.message
+        error && error !== 'Bad credentials'
+          ? alert(error)
+          : alert(signinTexts.alertText)
       }
     }
   }
 
   return (
-    <StyledForm
-      method="post"
-      // action='HOST URL'
-    >
-      <InputField
-        fn={setEmail}
-        val={email}
-        title={signinTexts.email}
-        ph={signinTexts.emailPh}
-        inputRef={inputRef}
-        type={'text'}></InputField>
-      <InputField
-        fn={setPassword}
-        val={password}
-        title={signinTexts.pwd}
-        ph={signinTexts.pwdPh}
-        inputRef={null}
-        type={'password'}></InputField>
+    <StyledForm method="post">
+      <InputField fieldProps={emailProps} />
+      <InputField fieldProps={passwordProps} />
 
       <StyledButton
         onClick={e => {

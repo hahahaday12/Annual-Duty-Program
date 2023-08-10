@@ -1,33 +1,94 @@
 import { styled } from 'styled-components'
-import { UpdateTexts, accountInputs } from 'constants/index'
+import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
-import { useCallback } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { InfoResponse } from 'components/index'
+import { getUserInfo, updateUserInfo } from 'api/index'
+import { useNavigate } from 'react-router-dom'
+import { ProfileContext } from 'contexts/index'
+import DefaultImage from 'assets/dafault.png'
+import { AxiosError } from 'axios'
 
 export const UpdateForm = () => {
-  const modifiers = accountInputs.map(
-    useCallback(
-      ({ title, first, second, phFirst, phSecond }) => (
-        <UpdateInputForm
-          category={title}
-          upper={first}
-          lower={second}
-          phFirst={phFirst}
-          phSecond={phSecond}></UpdateInputForm>
-      ),
-      []
-    )
-  )
+  const navigate = useNavigate()
+  const [email, setEmail] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [verification, setVerification] = useState<string>('')
+  const { profileImage, setProfileImage } = useContext(ProfileContext)
+
+  const nameStates = [email, username]
+  const passwordStates = [password, verification]
+  const passwordFunctions = [setPassword, setVerification]
+
+  const handleCancel = () => {
+    navigate('/home')
+  }
+
+  //등록 버튼
+  const handleSubmit = async () => {
+    try {
+      const checked = password === verification
+      if (!checked) {
+        alert(`${UpdateTexts.verification}`)
+        return
+      }
+      const res = await updateUserInfo(
+        profileImage.replace(/\r?\n?/g, '').trim(),
+        password
+      )
+      const success = res.status === 204
+      if (success) {
+        alert(`${UpdateTexts.success}`)
+        localStorage.removeItem('token')
+        navigate('/')
+        return
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(`${UpdateTexts.failure}`)
+      }
+    }
+  }
+
+  //진입시 유저정보 렌더링
+  useEffect(() => {
+    const fetchData = async () => {
+      const res: InfoResponse = await getUserInfo()
+      setUsername(res?.response?.username)
+      setEmail(res?.response?.email)
+      if (res?.response?.profileImage === '/image/default.png') {
+        setProfileImage(DefaultImage)
+        return
+      }
+      setProfileImage(res?.response?.profileImage)
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
+      {/* SEPERATION => Update.tsx*/}
       <UpdateTitle>{UpdateTexts.update}</UpdateTitle>
       <ProfileContainer>
-        <UpdateImageForm />
-        {modifiers}
+        <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
+          <UpdateImageForm />
+        </ProfileContext.Provider>
+
+        <UpdateInputForm
+          texts={nameTexts}
+          value={nameStates}
+          fn={null}
+        />
+        <UpdateInputForm
+          texts={passwordTexts}
+          value={passwordStates}
+          fn={passwordFunctions}
+        />
       </ProfileContainer>
       <Actions>
-        <button>{UpdateTexts.cancel}</button>
-        <button>{UpdateTexts.confirm}</button>
+        <button onClick={handleCancel}>{UpdateTexts.cancel}</button>
+        <button onClick={handleSubmit}>{UpdateTexts.confirm}</button>
       </Actions>
     </>
   )
@@ -53,8 +114,8 @@ const ProfileContainer = styled.div`
 
 export const BaseRow = styled.div`
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.sectionGrey};
-  &:last-child {
+  border-top: 1px solid ${props => props.theme.colors.sectionGrey};
+  &:first-child {
     border: none;
   }
 `
