@@ -68,7 +68,7 @@ export const AnnualModal = ({
     if (confirm('연차 신청 하시겠습니까?')) {
       sendReg(updatedData)
     }
-    
+
     return
   }
 
@@ -154,9 +154,8 @@ const ModalContent = styled.div`
   position: relative;
   top: 200px;
   z-index:100;
-  left: 90px;
-  right: 0px;
-  margin: auto;
+  left: 370px;
+  right: 100px;
   border: 2px solid #696ea6;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
