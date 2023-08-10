@@ -68,6 +68,8 @@ export const AnnualModal = ({
     if (confirm('연차 신청 하시겠습니까?')) {
       sendReg(updatedData)
     }
+    
+    return
   }
 
   const UTCchangeKST = (date) => {

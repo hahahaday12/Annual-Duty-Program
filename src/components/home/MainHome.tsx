@@ -106,6 +106,7 @@ export const Home =  () => {
         console.log(e);
         alert(`${e} 문의주세요.`);
       }
+      return
   }
 
   const datalist = (datalist) => {

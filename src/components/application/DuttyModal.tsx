@@ -49,6 +49,8 @@ export const DuttyModal = ({
     if (confirm('당직 신청 하시겠습니까?')) {
       sendReg(updatedData)
     }
+  
+    return
   }
 
   const UTCchangeKST = (date) => {
