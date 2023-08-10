@@ -103,6 +103,7 @@ export const Apply =  () => {
         return item;
       }
     }
+    return
   });
 
   console.log(dupuleData)
@@ -131,6 +132,8 @@ export const Apply =  () => {
     });
     setSelectedModal(selectedButton === 'ANNUAL' ? 'ANNUAL_MODAL' : 'DUTY_MODAL');
     setSelectedDate(dateSelect);
+    
+    return
   };
 
   const CloseModal = () => {
