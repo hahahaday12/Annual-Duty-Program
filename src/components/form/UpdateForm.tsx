@@ -23,10 +23,21 @@ export const UpdateForm = () => {
   const handleCancel = () => {
     navigate('/home')
   }
-  //페이지종합 수정 로직
-  const handleSubmit = () => {
-    if (password === verification) {
-      updateUserInfo(profileImage.replace(/\r?\n?/g, '').trim(), password)
+
+  //등록 버튼
+  const handleSubmit = async () => {
+    if (!(password === verification)) {
+      alert(`${UpdateTexts.verification}`)
+      return
+    }
+    const res = await updateUserInfo(
+      profileImage.replace(/\r?\n?/g, '').trim(),
+      password
+    )
+    if (res.status === 204) {
+      alert(`${UpdateTexts.success}`)
+      localStorage.removeItem('token')
+      navigate('/')
     }
   }
 

@@ -6,7 +6,8 @@ export const AccountInputs = ({
   phFirst,
   phSecond,
   value,
-  fn
+  fn,
+  type
 }) => {
   return (
     <div>
@@ -16,14 +17,16 @@ export const AccountInputs = ({
         <StyledInput
           placeholder={phFirst}
           value={value[0]}
-          onChange={e => fn[0](e.target.value)}></StyledInput>
+          onChange={e => fn[0](e.target.value)}
+          type={type}></StyledInput>
       </InputRow>
       <InputRow>
         <StyledSpan>{lower}</StyledSpan>
         <StyledInput
           placeholder={phSecond}
           value={value[1]}
-          onChange={e => fn[1](e.target.value)}></StyledInput>
+          onChange={e => fn[1](e.target.value)}
+          type={type}></StyledInput>
       </InputRow>
     </div>
   )
