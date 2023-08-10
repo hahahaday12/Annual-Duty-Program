@@ -1,1 +1,1 @@
-/api/* http://kdtmini5.kr:8080/api/user/:splat 200
+/api/* https://api.kdtmini5.kr/api/user:splat 200
