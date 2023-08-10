@@ -20,14 +20,9 @@ const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
   return instance
 }
 
-const host =
-  window.location.hostname === 'localhost'
-    ? import.meta.env.VITE_BASE_URL
-    : 'api'
-
 // Authorization 설정이 없는 일반 사용자 API용 Instance
 export const baseInstance: AxiosInstance = axios.create({
-  baseURL: host
+  baseURL: 'https://api.kdtmini5.kr/api/user'
 })
 
 // Authorization 설정이 추가된 로그인한 사용자 API용 Instance --유저 API 에서 공통적으로 사용할 인스턴스
