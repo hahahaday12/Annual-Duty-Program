@@ -1,7 +1,7 @@
 
 interface ItemUsername {
   username: string;
-  status: 'PENDING' | 'APPROVE' | 'REJECT';
+  status: 'PENDING' | 'APPROVE' | 'REJECT' | 'CANCELLED';
 }
 
 export const getTitleWithStatus = (item: ItemUsername): any => {
@@ -13,6 +13,8 @@ export const getTitleWithStatus = (item: ItemUsername): any => {
         return `${item.username} (승인 완료)`;
       case 'REJECT':
         return `${item.username} (승인 거절)`;
+      case 'CANCELLED':
+      return `${item.username} (승인 취소)`;
       default:
         return item.username;
     }
