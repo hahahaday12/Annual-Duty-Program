@@ -110,10 +110,10 @@ const ModalContent = styled.div`
   position: absolute;
   top: 300px;
   z-index:100;
-  left: 150px;
-  right: 0px;
+  left: 0px;
+  right: 200px;
   margin: auto;
-  border: 2px solid #FBB04C;
+  border: 2px solid #696ea6;
   border-radius: 10px;
   font-family: 'LINESeedKR-Bd';
 `
@@ -122,7 +122,6 @@ const Centerbox = styled.div`
   width: 90%;
   margin: auto;
   position: relative;
-  background-color: beige;
   padding-bottom: 110px;
 `
 
@@ -158,7 +157,7 @@ const DateContainer = styled.div`
       height: 40px;
       padding: 10px;
       font-family: 'LINESeedKR-Bd';
-      background-color: #FBB04C;
+      background-color: #a8a3e29a;
       border-radius: 5px;
       border: none;
       cursor: pointer;
@@ -175,7 +174,7 @@ const XbuttonBox = styled.button`
   top: -10px;
   right: 10px;
   z-index: 100;
-  border: 2px solid #FBB04C;
+  border: 2px solid #696ea6;
   background-color: #ffff;
 ` 
 
@@ -185,7 +184,7 @@ const Register = styled.button`
   position: relative;
   top: 70px;
   left: 80px;
-  background-color: #FBB04C;
+  background-color: #a8a3e29a;
   border: none ;
   border-radius: 10px;
   font-weight: bold;

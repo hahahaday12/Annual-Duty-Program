@@ -152,7 +152,7 @@ const ModalContent = styled.div`
   position: relative;
   top: 200px;
   z-index:100;
-  left: -90px;
+  left: 90px;
   right: 0px;
   margin: auto;
   border: 2px solid #696ea6;
@@ -164,14 +164,12 @@ const Centerbox = styled.div`
   width: 90%;
   margin: auto;
   position: relative;
-  //background-color: beige;
   padding-bottom: 80px;
 `
 
 const ModalHeader = styled.p`
   width: 100%;
   display: flex;
-  //background-color: pink;
   margin: auto;
   font-size: 25px;
   font-weight: bold;
@@ -181,13 +179,11 @@ const ModalHeader = styled.p`
   p {
     width: 30%;
     position: relative;
-    //background-color: aliceblue;
     margin: auto;
   }
 `
 const PickDate = styled.div`
     width: 20%;
-    //background-color: aliceblue;
     position: relative;
     top: 20px;
     margin: auto;
