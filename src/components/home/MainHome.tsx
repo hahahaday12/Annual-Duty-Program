@@ -4,6 +4,7 @@ import { AllDataList } from './index';
 import { DeleteAnnualList, DeleteDutyList } from 'api/index';
 import { useEffect, useState } from 'react';
 import { MyAnnualList, MyDutyList, ExcelAnnualList, ExcelDutyList,UserInfoList } from 'api/index';
+import { convertStatusToText } from 'components/custom/index';
 import { ExcelCategory } from 'constants/index';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { IoReload } from 'react-icons/io5'
@@ -169,7 +170,7 @@ export const Home =  () => {
         {datalist(annualDataList).map((item:Item) => (
           <AuualList key={item.id}>
             <h2>📌 {extractDate(item.startDate)} ~ {extractDate(item.endDate)}</h2>
-            <StatusBox>{item.status}</StatusBox>
+            <StatusBox>{convertStatusToText(item.status)}</StatusBox>
             <CancelBox onClick={() => deleteButton('연차', item.id)}>취소</CancelBox>
           </AuualList>
         ))}
@@ -182,7 +183,7 @@ export const Home =  () => {
         {datalist(dutyDataList).map((el) => (
             <DutyList key={el.id}>
               <h2>📌 {extractDate(el.dutyDate)}</h2>
-              <StatusBox>{el.status}</StatusBox>
+              <StatusBox>{convertStatusToText(el.status)}</StatusBox>
               <CancelBox onClick={() => deleteButton('당직', el.id)}>취소</CancelBox>
             </DutyList>
           ))}
@@ -382,19 +383,20 @@ const AuualList = styled.div`
   }
 `
 const StatusBox = styled.div`
-  width: 80px;
+  width: 70px;
   border-radius: 5px;
   background-color: gray;
   position: absolute;
   right: 110px;
   font-size: 12px;
   padding: 8px;
+  padding-left: 13px;
   color: #ffff;
 `
 const CancelBox = styled(StatusBox)`
   right: 20px;
   background-color: #212A3E;
-  padding-left: 30px;
+  padding-left: 25px;
 `
 
 const DutyListBox = styled(AuualListBox)`
