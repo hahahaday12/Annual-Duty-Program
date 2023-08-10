@@ -14,6 +14,7 @@ export const UpdateInputForm = ({ texts, value, fn }) => {
           phSecond={texts[4]}
           value={value}
           fn={fn}
+          type={texts[5]}
         />
       </AccountRow>
     </>

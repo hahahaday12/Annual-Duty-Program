@@ -3,6 +3,7 @@ import { UpdateTexts } from 'constants/index'
 import { useRef, useContext } from 'react'
 import { BaseRow, BaseCol } from 'components/index'
 import { ProfileContext } from 'contexts/index'
+import DefaultImage from 'assets/dafault.png'
 
 export const UpdateImageForm = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -34,7 +35,7 @@ export const UpdateImageForm = () => {
 
   const handleRemoveImage = () => {
     if (profileImage) {
-      setProfileImage('')
+      setProfileImage(DefaultImage)
     }
   }
 
