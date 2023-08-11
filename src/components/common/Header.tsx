@@ -118,15 +118,15 @@ const LeftBox = styled.div`
   display: flex;
   align-items: center;
   img {
-    width: 159px;
-    height: 43px;
+    width: 200px;
+    height: 200px;
     margin-right: 20px;
     cursor: pointer;
   }
   a {
     color: black;
     font-family: 'LINESeedKR-Bd';
-    margin: 0 30px;
+    margin: 0 20px;
     white-space: pre;
   }
   .active {

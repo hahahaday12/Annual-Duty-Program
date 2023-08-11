@@ -132,6 +132,7 @@ export const BaseCol = styled.div`
 const Actions = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
   button {
     all: unset;
     cursor: pointer;

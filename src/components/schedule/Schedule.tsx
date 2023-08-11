@@ -1,95 +1,101 @@
 import styled from 'styled-components'
-import FullCalendar from "@fullcalendar/react"; 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from '@fullcalendar/interaction'; 
-import { useEffect, useState, useRef } from 'react';
-import { MyAnnualList, MyDutyList } from 'api/index';
-import { getMyTitleWithStatus} from '../custom/index';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import { useEffect, useState, useRef } from 'react'
+import { MyAnnualList, MyDutyList } from 'api/index'
+import { getMyTitleWithStatus } from '../custom/index'
 
-export const Schedule =  () => {
-
-  const [CalDate, setCalDate] = useState<number>(2023);
-  const calendarRef = useRef<FullCalendar | null>(null);
-  const [viewDrow, setViewDrow] = useState([{
-    title:""
-    ,start: ""
-    ,end: ""
-    ,status:""
-    ,type : ""
-  }]);
+export const Schedule = () => {
+  const [CalDate, setCalDate] = useState<number>(2023)
+  const calendarRef = useRef<FullCalendar | null>(null)
+  const [viewDrow, setViewDrow] = useState([
+    {
+      title: '',
+      start: '',
+      end: '',
+      status: '',
+      type: ''
+    }
+  ])
 
   useEffect(() => {
     MyAnnualList(CalDate.toString())
-      .then((data) => {
-        const returnDatalist = data.data.response;
-        const modifiedReturnDatalist = returnDatalist.map((item) => ({
+      .then(data => {
+        const returnDatalist = data.data.response
+        const modifiedReturnDatalist = returnDatalist.map(item => ({
           title: getMyTitleWithStatus(item),
           start: new Date(item.startDate).toISOString(),
           end: new Date(item.endDate).toISOString(),
-          type: "ANNUAL"
-        }));
+          type: 'ANNUAL'
+        }))
         console.log(data)
-        setViewDrow(modifiedReturnDatalist);
-        return MyDutyList(CalDate.toString()); // MyDutyList 호출을 return 합니다.
+        setViewDrow(modifiedReturnDatalist)
+        return MyDutyList(CalDate.toString()) // MyDutyList 호출을 return 합니다.
       })
-      .then((data) => {
-        const returnDatalist = data.data.response;
+      .then(data => {
+        const returnDatalist = data.data.response
         const modifiedReturnDatalist = returnDatalist.map(item => ({
           ...item,
           title: getMyTitleWithStatus(item),
           date: new Date(item.dutyDate),
-          type: "DUTY"
-        }));
-        setViewDrow(prevViewDrow => [...prevViewDrow ,...modifiedReturnDatalist]); // 이전의 viewDrow state를 활용하여 업데이트합니다.
+          type: 'DUTY'
+        }))
+        setViewDrow(prevViewDrow => [
+          ...prevViewDrow,
+          ...modifiedReturnDatalist
+        ]) // 이전의 viewDrow state를 활용하여 업데이트합니다.
       })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  
-  },[CalDate]);
+      .catch(error => {
+        console.error('Error fetching data:', error)
+      })
+  }, [CalDate])
 
   const eventContent = ({ event }) => {
-    
-    return ( 
+    return (
       <CustomEvent title={event._def.extendedProps.type}>
         {event.title}
       </CustomEvent>
-    );
-  };
+    )
+  }
 
   const handleDatesSet = () => {
     if (calendarRef.current) {
-      const calendarApi = calendarRef.current.getApi();
-      const date = calendarApi.getDate();
-      const year = date.getFullYear();
+      const calendarApi = calendarRef.current.getApi()
+      const date = calendarApi.getDate()
+      const year = date.getFullYear()
       if (year !== CalDate) {
-        setCalDate(year);
+        setCalDate(year)
       }
     }
-  };
+  }
 
-  return(
+  return (
     <Outermost>
       <Rectangle>
-      <BarBox>
-        <ScheduleBarone><p>연차</p></ScheduleBarone>
-        <ScheduleBartwo><p>당직</p></ScheduleBartwo>
-      </BarBox>
-      <CalendarContainer>
-      <CalendarBox>  
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView='dayGridMonth'
-          events={viewDrow as unknown as EventInit[]}
-          timeZone="Asia/Seoul"
-          eventContent={eventContent}
-          datesSet={handleDatesSet}
-          ref={calendarRef}
-          dayMaxEvents= {true}
-          locale={"ko"} 
-        />
-      </CalendarBox>
-      </CalendarContainer>
+        <BarBox>
+          <ScheduleBarone>
+            <p>연차</p>
+          </ScheduleBarone>
+          <ScheduleBartwo>
+            <p>당직</p>
+          </ScheduleBartwo>
+        </BarBox>
+        <CalendarContainer>
+          <CalendarBox>
+            <FullCalendar
+              plugins={[dayGridPlugin, interactionPlugin]}
+              initialView="dayGridMonth"
+              events={viewDrow as unknown as EventInit[]}
+              timeZone="Asia/Seoul"
+              eventContent={eventContent}
+              datesSet={handleDatesSet}
+              ref={calendarRef}
+              dayMaxEvents={true}
+              locale={'ko'}
+            />
+          </CalendarBox>
+        </CalendarContainer>
       </Rectangle>
     </Outermost>
   )
@@ -98,6 +104,7 @@ export const Schedule =  () => {
 const Rectangle = styled.div`
   width: 1060px;
   height: 600px;
+  /* margin-bottom: 40px; */
   border-radius: 10px;
   margin: 24px 0;
 `
@@ -108,7 +115,7 @@ const CalendarContainer = styled.div`
   position: relative;
   margin: auto;
   top: 10px;
-  border: 2px solid #696ea6;
+  /* border: 2px solid #696ea6; */
   box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
 `
@@ -131,7 +138,7 @@ const ScheduleBarone = styled.div`
   }
 `
 const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #8696FE;
+  background-color: #8696fe;
   margin-top: 10px;
 `
 const CalendarBox = styled.div`
@@ -171,7 +178,7 @@ const CalendarBox = styled.div`
 
   .fc .fc-button-primary {
     border: none;
-    background-color:#1C3879;
+    background-color: #1c3879;
     position: relative;
     top: 15px;
     margin-right: 18px;
@@ -209,7 +216,8 @@ const CalendarBox = styled.div`
   }
 
   /* border값 초기화 */
-  .fc-theme-standard th,.fc-theme-standard td {
+  .fc-theme-standard th,
+  .fc-theme-standard td {
     border: 0px;
   }
 
@@ -217,8 +225,7 @@ const CalendarBox = styled.div`
     position: relative;
     right: 60px;
   }
-  
- 
+
   .fc-event-time {
     display: none;
   }
@@ -234,14 +241,13 @@ const CustomEvent = styled.div`
   margin-top: 2px;
   margin: auto;
   border-radius: 3px;
-  color:#ffff;
+  color: #ffff;
   border: none;
-  background-color: ${({ title}) => ( title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE')};
-`;
-
+  background-color: ${({ title }) =>
+    title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE'};
+`
 
 const Outermost = styled.div`
   display: flex;
   flex-direction: column;
 `
-
