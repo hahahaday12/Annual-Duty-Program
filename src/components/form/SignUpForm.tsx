@@ -52,11 +52,13 @@ export const SignUpForm = () => {
 
   useEffect(() => {
     inputRef?.current?.focus()
+    console.log(isEmailInUse)
   }, [])
 
   const handleSignUp = async e => {
     e.preventDefault()
     try {
+      console.log(isEmailInUse)
       // 유저 입력 데이터들 부재시
       if (!(email && password === verification && startDate && name)) {
         alert(`${signupTexts.requiredData}`)
@@ -64,6 +66,7 @@ export const SignUpForm = () => {
       }
       // 이메일 중복확인 미완료시
       if (isEmailInUse) {
+        console.log('asdas')
         alert(`${signupTexts.validationRequired}`)
         return
       }

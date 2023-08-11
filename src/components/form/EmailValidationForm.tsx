@@ -22,18 +22,18 @@ export const EmailValidationForm = ({
     try {
       const res: EmailResponse = await checkEmailAvailable(email)
 
-      const inUse = email && res?.response?.available
-
-      // 중복되는 이메일이 없는 경우 (해당 이메일로 가입 가능)
-      if (!inUse) {
-        setIsEmailInUse(false)
+      const available = email && res?.response?.available
+      console.log(available)
+      // 중복되는 이메일이 없는 경우 - response true (해당 이메일로 가입 가능)
+      if (available) {
         alert(`${signupTexts.emailAvailable}`)
+        setIsEmailInUse(false)
         return
       }
 
-      // 중복되는 이메일이 있는 경우 (해당 이메일로 가입 불가능)
-      setIsEmailInUse(true)
+      // 중복되는 이메일이 있는 경우 - response false (해당 이메일로 가입 불가능)
       alert(`${signupTexts.emailInUse}`)
+      setIsEmailInUse(true)
     } catch (err) {
       if (err instanceof AxiosError) {
         console.error(err)
