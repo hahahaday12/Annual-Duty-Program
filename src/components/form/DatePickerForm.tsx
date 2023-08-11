@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { TitleText } from 'components/index'
 import { signupTexts } from 'constants/index'
 import { ko } from 'date-fns/esm/locale'
+import Calendar from 'assets/calendarIcon.png'
 
 export const DatePickerForm = ({ date, setDate }) => {
   //코드 더러움 수정 필요
@@ -13,7 +14,7 @@ export const DatePickerForm = ({ date, setDate }) => {
         <TitleText>{signupTexts.hireDate}</TitleText>
         <label>
           <i>
-            <img src="/src/assets/calendarIcon.png" />
+            <img src={Calendar} />
           </i>
           <DatePicker
             locale={ko}
