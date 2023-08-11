@@ -63,7 +63,7 @@ export const SignUpForm = () => {
         return
       }
       // 이메일 중복확인 미완료시
-      if (!isEmailInUse) {
+      if (isEmailInUse) {
         alert(`${signupTexts.validationRequired}`)
         return
       }
