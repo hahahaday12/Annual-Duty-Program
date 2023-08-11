@@ -110,7 +110,7 @@ const ModalContent = styled.div`
   width: 400px;
   background-color: #ffff;
   position: absolute;
-  top: 300px;
+  top: 250px;
   z-index:100;
   left: 0px;
   right: 200px;
