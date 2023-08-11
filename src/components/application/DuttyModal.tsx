@@ -49,6 +49,8 @@ export const DuttyModal = ({
     if (confirm('당직 신청 하시겠습니까?')) {
       sendReg(updatedData)
     }
+  
+    return
   }
 
   const UTCchangeKST = (date) => {
@@ -108,7 +110,7 @@ const ModalContent = styled.div`
   width: 400px;
   background-color: #ffff;
   position: absolute;
-  top: 300px;
+  top: 250px;
   z-index:100;
   left: 0px;
   right: 200px;

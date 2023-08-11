@@ -103,6 +103,7 @@ export const Apply =  () => {
         return item;
       }
     }
+    return
   });
 
   console.log(dupuleData)
@@ -131,6 +132,8 @@ export const Apply =  () => {
     });
     setSelectedModal(selectedButton === 'ANNUAL' ? 'ANNUAL_MODAL' : 'DUTY_MODAL');
     setSelectedDate(dateSelect);
+    
+    return
   };
 
   const CloseModal = () => {
@@ -255,12 +258,12 @@ export const Apply =  () => {
 
 const ApplyWrapper = styled.div`
   width: 1200px;
+  position: relative;
+  right: 50px;
 `
 
 const Rectangle = styled.div`
-  width: 1300px;
   padding-bottom: 40px;
-  border-radius: 10px;
 `
 const ApplyTitle = styled.div`
   margin-top: 40px;
@@ -271,7 +274,7 @@ const ApplyTitle = styled.div`
 `
 
 const ApplyContainer = styled.div`
-  width: 1309px;
+  width: 1409px;
   position: relative;
   margin: auto;
   top: 50px;
@@ -279,9 +282,10 @@ const ApplyContainer = styled.div`
 `
 const BarBox = styled.div`
   width: 140px;
-  margin-left: 700px;
+  margin-left: 800px;
   position: relative;
   margin-bottom: 10px;
+  font-weight: bold;
 `
 const ScheduleBarone = styled.div`
   width: 100px;

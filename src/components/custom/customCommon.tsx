@@ -33,3 +33,18 @@ export const getMyTitleWithStatus = (item: ItemUsername): string => {
       return `승인대기`;
   }
 };
+
+export const convertStatusToText = (status:string) =>  {
+  switch (status) {
+    case 'PENDING':
+      return '승인대기';
+    case 'APPROVE':
+      return '승인완료';
+    case 'REJECT':
+      return '승인거절';
+    case 'CANCELLED':
+      return '승인취소';
+    default:
+      return status;
+  }
+}
