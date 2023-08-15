@@ -10,6 +10,7 @@
 > <br />
 
 <div align=center><h1>📚 STACKS</h1></div>
+<img src="https://github.com/FastCampus-Mini5/FE-Of-course/assets/101441685/691efc14-430e-4ae4-b93a-5f71c9c89eff"/>
 
 Config  
 <img src="https://img.shields.io/badge/Npm-CB3837?style=flat&logo=npm&CB3837&logoColor=white"/>
