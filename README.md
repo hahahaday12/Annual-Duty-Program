@@ -127,3 +127,205 @@ Deployment
 - 공통
   - 승인시 사용자측에서 승인 확인 가능
   - 거절시 사용자측에서 거절확인 가능
+
+-------------------------------------------------
+
+</div>
+  <div align=center><h1>🖥 페이지 별 화면</h1></div>
+</div>
+  <div align=center><h3>🧙🏻‍♂️ 로그인, 회원가입 페이지 구성</h3></div> 
+  
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/86c4a636-6e00-4c20-803e-fd58b5d89e0f" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 로그인 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/b3c430d9-d7d6-45d8-bb85-078c41831639" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 회원가입 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/f6a1ca67-7338-4f16-bc4a-f417c4b1db2f" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 프로필 수정 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/1cfe99ae-f5c4-4481-a2f8-7d1a6aa1f7f1" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 비밀번호 재설정 페이지
+  </div>
+</th>
+</table>
+
+<br/>
+
+---
+<br/>
+
+</div>
+  <div align=center><h3>🧙🏻‍♀️ Side Bar - 네비게이션 페이지 구성</h3></div> 
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/1cd9afb1-0cfa-44a5-a1c3-27e9bbf15fc0" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 홈 페이지 
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/52ea23ad-8f01-4996-8793-27a72b52a39e" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 연차 신청 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/088b632c-4b33-4f5f-ad35-71d621c1a62a" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 당직 신청 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/ffb2f0e5-ee09-498a-bbe1-56a38ab4b22b" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 내 일정보기 페이지
+  </div>
+</th>
+</table>
+<br/>
+
+---
+<br/>
+
+</div>
+  <div align=center><h3>🧙🏻 관리자 권한 페이지 구성</h3></div> 
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/d72d0d62-03e3-4d44-af5e-9accaf9a8d45" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+관리자 로그인 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/6f9255bb-6f60-4b57-b6bd-47ac654e33d2" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+유저 리스트 페이지 
+  </div>
+</th>
+ </table>
+
+ <table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/8b676bef-7452-425e-9cdd-5cca4a977f57" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+연차 요청 리스트 페이지
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/bd33acb8-cc8f-4bc2-a261-9cb2c26fc5a5" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+연차 리스트 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/0e0df96a-8bbf-419b-90c6-1cd5896cffae" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+당직 요청 리스트 페이지
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/04ea1474-2507-478e-8eb7-84e45147fd2c" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+당직 리스트 페이지
+  </div>
+</th>
+</table>
+
+<br/>
+
+</div>
+  <div align=center><h1> ERD </h1></div> 
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+<img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/b0c29bc1-c8ad-4fba-9f76-3955aa67ef3a" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+     </div>
+  </th>
+<br/>
+
+-------------------------------------------------
+
+📌 담당 기능 설명 <br>
+1) 전체 메인 페이지<br>
+- fullCalendar 연동후 모든 , 연차 당직 데이터 조회<br>
+- 신청 분류에 따른 이벤트 색 표시<br>
+- 내가 신청한 연차 신청 현황 데이터 조회<br>
+- 내가 신청한 당직 신청 현황 데이터 조회<br>
+- 연차 신청 상태 값에 따른 상태값 표시<br>
+- 당직 신청 상태 값에 따른 상태값 표시<br>
+- 연차 신청 취소 클릭시 연차 취소후 fullCalendar 업데이트<br>
+- 당직 신청 취소 클릭시 당직 취소후 fullCalendar 업데이트<br>
+- 엑셀로 다운받기 클릭시 분류(연차, 당직)에 따라 엑셀 다운로드<br>
+- 연차/ 당직 버튼 클릭시 페이지 이동<br>
+- 로드 아이콘 클릭시 화면 리로드<br>
+<br>
+
+2) 내 일정 보기 페이지<br>
+- 현재 신청한 연차, 당직 데이터 조회<br>
+
+3) 연차/ 당직 신청 페이지<br>
+- 연차 신청, 당직 신청 버튼에 따라 데이터 다르게 조회<br>
+- 연차신청 날짜 클릭시 연차 신청 모달 생성<br>
+- 당직신청 날짜 클릭시 당직 모달 생성<br>
+- 날짜 선택시 현재 로컬 날짜 기준 이전 날짜는 선택 불가<br>
+- 모달창에서 날짜 선택후 등록시 조건값에 따라 이미 신청된 날짜 등록 불가.<br>
+<br>
