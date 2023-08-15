@@ -300,9 +300,8 @@ Deployment
 <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/b0c29bc1-c8ad-4fba-9f76-3955aa67ef3a" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
      </div>
   </th>
-<br/>
 
--------------------------------------------------
+-----------------------
 
 📌 담당 기능 설명 <br>
 1) 전체 메인 페이지<br>
