@@ -37,7 +37,7 @@ Deployment
 |                                                 [안중후](https://github.com/hookor)                                                  |                                                 [이정환](https://github.com/fronttemp)                                                  |                                                 [김하은](https://github.com/DevYBecca)
 |                                                          GitHub 팀장<br /> 초기 개발 세팅<br /> 프로필 수정, <br /> 로그인, 회원가입,<br /> Header, 비밀번호 재설정                                                       |                                                        관리자 페이지<br /> (연차/당직 승인 페이지, <br /> 연차/당직 신청 페이지, <br /> 관리자 - 전체 유저 / 회원가입 요청 리스트 페이지 )                                                          |                                                            연차/당직 사용자 페이지<br /> (메인페이지(내가 신청한 당직, 연차 노출/ 전체 유저 일정 노출/ 신청한 연차,당직 취소),<br /> 내 일정보기 페이지, <br /> 연차/당직 신청 페이지)
 
-  <div align=center><h1>🖥 담당 기능 소개</h1></div>
+  <div align=center><h1>🖥 주요 기능</h1></div>
 
 **1️⃣ 유저/관리자 로그인 페이지**
 
