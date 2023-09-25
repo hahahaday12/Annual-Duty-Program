@@ -2,18 +2,13 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { AllDataList } from './index'
 import { DeleteAnnualList, DeleteDutyList } from 'api/index'
-import { useEffect, useState } from 'react'
-import {
-  MyAnnualList,
-  MyDutyList,
-  ExcelAnnualList,
-  ExcelDutyList,
-  UserInfoList
-} from 'api/index'
-import { convertStatusToText } from 'components/custom/index'
-import { ExcelCategory } from 'constants/index'
-import { AiOutlineCheckCircle } from 'react-icons/ai'
+import { useCallback, useEffect, useState, useContext } from 'react'
+import { MyAnnualList, MyDutyList } from 'api/index'
 import { IoReload } from 'react-icons/io5'
+import { ExCelbox } from 'components/index'
+import { AuualContainer } from 'components/index'
+import { DutyContainer } from './duty/dutyContainer'
+
 
 interface Item {
   id: string
@@ -27,33 +22,16 @@ export const Home = () => {
   const [annualDataList, setAnnualDataList] = useState([])
   const [dutyDataList, setDutyDataList] = useState([])
 
-  const [user, SetUser] = useState({
-    remainVacation: ''
-  })
-  const [selectedOption, setSelectedOption] = useState('엑셀로 다운받기')
-
   const navigate = useNavigate()
-
-  useEffect(() => {
-    searchInfo()
-  }, [])
-
-  const searchInfo = () => {
-    UserInfoList().then(data => {
-      const uerData = data.data.response
-      SetUser(uerData)
-    })
-  }
 
   const onChangeClick = () => {
     navigate('/application')
   }
 
-  const searchData = () => {
+  const searchData = useCallback(() => {
     MyAnnualList(CalDate.toString())
       .then(data => {
         const returnDatalist = data.data.response
-        console.log(returnDatalist)
         setAnnualDataList(returnDatalist)
         return MyDutyList(CalDate.toString())
       })
@@ -64,95 +42,65 @@ export const Home = () => {
       .catch(error => {
         console.error('Error fetching data:', error)
       })
-  }
+  }, [CalDate])
 
   useEffect(() => {
     searchData()
   }, [CalDate])
 
   const extractDate = dateString => {
-    const date = dateString.split('T')[0]
-    return date
+    if (dateString) {
+      const date = dateString.split('T')[0]
+      return date
+    }
+    return '' // or handle the case when dateString is undefined
   }
 
-  const deleteButton = (type: string, id: string) => {
-    if (!window.confirm(`${type}를 취소 하시겠습니까?`)) {
-      alert(`취소되었습니다.`)
-      return false
-    }
-
-    try {
-      if (type == '연차') {
-        DeleteAnnualList(id).then(data => {
-          console.log(data.status)
-          if (data.status == 200) {
-            alert(`${type}가 취소되었습니다.`)
-            searchData()
-          } else {
-            alert(`취소가 실패했습니다.`)
-          }
-        })
-      } else {
-        DeleteDutyList(id).then(data => {
-          console.log(data.status)
-          if (data.status == 200) {
-            alert(`${type}가 취소되었습니다.`)
-            searchData()
-          } else {
-            alert(`취소가 실패했습니다.`)
-          }
-        })
+  const deleteButton = useCallback(
+    async (type: string, id: string) => {
+      if (!window.confirm(`${type}를 취소 하시겠습니까?`)) {
+        alert(`취소되었습니다.`)
+        return
       }
-    } catch (e) {
-      console.log(e)
-      alert(`${e} 문의주세요.`)
-    }
-    return
-  }
 
-  const datalist = datalist => {
+      try {
+        let deleteFunction
+        if (type === '연차') {
+          deleteFunction = DeleteAnnualList
+        } else {
+          deleteFunction = DeleteDutyList
+        }
+
+        const response = await deleteFunction(id)
+        if (response.status === 200) {
+          alert(`${type}가 취소되었습니다.`)
+          searchData()
+        } else {
+          alert(`취소가 실패했습니다.`)
+        }
+      } catch (error) {
+        console.error(error)
+        alert(`이미 신청된 연차는 취소할수 없습니다.`)
+      }
+    },
+    [searchData]
+  )
+
+  // const datalist = (datalist) => {
+  //   const filterViewData = datalist.filter(item => {
+  //     if (item.status !== 'CANCELLED') {
+  //       return item
+  //     }
+  //   })
+  //   return filterViewData
+  // }
+
+  const datalist = useCallback(datalist => {
     const filterViewData = datalist.filter(item => {
-      if (item.status !== 'CANCELLED') {
-        return item
-      }
+      return item.status !== 'CANCELLED'
     })
     return filterViewData
-  }
-
-  const handleExcel = async () => {
-    try {
-      if (selectedOption === '연차') {
-        const res = await ExcelAnnualList('2023')
-        const url = window.URL.createObjectURL(new Blob([res.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.download = `연차.xlsx`
-        link.click()
-      } else if (selectedOption === '당직') {
-        const res = await ExcelDutyList('2023')
-        const url = window.URL.createObjectURL(new Blob([res.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.download = `당직.xlsx`
-        link.click()
-      }
-    } catch (error) {
-      console.error('Error fetching or generating Excel data:', error)
-    }
-  }
-
-  const renderBox = () => (
-    <>
-      <option
-        value="excel"
-        selected>
-        엑셀로 다운받기
-      </option>
-      {ExcelCategory.map(item => (
-        <option key={item.id}>{item.name}</option>
-      ))}
-    </>
-  )
+  }, [])
 
   const onClickLoad = () => {
     window.location.reload()
@@ -161,39 +109,19 @@ export const Home = () => {
   return (
     <HomeContainer>
       <Boards>
-        <AnnualBoard>
-          <BoxText>
-            <span>연차 신청</span>
-            <span>남은연차: {user.remainVacation}개 </span>
-          </BoxText>
-          <AuualListBox>
-            {datalist(annualDataList).map((item: Item) => (
-              <AuualList key={item.id}>
-                <h2>
-                  📌 {extractDate(item.startDate)} ~ {extractDate(item.endDate)}
-                </h2>
-                <StatusBox>{convertStatusToText(item.status)}</StatusBox>
-                <CancelBox onClick={() => deleteButton('연차', item.id)}>
-                  취소
-                </CancelBox>
-              </AuualList>
-            ))}
-          </AuualListBox>
-        </AnnualBoard>
-        <DutyBoard>
-          <BoxText>당직 신청</BoxText>
-          <DutyListBox>
-            {datalist(dutyDataList).map(el => (
-              <DutyList key={el.id}>
-                <h2>📌 {extractDate(el.dutyDate)}</h2>
-                <StatusBox>{convertStatusToText(el.status)}</StatusBox>
-                <CancelBox onClick={() => deleteButton('당직', el.id)}>
-                  취소
-                </CancelBox>
-              </DutyList>
-            ))}
-          </DutyListBox>
-        </DutyBoard>
+        <AuualContainer
+          deleteButton={deleteButton}
+          datalist={datalist}
+          annualDataList={annualDataList}
+          extractDate={extractDate}
+        />
+
+        <DutyContainer
+          deleteButton={deleteButton}
+          dutyDataList={dutyDataList}
+          extractDate={extractDate}
+          datalist={datalist}
+        />
       </Boards>
       <CenterBarBox>
         <ApplyBox>
@@ -211,23 +139,7 @@ export const Home = () => {
           />
         </ApplyBox>
         <CenterBoxInner>
-          <ExcelBox>
-            <Optionbox
-              value={selectedOption}
-              onChange={e => setSelectedOption(e.target.value)}>
-              {renderBox()}
-            </Optionbox>
-            <AiOutlineCheckCircle
-              onClick={handleExcel}
-              style={{
-                fontSize: '24px',
-                color: '#ffff',
-                cursor: 'pointer',
-                marginLeft: '16px',
-                marginTop: '10px'
-              }}
-            />
-          </ExcelBox>
+          <ExCelbox />
           <BarBox>
             <ScheduleBarone>
               <p>연차</p>
@@ -239,11 +151,7 @@ export const Home = () => {
         </CenterBoxInner>
       </CenterBarBox>
       <CalendarBoard>
-        <AllDataList
-          CalendarDate={setCalDate}
-          annualData={annualDataList}
-          dutyData={dutyDataList}
-        />
+        <AllDataList CalendarDate={setCalDate} />
       </CalendarBoard>
     </HomeContainer>
   )
