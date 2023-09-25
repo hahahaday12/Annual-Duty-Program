@@ -1,12 +1,12 @@
 import { authInstance } from 'api/index'
 
-export const applyAnnual = async (updatedData: any) => {
+export const applyAnnual = async (updatedData: string) => {
   const APPLYANNUALURL = '/vacation/add'
   const res = await authInstance.post(APPLYANNUALURL, updatedData)
   return res
 }
 
-export const applyDuty = async (updatedData: any) => {
+export const applyDuty = async (updatedData: string) => {
   const DUTYURL = `/duty/add`
   const res = await authInstance.post(DUTYURL, updatedData)
   return res
