@@ -6,6 +6,7 @@ import { AnnualModal, DuttyModal } from './index'
 import { useEffect, useState, useRef } from 'react'
 import { getTitleWithStatus } from '../custom/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
+import { Topimagesbox } from './index'
 
 interface DataItem {
   filter(arg0: (item: any) => any): any
@@ -20,12 +21,11 @@ interface DataItem {
 export const Apply = () => {
   const ApplyTexts = {
     Apply: '연차/당직 신청',
-    ApplyAnnual: '연차 신청',
-    ApplyDuty: '당직 신청'
+    ApplyAnnual: '연차 일정표',
+    ApplyDuty: '당직 일정표'
   }
 
   const calendarRef = useRef<FullCalendar | null>(null)
-  const [selectedButton, setSelectedButton] = useState('ANNUAL')
   const [selectedModal, setSelectedModal] = useState<
     'ANNUAL_MODAL' | 'DUTY_MODAL' | null
   >(null)
@@ -33,6 +33,8 @@ export const Apply = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
   const [username, SetUserName] = useState('')
   const [data, setData] = useState<DataItem[]>([])
+  const [selectedButton, setSelectedButton] = useState('')
+  const [activeButton, setActiveButton] = useState('ANNUAL')
   const [viewDrow, setViewDrow] = useState([
     {
       email: '',
@@ -62,6 +64,7 @@ export const Apply = () => {
 
   const handleButtonClick = (button: 'ANNUAL' | 'DUTY') => {
     setSelectedButton(button)
+    setActiveButton(button)
   }
 
   const handleModalClick = (info: any) => {
@@ -70,7 +73,6 @@ export const Apply = () => {
       alert('토요일 또는 일요일은 선택할 수 없습니다.')
       return
     }
-
     dateSelect.setHours(9, 0, 0, 0)
 
     const dupuleData = data.filter((item: DataItem) => {
@@ -195,6 +197,7 @@ export const Apply = () => {
   return (
     <ApplyWrapper>
       <ApplyTitle></ApplyTitle>
+      <Topimagesbox />
       <Rectangle>
         <ApplyContainer>
           <BarBox>
@@ -207,11 +210,13 @@ export const Apply = () => {
           </BarBox>
           <ButtonContainer>
             <AnnualButton
+              isActive={activeButton === 'ANNUAL'}
               onClick={() => handleButtonClick('ANNUAL')}
               data-select="ANNUAL">
               {ApplyTexts.ApplyAnnual}
             </AnnualButton>
             <DutyButton
+              isActive={activeButton === 'DUTY'}
               onClick={() => handleButtonClick('DUTY')}
               data-select="DUTY">
               {ApplyTexts.ApplyDuty}
@@ -286,9 +291,10 @@ const ApplyContainer = styled.div`
 `
 const BarBox = styled.div`
   width: 140px;
-  margin-left: 800px;
+  float: right;
+  margin-right: 200px;
+  bottom: 50px;
   position: relative;
-  margin-bottom: 10px;
   font-weight: bold;
 `
 const ScheduleBarone = styled.div`
@@ -309,23 +315,26 @@ const ScheduleBartwo = styled(ScheduleBarone)`
 `
 
 const ButtonContainer = styled.div`
-  width: 250px;
-  bottom: 50px;
+  width: 110px;
   position: relative;
   display: flex;
-  gap: 30px;
-  float: right;
-  margin-right: 200px;
+  gap: 15px;
+  float: left;
+  margin-left: -100px;
+  //background-color: orange;
+  flex-direction: column;
 `
 const AnnualButton = styled.button`
   width: 125px;
-  background-color: #1a3ba5e2;
+  background-color: ${({ isActive }) => (isActive ? '#0C356A' : '#1a3ba5e2')};
   color: #ffff;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   font-weight: 800;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
+  margin-left: ${({ isActive }) => (isActive ? '-20px' : '-10px')};
 `
 
 const DutyButton = styled(AnnualButton)``
