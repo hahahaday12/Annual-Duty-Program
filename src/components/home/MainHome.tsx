@@ -2,20 +2,12 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { AllDataList } from './index'
 import { DeleteAnnualList, DeleteDutyList } from 'api/index'
-import { useCallback, useEffect, useState, useContext } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { MyAnnualList, MyDutyList } from 'api/index'
 import { IoReload } from 'react-icons/io5'
 import { ExCelbox } from 'components/index'
 import { AuualContainer } from 'components/index'
 import { DutyContainer } from './duty/dutyContainer'
-
-
-interface Item {
-  id: string
-  startDate: string
-  endDate: string
-  status: string
-}
 
 export const Home = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
@@ -53,7 +45,7 @@ export const Home = () => {
       const date = dateString.split('T')[0]
       return date
     }
-    return '' // or handle the case when dateString is undefined
+    return ''
   }
 
   const deleteButton = useCallback(
@@ -85,15 +77,6 @@ export const Home = () => {
     },
     [searchData]
   )
-
-  // const datalist = (datalist) => {
-  //   const filterViewData = datalist.filter(item => {
-  //     if (item.status !== 'CANCELLED') {
-  //       return item
-  //     }
-  //   })
-  //   return filterViewData
-  // }
 
   const datalist = useCallback(datalist => {
     const filterViewData = datalist.filter(item => {
