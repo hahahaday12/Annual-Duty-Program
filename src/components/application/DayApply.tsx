@@ -321,12 +321,12 @@ const ButtonContainer = styled.div`
   gap: 15px;
   float: left;
   margin-left: -100px;
-  //background-color: orange;
   flex-direction: column;
 `
-const AnnualButton = styled.button`
+const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
+  isActive: props.isActive || false
+}))`
   width: 125px;
-  background-color: ${({ isActive }) => (isActive ? '#0C356A' : '#1a3ba5e2')};
   color: #ffff;
   border-radius: 10px;
   padding: 20px;
@@ -334,7 +334,8 @@ const AnnualButton = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 10px;
-  margin-left: ${({ isActive }) => (isActive ? '-20px' : '-10px')};
+  background-color: ${props => (props.isActive ? '#0C356A' : '#1a3ba5e2')};
+  margin-left: ${props => (props.isActive ? '-20px' : '-10px')};
 `
 
 const DutyButton = styled(AnnualButton)``
@@ -344,7 +345,6 @@ const CalendarContainer = styled.div`
   padding-bottom: 40px;
   background-color: #fff;
   position: absolute;
-  /* border: 2px solid #696ea6; */
   box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
 `
