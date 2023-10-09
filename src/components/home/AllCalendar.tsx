@@ -2,48 +2,24 @@ import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { allAnnualList, allDutyList } from 'api/index'
 import { getTitleWithStatus } from '../custom/index'
+import { EventContentArg } from 'fullcalendar/index.js'
+import { useCalendarData } from '@/hooks/useCalendarData'
 
-export const AllDataList = ({ CalendarDate, annualData, dutyData }) => {
+export const AllDataList = ({ CalendarDate }) => {
   const calendarRef = useRef<FullCalendar | null>(null)
   const [CalDate, setCalDate] = useState<number>(2023)
-  const [viewDrow, setViewDrow] = useState<any>([])
 
-  useEffect(() => {
-    searchCalendar()
-  }, [CalendarDate, annualData, dutyData])
+  const { viewDrow } = useCalendarData(
+    allAnnualList(CalDate.toString()),
+    allDutyList(CalDate.toString()),
+    getTitleWithStatus,
+    CalDate
+  )
 
-  const searchCalendar = () => {
-    Promise.all([
-      allAnnualList(CalDate.toString()),
-      allDutyList(CalDate.toString())
-    ])
-      .then(([annualData, dutyData]) => {
-        const annualReturnData = annualData.data.response.map((item: any) => ({
-          title: getTitleWithStatus(item),
-          start: new Date(item.startDate).toISOString(),
-          end: new Date(item.endDate).toISOString(),
-          type: 'ANNUAL'
-        }))
-
-        const dutyReturnData = dutyData.data.response.map((item: any) => ({
-          ...item,
-          title: getTitleWithStatus(item),
-          date: new Date(item.dutyDate),
-          type: 'DUTY'
-        }))
-
-        const combinedData = [...annualReturnData, ...dutyReturnData]
-        setViewDrow(combinedData)
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-      })
-  }
-
-  const eventContent = ({ event }) => {
+  const eventContent = ({ event }: EventContentArg) => {
     return (
       <CustomEvent title={event._def.extendedProps.type}>
         {event.title}
