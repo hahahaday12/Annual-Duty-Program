@@ -6,7 +6,7 @@
 
 <div align=center><h1> 🐻‍❄ 프로젝트 소개</h1></div>
 
-> **개발 기간** : 2023. 07. 24 ~ 2023. 08. 10<br /> > **유저용 배포 사이트** : [당연하지](https://group5ofcourse.netlify.app/ 'https://group5ofcourseadmin.netlify.app/')<br /> > **관리자용 배포 주소** : [당연하지](https://group5ofcourseadmin.netlify.app/ 'https://group5ofcourseadmin.netlify.app/')<br /> > **유저 레포지토리** : [유저](https://github.com/FastCampus-Mini5/FE-Of-course)<br /> > **관리자 레포지토리** : [관리자](https://github.com/FastCampus-Mini5/FE-Of-course-admin)<br /> > **백엔드 레포지토리** : [백엔드](https://github.com/FastCampus-Mini5/BE_server)
+> **개발 기간** : 2023. 07. 24 ~ 2023. 08. 10<br /> > **유저용 배포 사이트** : [당연하지](https://group5ofcourse.netlify.app/ 'https://group5ofcourse.netlify.app/')<br /> > **관리자용 배포 사이트** : [당연하지 관리자용](https://group5ofcourseadmin.netlify.app/ 'https://group5ofcourseadmin.netlify.app/')<br /> > **유저 레포지토리** : [유저](https://github.com/FastCampus-Mini5/FE-Of-course)<br /> > **관리자 레포지토리** : [관리자](https://github.com/FastCampus-Mini5/FE-Of-course-admin)<br /> > **백엔드 레포지토리** : [백엔드](https://github.com/FastCampus-Mini5/BE_server)
 > <br />
 
 <div align=center><h1>📚 STACKS</h1></div>
