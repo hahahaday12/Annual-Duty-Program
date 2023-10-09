@@ -24,13 +24,15 @@ export const getTitleWithStatus = (item: ItemUsername): any => {
 export const getMyTitleWithStatus = (item: ItemUsername): string => {
   switch (item.status) {
     case 'PENDING':
-      return `승인대기`;
+      return '승인대기'
     case 'APPROVE':
-      return `승인`;
+      return '승인완료'
     case 'REJECT':
-      return `반려`;
+      return '승인거절'
+    case 'CANCELLED':
+      return '승인취소'
     default:
-      return `승인대기`;
+      return item.status
   }
 };
 
