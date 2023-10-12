@@ -30,46 +30,11 @@ Deployment
   <img src="https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=Zoom&logoColor=white">
   <br>
 
-  <div align=center><h1>🎈 작업 진행 </h1></div>
-
-### 1) Notion
--> 그라운드 룰, 커밋 컨벤션, api 문서 등 프로젝트에서 필요한것들을 기록해두었습니다. 
-
-#### ✅ TodoList 문서화 기간정해서 기능 구현 
-<img width="634" alt="image" src="https://github.com/hahahaday12/WinkBook/assets/101441685/40ded8d3-094d-4e45-9538-97b0e5bc024b">
-
-#### ✅ Api 명세서 정리 
-<img width="791" alt="image" src="https://github.com/hahahaday12/WinkBook/assets/101441685/215ce875-967e-4ad7-afd0-1eecea2804e5">
-
-#### ✅ 데일리 스크럼 회의록 작성 
- <img width="653" alt="image" src="https://github.com/FastCampus-Mini5/FE-Of-course/assets/101441685/d8634aa1-05da-4f34-a70b-83d69bac46b8">
- 
-### 2) Github
-#### 깃허브 전략 Github Flow<br/>
--> develop branch 생성.<br/>
--> develop branch 에서 각자 이름의 branch 생성.<br/> 
--> 각자 branch 에서 기능 개발이 완료되면 develop branch 로  PR 생성.<br/> 
--> 깃허브 담당자가 올라온 Pull request 확인후 develop branch 로 merge.<br/>
--> 모든 기능 구현 완료후 최종적으로  develop branch 를 master branch 로 merge.<br/>
-
-------
-
 <div align=center><h1> ⚙ 프로젝트 설계 </h1></div>
 
 ### use case
 <img width="600" height="600" alt="image" src="https://github.com/FastCampus-Mini5/FE-Of-course/assets/101441685/7a082a90-403f-4d2e-bb32-15b7103ffd5a">
 <br/>
-
-------
-
-  <div align=center><h1>👨‍👩‍👧‍👦 팀원 역할</h1></div>
-  
-| <a href="https://github.com/hookor"><img src="https://avatars.githubusercontent.com/u/115582699?v=4" width=200px alt="안중후" /></a> | <a href="https://github.com/fronttemp"><img src="https://avatars.githubusercontent.com/u/128144054?v=4" width=200px alt="이정환" /></a> | <a href="https://github.com/hahahaday12"><img src="https://avatars.githubusercontent.com/u/101441685?v=4" width=200px alt="김하은" /></a> | 
-| :----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | 
-|                                                 [안중후](https://github.com/hookor)                                                  |                                                 [이정환](https://github.com/fronttemp)                                                  |                                                 [김하은](https://github.com/DevYBecca)
-|                                                          GitHub 팀장<br /> 초기 개발 세팅<br /> 프로필 수정, <br /> 로그인, 회원가입,<br /> Header, 비밀번호 재설정                                                       |                                                        관리자 페이지<br /> (연차/당직 승인 페이지, <br /> 연차/당직 신청 페이지, <br /> 관리자 - 전체 유저 / 회원가입 요청 리스트 페이지 )                                                          |                                                            연차/당직 사용자 페이지<br /> (메인페이지(내가 신청한 당직, 연차 노출/ 전체 유저 일정 노출/ 신청한 연차,당직 취소),<br /> 내 일정보기 페이지, <br /> 연차/당직 신청 페이지)
-
--------------------------------------------------
 
 </div>
   <div align=center><h1>🖥 페이지 별 화면</h1></div>
@@ -244,6 +209,81 @@ Deployment
 
 -----------------------
 
+## 🔥 기능 구현시 생긴 오류 & 해결 <br>
+-> 내가 선택한 날짜중 연차 신청 날짜가 존재하는 경우에 대한 예외 처리 
+-> 연차, 당직 데이터 합쳐서 출력 
+-> 중복 코드 customhook 만들어서 해결
+-> profile contexts 제거후 recoil사용하여 구현
+-> 유저 정보에서 남은연차를 표시할때 usrinfo api를 사용함. header에서 사용중임에도 불구하고 중복해서 api사용. 따라 상태관리 라이브러리인 recoil을 사용하여 header에서 user정보의 남은연차 값을 store에 저장 
+
+
+------------------------------
+
+## ✨ 프로젝트 담당 기능  <br>
+
+### 🎈 1) 전체 메인 페이지<br>
+📌 fullCalendar 연동후 모든 , 연차 당직 데이터 조회 / 구분에 따른 bar 색상 표시<br>
+
+
+📌 내가 신청한 연차, 당직 신청 현황 데이터 조회<br>
+
+📌 연차, 당직 신청 데이터 기반으로 현재 상태값 출력<br>
+
+
+## 🎈 2) 내 일정 보기 페이지<br>
+📌 현재 신청한 연차, 당직 데이터 조회<br>
+
+## 🎈 3) 연차/ 당직 신청 페이지<br>
+📌당직, 연차신청 날짜 클릭시 모달창 생성후 등록 <br>
+
+
+📌날짜 선택시 현재 로컬 날짜 기준 이전 날짜는 선택 불가 예외처리 <br>
+📌 모달창에서 날짜 선택후 등록시 조건값에 따라 이미 신청된 날짜 등록 불가 대한 예외처리<br>
+
+--------------------------------
+
+
+
+
+
+
+
+
+-----------------------------
+
+  <div align=center><h1>👨‍👩‍👧‍👦 팀원 역할</h1></div>
+  
+| <a href="https://github.com/hookor"><img src="https://avatars.githubusercontent.com/u/115582699?v=4" width=200px alt="안중후" /></a> | <a href="https://github.com/fronttemp"><img src="https://avatars.githubusercontent.com/u/128144054?v=4" width=200px alt="이정환" /></a> | <a href="https://github.com/hahahaday12"><img src="https://avatars.githubusercontent.com/u/101441685?v=4" width=200px alt="김하은" /></a> | 
+| :----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | 
+|                                                 [안중후](https://github.com/hookor)                                                  |                                                 [이정환](https://github.com/fronttemp)                                                  |                                                 [김하은](https://github.com/DevYBecca)
+|                                                          GitHub 팀장<br /> 초기 개발 세팅<br /> 프로필 수정, <br /> 로그인, 회원가입,<br /> Header, 비밀번호 재설정                                                       |                                                        관리자 페이지<br /> (연차/당직 승인 페이지, <br /> 연차/당직 신청 페이지, <br /> 관리자 - 전체 유저 / 회원가입 요청 리스트 페이지 )                                                          |                                                            연차/당직 사용자 페이지<br /> (메인페이지(내가 신청한 당직, 연차 노출/ 전체 유저 일정 노출/ 신청한 연차,당직 취소),<br /> 내 일정보기 페이지, <br /> 연차/당직 신청 페이지)
+
+-------------------------------------------------
+
+<div align=center><h1>🎈 작업 진행 </h1></div>
+
+### 1) Notion
+-> 그라운드 룰, 커밋 컨벤션, api 문서 등 프로젝트에서 필요한것들을 기록해두었습니다. 
+
+#### ✅ TodoList 문서화 기간정해서 기능 구현 
+<img width="634" alt="image" src="https://github.com/hahahaday12/WinkBook/assets/101441685/40ded8d3-094d-4e45-9538-97b0e5bc024b">
+
+#### ✅ Api 명세서 정리 
+<img width="791" alt="image" src="https://github.com/hahahaday12/WinkBook/assets/101441685/215ce875-967e-4ad7-afd0-1eecea2804e5">
+
+#### ✅ 데일리 스크럼 회의록 작성 
+ <img width="653" alt="image" src="https://github.com/FastCampus-Mini5/FE-Of-course/assets/101441685/d8634aa1-05da-4f34-a70b-83d69bac46b8">
+ 
+### 2) Github
+#### 깃허브 전략 Github Flow<br/>
+-> develop branch 생성.<br/>
+-> develop branch 에서 각자 이름의 branch 생성.<br/> 
+-> 각자 branch 에서 기능 개발이 완료되면 develop branch 로  PR 생성.<br/> 
+-> 깃허브 담당자가 올라온 Pull request 확인후 develop branch 로 merge.<br/>
+-> 모든 기능 구현 완료후 최종적으로  develop branch 를 master branch 로 merge.<br/>
+
+------
+
 **1️⃣ 유저/관리자 로그인 페이지**
 - localStorage토큰값을 통해 로그인 유저 판별 / 비로그인 유저 로그인 유저용 페이지 진입 차단 / 로그인 유저 로그인,회원가입,비밀번호 재설정 등 비로그인 유저용 페이지 분리
 - 관리자가 승인을 했을 경우에만 회원가입한 아이디 사용가능
@@ -317,32 +357,3 @@ Deployment
 
 -----
 
-## 📌 프로젝트 담당 기능 설명 <br>
-### 🎈 1) 전체 메인 페이지<br>
-📌 fullCalendar 연동후 모든 , 연차 당직 데이터 조회 / 구분에 따른 bar 색상 표시<br>
-
-
-📌 내가 신청한 연차, 당직 신청 현황 데이터 조회<br>
-
-📌 연차,당직 신청 취소후 fullCalendar 업데이트<br>
-
-<br>
-
-## 🎈 2) 내 일정 보기 페이지<br>
-📌 현재 신청한 연차, 당직 데이터 조회<br>
-
-## 🎈 3) 연차/ 당직 신청 페이지<br>
-📌당직, 연차신청 날짜 클릭시 모달창 생성후 등록 <br>
-
-
-📌날짜 선택시 현재 로컬 날짜 기준 이전 날짜는 선택 불가 예외처리 <br>
-📌 모달창에서 날짜 선택후 등록시 조건값에 따라 이미 신청된 날짜 등록 불가 대한 예외처리<br>
-
---------------------------------
-
-📌오류 이슈 & 해결
--> 내가 선택한 날짜중 연차 신청 날짜가 존재하는 경우에 대한 예외 처리 
--> 연차, 당직 데이터 합쳐서 출력 
--> 
-
---------------------------------
