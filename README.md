@@ -214,7 +214,7 @@ Deployment
 -> 연차, 당직 데이터 합쳐서 출력<br> 
 -> 중복 코드 customhook 만들어서 해결<br>
 -> profile contexts 제거후 recoil사용하여 구현<br>
--> 유저 정보에서 남은연차를 표시할때 usrinfo api를 사용함. header에서 사용중임에도 불구하고 중복해서 api사용. 따라 상태관리 라이브러리인 recoil을 사용하여 header에서 user정보의 남은연차 값을 store에 저장<br> 
+-> 유저 정보에서 남은연차를 표시할때 userinfo api를 사용함. header에서 사용중임에도 불구하고 중복해서 api사용. 따라 상태관리 라이브러리인 recoil을 사용하여 header에서 user정보의 남은연차 값을 store에 저장<br> 
 
 
 ------------------------------
