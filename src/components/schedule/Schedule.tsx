@@ -1,15 +1,14 @@
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
 import { useState, useRef } from 'react'
 import { MyAnnualList, MyDutyList } from 'api/index'
 import { getMyTitleWithStatus } from '../custom/index'
 import { useCalendarData } from '@/hooks/useCalendarData'
+import { commonTexts } from 'constants/index'
+import { CalendarCommon } from '..'
 
 export const Schedule = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
-  const calendarRef = useRef<FullCalendar | null>(null)
 
   const { viewDrow } = useCalendarData(
     MyAnnualList(CalDate.toString()),
@@ -18,51 +17,19 @@ export const Schedule = () => {
     CalDate
   )
 
-  const eventContent = ({ event }) => {
-    return (
-      <CustomEvent title={event._def.extendedProps.type}>
-        {event.title}
-      </CustomEvent>
-    )
-  }
-
-  const handleDatesSet = () => {
-    if (calendarRef.current) {
-      const calendarApi = calendarRef.current.getApi()
-      const date = calendarApi.getDate()
-      const year = date.getFullYear()
-      if (year !== CalDate) {
-        setCalDate(year)
-      }
-    }
-  }
 
   return (
     <Outermost>
       <Rectangle>
         <BarBox>
           <ScheduleBarone>
-            <p>연차</p>
+            <p>{commonTexts.annualText}</p>
           </ScheduleBarone>
           <ScheduleBartwo>
-            <p>당직</p>
+            <p>{commonTexts.dutyText}</p>
           </ScheduleBartwo>
         </BarBox>
-        <CalendarContainer>
-          <CalendarBox>
-            <FullCalendar
-              plugins={[dayGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              events={viewDrow as unknown as EventInit[]}
-              timeZone="Asia/Seoul"
-              eventContent={eventContent}
-              datesSet={handleDatesSet}
-              ref={calendarRef}
-              dayMaxEvents={true}
-              locale={'ko'}
-            />
-          </CalendarBox>
-        </CalendarContainer>
+        <CalendarCommon viewDrow={viewDrow}/>
       </Rectangle>
     </Outermost>
   )
