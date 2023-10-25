@@ -7,24 +7,19 @@ import { useEffect, useState, useRef } from 'react'
 import { getTitleWithStatus } from '../custom/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
 import { Topimagesbox } from './index'
+import { dayApplyTexts, commonTexts } from 'constants/index'
+import { EventClickArg } from 'fullcalendar/index.js'
 
 interface DataItem {
-  filter(arg0: (item: any) => any): any
   title: string
-  start: any
-  end: any
-  type: string
+  start: Date
+  end: Date
+  type: 'ANNUAL' | 'Duty'
   username: string
-  date: any
+  date: Date
 }
 
 export const Apply = () => {
-  const ApplyTexts = {
-    Apply: '연차/당직 신청',
-    ApplyAnnual: '연차 일정표',
-    ApplyDuty: '당직 일정표'
-  }
-
   const calendarRef = useRef<FullCalendar | null>(null)
   const [selectedModal, setSelectedModal] = useState<
     'ANNUAL_MODAL' | 'DUTY_MODAL' | null
@@ -67,13 +62,13 @@ export const Apply = () => {
     setActiveButton(button)
   }
 
-  const handleModalClick = (info: any) => {
+  const handleModalClick = (info: EventClickArg) => {
     let dateSelect = new Date(info.date)
+    dateSelect.setHours(9, 0, 0, 0)
     if (dateSelect.getDay() === 0 || dateSelect.getDay() === 6) {
       alert('토요일 또는 일요일은 선택할 수 없습니다.')
-      return
+      return false
     }
-    dateSelect.setHours(9, 0, 0, 0)
 
     const dupuleData = data.filter((item: DataItem) => {
       console.log(item)
@@ -94,11 +89,10 @@ export const Apply = () => {
         const dutyDate = item.date
         dutyDate.setHours(9, 0, 0, 0)
         if (dateSelect === dutyDate && item.username === username) {
-          console.log('c')
           return item
         }
       }
-      return
+      return false
     })
 
     console.log(dupuleData)
@@ -194,6 +188,10 @@ export const Apply = () => {
     searchData()
   }, [selectedButton, CalDate])
 
+  useEffect(() => {
+    setActiveButton('DUTY')
+  }, [])
+
   return (
     <ApplyWrapper>
       <ApplyTitle></ApplyTitle>
@@ -202,10 +200,10 @@ export const Apply = () => {
         <ApplyContainer>
           <BarBox>
             <ScheduleBarone>
-              <p>연차</p>
+              <p>{commonTexts.annualText}</p>
             </ScheduleBarone>
             <ScheduleBartwo>
-              <p>당직</p>
+              <p>{commonTexts.dutyText}</p>
             </ScheduleBartwo>
           </BarBox>
           <ButtonContainer>
@@ -213,13 +211,13 @@ export const Apply = () => {
               isActive={activeButton === 'ANNUAL'}
               onClick={() => handleButtonClick('ANNUAL')}
               data-select="ANNUAL">
-              {ApplyTexts.ApplyAnnual}
+              {dayApplyTexts.anuualSchedule}
             </AnnualButton>
             <DutyButton
               isActive={activeButton === 'DUTY'}
               onClick={() => handleButtonClick('DUTY')}
               data-select="DUTY">
-              {ApplyTexts.ApplyDuty}
+              {dayApplyTexts.dutySchedule}
             </DutyButton>
           </ButtonContainer>
 
