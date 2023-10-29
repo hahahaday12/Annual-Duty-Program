@@ -148,6 +148,10 @@ const CalendarBox = styled.div`
   .fc-event-time {
     display: none;
   }
+
+  .fc-event  {
+    border: none;
+  }
 `
 const CustomEvent = styled.div`
   border: none;
@@ -162,5 +166,6 @@ const CustomEvent = styled.div`
   color: #ffff;
   border: none;
   background-color: ${({ title }) =>
-    title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE'};
+    title === 'ANNUAL' ? '#190482' : '#7752FE'};
+  //title === 'ANNUAL' ? '#13e6b5' : '#aae613'};
 `
