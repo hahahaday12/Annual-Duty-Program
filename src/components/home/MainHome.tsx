@@ -11,7 +11,7 @@ import { DutyContainer } from './duty/dutyContainer'
 import { mainTexts, commonTexts } from 'constants/index'
 
 export const Home = () => {
-  const [CalDate, setCalDate] = useState<number>(2023)
+  const [CalDate] = useState<number>(2023)
   const [annualDataList, setAnnualDataList] = useState([])
   const [dutyDataList, setDutyDataList] = useState([])
 
@@ -46,7 +46,7 @@ export const Home = () => {
       const date = dateString.split('T')[0]
       return date
     }
-    return ''
+    return false
   }
 
   const deleteButton = useCallback(
@@ -157,31 +157,6 @@ const Boards = styled.div`
   gap: 50px;
   justify-content: space-between;
 `
-const Board = styled.div`
-  width: 518px;
-  height: 266px;
-  border-radius: 10px;
-  background-color: #fff;
-  padding-bottom: 50px;
-  /* border: 2px solid #696ea6; */
-  box-shadow: #50515985 1px 2px 7px 1px;
-`
-
-const BoxText = styled.div`
-  width: 450px;
-  padding-bottom: 10px;
-  position: relative;
-  left: 30px;
-  top: 20px;
-  color: ${props => props.theme.colors.listTitle};
-  font-size: 15px;
-  font-weight: 700;
-  display: flex;
-  gap: 250px;
-`
-
-const AnnualBoard = styled(Board)``
-const DutyBoard = styled(Board)``
 
 const CenterBarBox = styled.div`
   position: relative;
@@ -212,28 +187,6 @@ const CenterBoxInner = styled.div`
   position: relative;
 `
 
-const ExcelBox = styled.div`
-  width: 180px;
-  padding-bottom: 5px;
-  float: left;
-  border-radius: 3px;
-  margin-top: 10px;
-  padding-left: 10px;
-  background-color: #1b9c85;
-  font-size: 10px;
-  cursor: pointer;
-`
-const Optionbox = styled.select`
-  background-color: #1b9c85;
-  border: none;
-  color: #ffff;
-  font-weight: bold;
-  position: relative;
-  bottom: 6px;
-  &:focus {
-    outline: none;
-  }
-`
 const BarBox = styled.div`
   width: 140px;
   margin-left: 200px;
@@ -243,7 +196,7 @@ const ScheduleBarone = styled.div`
   width: 100px;
   height: 15px;
   border-radius: 30px;
-  background-color: #4a42e4d4;
+  background-color: #190482;
   position: relative;
 
   p {
@@ -252,7 +205,7 @@ const ScheduleBarone = styled.div`
   }
 `
 const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #8696fe;
+  background-color: #7752fe;
   margin-top: 10px;
 `
 
@@ -265,49 +218,4 @@ const CalendarBoard = styled.div`
   right: 70px;
   border-radius: 10px;
   padding-bottom: 900px;
-`
-
-const AuualListBox = styled.div`
-  width: 453px;
-  height: 200px;
-  position: relative;
-  top: 30px;
-  margin: auto;
-  overflow-y: auto;
-  max-height: 200px;
-`
-
-const AuualList = styled.div`
-  width: 100%;
-  height: 30px;
-  margin: auto;
-  display: flex;
-  margin-top: 20px;
-
-  h2 {
-    width: 250px;
-    padding: 7px;
-    padding-bottom: 2%;
-  }
-`
-const StatusBox = styled.div`
-  width: 70px;
-  border-radius: 5px;
-  background-color: gray;
-  position: absolute;
-  right: 110px;
-  font-size: 12px;
-  padding: 8px;
-  padding-left: 13px;
-  color: #ffff;
-`
-const CancelBox = styled(StatusBox)`
-  right: 20px;
-  background-color: #212a3e;
-  padding-left: 25px;
-`
-
-const DutyListBox = styled(AuualListBox)``
-const DutyList = styled(AuualList)`
-  font-family: 'LINESeedKR-Bd';
 `
