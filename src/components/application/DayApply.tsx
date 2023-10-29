@@ -1,14 +1,12 @@
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
 import { AnnualModal, DuttyModal } from './index'
 import { useEffect, useState, useRef } from 'react'
 import { getTitleWithStatus } from '../custom/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
 import { Topimagesbox } from './index'
 import { dayApplyTexts, commonTexts } from 'constants/index'
-import { EventClickArg } from 'fullcalendar/index.js'
+import { ApplyCalendar } from 'components/common'
 
 interface DataItem {
   title: string
@@ -62,7 +60,7 @@ export const Apply = () => {
     setActiveButton(button)
   }
 
-  const handleModalClick = (info: EventClickArg) => {
+  const handleModalClick = info => {
     let dateSelect = new Date(info.date)
     dateSelect.setHours(9, 0, 0, 0)
     if (dateSelect.getDay() === 0 || dateSelect.getDay() === 6) {
@@ -71,8 +69,6 @@ export const Apply = () => {
     }
 
     const dupuleData = data.filter((item: DataItem) => {
-      console.log(item)
-
       if (item.type === 'ANNUAL') {
         const startDay = item.start
         const endDay = item.end
@@ -123,8 +119,7 @@ export const Apply = () => {
       selectedButton === 'ANNUAL' ? 'ANNUAL_MODAL' : 'DUTY_MODAL'
     )
     setSelectedDate(dateSelect)
-
-    return
+    return false
   }
 
   const CloseModal = () => {
@@ -159,7 +154,7 @@ export const Apply = () => {
             setData(modifiedReturnDatalist)
           })
           .catch(error => {
-            console.error('Error fetching data:', error)
+            console.error(error)
           })
       } else {
         allDutyList(CalDate.toString())
@@ -176,11 +171,11 @@ export const Apply = () => {
             setData(modifiedReturnDatalist)
           })
           .catch(error => {
-            console.error('Error fetching data:', error)
+            console.error(error)
           })
       }
     } else {
-      console.log('Not Found Year')
+      console.log('년도를 찾을수 없습니다.')
     }
   }
 
@@ -221,22 +216,14 @@ export const Apply = () => {
             </DutyButton>
           </ButtonContainer>
 
-          <CalendarContainer>
-            <CalendarBox>
-              <FullCalendar
-                plugins={[dayGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                dateClick={info => handleModalClick(info)}
-                eventContent={eventContent}
-                datesSet={handleDatesSet}
-                ref={calendarRef}
-                timeZone="Asia/Seoul"
-                events={viewDrow as unknown as EventInit[]}
-                dayMaxEvents={true}
-                locale={'ko'}
-              />
-            </CalendarBox>
-          </CalendarContainer>
+          <ApplyCalendar
+            handleModalClick={handleModalClick}
+            eventContent={eventContent}
+            handleDatesSet={handleDatesSet}
+            viewDrow={viewDrow}
+            calendarRef={calendarRef}
+          />
+
           {selectedModal === 'ANNUAL_MODAL' && (
             <AnnualModal
               close={CloseModal}
