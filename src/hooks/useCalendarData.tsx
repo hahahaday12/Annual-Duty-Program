@@ -2,10 +2,10 @@ import { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 
 export const useCalendarData = (
-  fetchDataFunction1: Promise<AxiosResponse<any, any>>,
-  fetchDataFunction2: Promise<AxiosResponse<any, any>>,
+  fetchDataFunction1: Promise<AxiosResponse>,
+  fetchDataFunction2: Promise<AxiosResponse>,
   getMyTitle,
-  CalDate: unknown
+  CalDate: number
 ) => {
   const [viewDrow, setViewDrow] = useState([
     {
@@ -26,13 +26,14 @@ export const useCalendarData = (
           end: new Date(item.endDate).toISOString(),
           type: 'ANNUAL'
         }))
-
+        
         const processedData2 = data2.data.response.map((item: any) => ({
           ...item,
           title: getMyTitle(item),
           date: new Date(item.dutyDate),
           type: 'DUTY'
         }))
+
         const combinedData = [...processedData1, ...processedData2]
         setViewDrow(combinedData)
       })
